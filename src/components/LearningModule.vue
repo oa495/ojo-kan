@@ -75,16 +75,26 @@ export default {
     },
     computed: {
         modulesActive() {
+            console.log('Checking if modules are active...');
             if (this.timerId != null) {
                 return this.activateModules
             }
             // get module store
             const allModules = moduleProgress().moduleProgress;
-            // check if any modules are complete
-            let anyModuleCompleted = Object.values(allModules).some(module => {
-                return module === true;
-            });
-            if (!anyModuleCompleted) {
+            let progressInStorage = localStorage.getItem('moduleProgress');
+
+            let anyModuleCompleted = false;
+            if (progressInStorage) {
+                const parsedProgress = JSON.parse(progressInStorage);
+                 anyModuleCompleted = Object.keys(parsedProgress).forEach(key => {
+                    moduleProgress().moduleProgress[key] = parsedProgress[key];
+                });
+            } else {
+                anyModuleCompleted = Object.values(allModules).some(module => {
+                    return module === true;
+                });
+            }
+            if (anyModuleCompleted) {
                 // check timestamp
                 const lastFinishedTimestamp = localStorage.getItem('lastModuleFinishedTimestamp');
                 if (lastFinishedTimestamp) {
@@ -105,7 +115,7 @@ export default {
                     return true;
                 }
             }
-
+            return true;
         }
     },
     methods: {
@@ -133,6 +143,9 @@ export default {
             const store = moduleProgress();
             store.completeModule(moduleToStoreMap[module]);
             console.log(`${module} completed!`);
+
+            localStorage.setItem('moduleProgress', JSON.stringify(store.moduleProgress));
+
             this.setTime();
             this.activeModule = null;
             this.activateModules = false;

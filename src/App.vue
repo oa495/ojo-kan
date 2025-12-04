@@ -138,4 +138,32 @@ button:hover {
 fieldset button {
   margin-top: 1rem;
 }
+
+p {
+  animation: bigAndSmall 5s infinite;
+  transition: all 0.6s ease-in-out;
+}
+
+p:hover {
+  animation-play-state: paused;
+  transform: scale(1.02);
+}
+
+p:nth-of-type(even) {
+  animation-delay: 2.5s;
+}
+
+@keyframes bigAndSmall {
+  25% {
+    scale: 99.5%;
+  }
+
+  75% {
+    scale: 100%;
+  }
+
+  50% {
+    scale: 100.8%;
+  }
+}
 </style>
