@@ -57,6 +57,8 @@ export default {
     name: 'LearningModule',
     data() {
         return {
+            timerId: null,
+            activateModules: true,
             step: 1,
             modules: ['Module 1', 'Module 2', 'Module 3', 'Module 4', 'Module 5', 'Module 6'],
             activeModule: null,
@@ -73,6 +75,9 @@ export default {
     },
     computed: {
         modulesActive() {
+            if (this.timerId != null) {
+                return this.activateModules
+            }
             // get module store
             const allModules = moduleProgress().moduleProgress;
             // check if any modules are complete
@@ -130,14 +135,29 @@ export default {
             console.log(`${module} completed!`);
             this.setTime();
             this.activeModule = null;
+            this.activateModules = false;
             this.step = 1;
-            this.modulesActive = false;
         },
         setTime() {
             // Implement timer logic based on this.frequency
             const now = new Date().getTime();
             // set time in local storage 
             localStorage.setItem('lastModuleFinishedTimestamp', now);
+            const frequencyStore = learningFrequency();
+            const frequency = frequencyStore.frequency;
+            let timeToWait;
+            if (frequency === 'hourly') {
+                timeToWait = ONE_HOUR_MS;
+            }
+            if (frequency === 'daily') {
+                timeToWait = ONE_DAY_MS;
+            }
+            if (frequency === 'weekly') {
+                timeToWait = ONE_WEEK_MS;
+            }
+            this.timerId = setTimeout(() => {
+                this.activateModules = true;
+            }, timeToWait);
         },
         isLastStep() {
             let activeModule = this.activeModule;
