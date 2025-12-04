@@ -2,7 +2,7 @@
     <section class="modules">
         <ul>
             <li class="module" v-for="module in modules" :key="module" v-if="modules">
-                <button v-on:click="toggleContent(module)" class="trigger">{{ module }}
+                <button :disabled="!modulesActive" v-on:click="toggleContent(module)" class="trigger">{{ module }}
                     <span v-if="module === activeModule">
                         ↑
                     </span>
@@ -38,6 +38,11 @@
 </template>
 <script>
 import { moduleProgress } from '@/stores/module-progress'
+import { learningFrequency } from '@/stores/frequency';
+
+const ONE_DAY_MS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+const ONE_WEEK_MS = 7 * ONE_DAY_MS; // 7 days in milliseconds
+const ONE_HOUR_MS = 60 * 60 * 1000; // 1 hour in milliseconds
 
 const moduleToStoreMap = {
     'Module 1': 'module1',
@@ -62,7 +67,40 @@ export default {
                 'Module 4': 5,
                 'Module 5': 2,
                 'Module 6': 3,
+            },
+            frequency: learningFrequency().frequency
+        }
+    },
+    computed: {
+        modulesActive() {
+            // get module store
+            const allModules = moduleProgress().moduleProgress;
+            // check if any modules are complete
+            let anyModuleCompleted = Object.values(allModules).some(module => {
+                return module === true;
+            });
+            if (!anyModuleCompleted) {
+                // check timestamp
+                const lastFinishedTimestamp = localStorage.getItem('lastModuleFinishedTimestamp');
+                if (lastFinishedTimestamp) {
+                    const now = new Date().getTime();
+                    const elapsed = now - lastFinishedTimestamp;
+                    // get frequency from store
+                    const frequencyStore = learningFrequency();
+                    const frequency = frequencyStore.frequency;
+                    if (frequency === 'hourly' && elapsed < ONE_HOUR_MS) {
+                        return false;
+                    }
+                    if (frequency === 'daily' && elapsed < ONE_DAY_MS) {
+                        return false;
+                    }
+                    if (frequency === 'weekly' && elapsed < ONE_WEEK_MS) {
+                        return false;
+                    }
+                    return true;
+                }
             }
+
         }
     },
     methods: {
@@ -89,6 +127,17 @@ export default {
         completeModule(module) {
             const store = moduleProgress();
             store.completeModule(moduleToStoreMap[module]);
+            console.log(`${module} completed!`);
+            this.setTime();
+            this.activeModule = null;
+            this.step = 1;
+            this.modulesActive = false;
+        },
+        setTime() {
+            // Implement timer logic based on this.frequency
+            const now = new Date().getTime();
+            // set time in local storage 
+            localStorage.setItem('lastModuleFinishedTimestamp', now);
         },
         isLastStep() {
             let activeModule = this.activeModule;
@@ -111,6 +160,7 @@ export default {
     bottom: 1em;
     top: 1em;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .modules ul {
@@ -138,19 +188,31 @@ export default {
     width: 100%;
     padding: 0.8rem;
     transition: all 0.4s;
-}
-
-.modules .trigger:nth-child(odd) {
-    background-color: #000;
-    color: #fff;
-}
-
-.modules .trigger:nth-child(odd):hover {
     background-color: #fff;
     color: #000;
 }
 
-.modules .trigger:nth-child(even):hover {
+.trigger:disabled {
+    color: #666 !important;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.trigger:disabled:hover {
+    color: #666 !important;
+}
+
+li:nth-of-type(odd) .trigger {
+    background-color: #000;
+    color: #fff;
+}
+
+li:nth-of-type(odd) .trigger:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+li:nth-of-type(even) .trigger:hover {
     background-color: #000;
     color: #fff;
 }
@@ -167,18 +229,6 @@ export default {
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
-}
-
-.step-button {
-    padding: 0.5rem;
-    width: fit-content;
-    background-color: white;
-    border: 1px dashed black;
-}
-
-.step-button:hover {
-    background-color: black;
-    color: white;
 }
 
 .step-indicator {

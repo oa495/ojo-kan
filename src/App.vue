@@ -1,8 +1,49 @@
-<script setup>
+<script>
 import LearningModule from './components/LearningModule.vue'
+import { learningFrequency } from '@/stores/frequency'
+
+
+export default {
+  data() {
+    return {
+      frequency: '',
+      store: learningFrequency()
+    }
+  },
+  components: {
+    LearningModule
+  },
+  methods: {
+    submitFrequency() {
+      if (this.frequency) {
+        this.store.setFrequency(this.frequency);
+        console.log('Frequency set to:', this.store.frequency);
+      }
+    }
+  }
+}
+
 </script>
 
 <template>
+  <fieldset>
+    <legend>Choose a frequency:</legend>
+    <div>
+      <input type="radio" v-model="frequency" id="hour" name="frequency" value="hourly" />
+      <label for="hour">Hourly</label>
+    </div>
+    <div>
+      <input type="radio" v-model="frequency" id="day" name="frequency" value="daily" checked />
+      <label for="day">Daily</label>
+    </div>
+    <div>
+      <input type="radio" v-model="frequency" id="week" name="frequency" value="weekly" />
+      <label for="week">Weekly</label>
+    </div>
+
+    <button v-on:click="submitFrequency()">Submit</button>
+  </fieldset>
+
   <main>
     <h1>Kpi'ojo</h1>
     <p>
@@ -43,6 +84,7 @@ body {
   display: grid;
   grid-template-columns: 70%;
   margin: 0;
+  font-family: 'Ojuju', sans-serif;
 }
 
 h1 {
@@ -60,11 +102,40 @@ button {
 }
 
 main {
-  font-family: 'Ojuju', sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 3.4rem;
   margin: 2rem;
   line-height: 1.2;
+}
+
+fieldset {
+  margin: 1rem;
+  padding: .5rem;
+  width: fit-content;
+}
+
+legend {
+  font-weight: 600;
+}
+
+label {
+  margin-left: .5rem;
+}
+
+button {
+  padding: 0.5rem;
+  width: fit-content;
+  background-color: white;
+  border: 1px dashed black;
+}
+
+button:hover {
+  background-color: black;
+  color: white;
+}
+
+fieldset button {
+  margin-top: 1rem;
 }
 </style>
