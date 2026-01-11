@@ -2,7 +2,7 @@
     <section class="modules">
         <ul>
             <li class="module" v-for="module in modules" :key="module" v-if="modules">
-                <button :disabled="!modulesActive" v-on:click="toggleContent(module)" class="trigger">{{ module }}
+                <button :disabled="!activateModules" v-on:click="toggleContent(module)" class="trigger">{{ module }}
                     <span v-if="module === activeModule">
                         ↑
                     </span>
@@ -15,7 +15,7 @@
                         {{ step }} / {{ moduleSteps[module] }}
                     </span>
                     <!-- Module content goes here -->
-                    <div class="step-1">
+                    <div class="step">
                         <p>This is the content for {{ module }}.</p>
                         <p>La la la </p>
                         <p>La la la </p>
@@ -34,90 +34,40 @@
                 </div>
             </li>
         </ul>
+        <ModuleTimer v-if="!activateModules" :frequency="frequency" :timeTillNextModule="timeTillNextModule" />
     </section>
 </template>
 <script>
 import { moduleProgress } from '@/stores/module-progress'
 import { learningFrequency } from '@/stores/frequency';
-
-const ONE_DAY_MS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-const ONE_WEEK_MS = 7 * ONE_DAY_MS; // 7 days in milliseconds
-const ONE_HOUR_MS = 60 * 60 * 1000; // 1 hour in milliseconds
+import ModuleTimer from './ModuleTimer.vue';
 
 const moduleToStoreMap = {
-    'Module 1': 'module1',
-    'Module 2': 'module2',
-    'Module 3': 'module3',
-    'Module 4': 'module4',
-    'Module 5': 'module5',
-    'Module 6': 'module6',
+    'pronouns': 'module1',
+    'nouns': 'module2',
+    'verbs': 'module3',
 };
 
 export default {
     name: 'LearningModule',
     data() {
         return {
-            timerId: null,
             activateModules: true,
             step: 1,
-            modules: ['Module 1', 'Module 2', 'Module 3', 'Module 4', 'Module 5', 'Module 6'],
+            modules: ['pronouns', 'nouns', 'verbs'],
             activeModule: null,
             moduleSteps: {
-                'Module 1': 4,
-                'Module 2': 2,
-                'Module 3': 5,
-                'Module 4': 5,
-                'Module 5': 2,
-                'Module 6': 3,
+                'pronouns': 4,
+                'nouns': 2,
+                'verbs': 5,
             },
             frequency: learningFrequency().frequency
         }
     },
-    computed: {
-        modulesActive() {
-            console.log('Checking if modules are active...');
-            if (this.timerId != null) {
-                return this.activateModules
-            }
-            // get module store
-            const allModules = moduleProgress().moduleProgress;
-            let progressInStorage = localStorage.getItem('moduleProgress');
-
-            let anyModuleCompleted = false;
-            if (progressInStorage) {
-                const parsedProgress = JSON.parse(progressInStorage);
-                 anyModuleCompleted = Object.keys(parsedProgress).forEach(key => {
-                    moduleProgress().moduleProgress[key] = parsedProgress[key];
-                });
-            } else {
-                anyModuleCompleted = Object.values(allModules).some(module => {
-                    return module === true;
-                });
-            }
-            if (anyModuleCompleted) {
-                // check timestamp
-                const lastFinishedTimestamp = localStorage.getItem('lastModuleFinishedTimestamp');
-                if (lastFinishedTimestamp) {
-                    const now = new Date().getTime();
-                    const elapsed = now - lastFinishedTimestamp;
-                    // get frequency from store
-                    const frequencyStore = learningFrequency();
-                    const frequency = frequencyStore.frequency;
-                    if (frequency === 'hourly' && elapsed < ONE_HOUR_MS) {
-                        return false;
-                    }
-                    if (frequency === 'daily' && elapsed < ONE_DAY_MS) {
-                        return false;
-                    }
-                    if (frequency === 'weekly' && elapsed < ONE_WEEK_MS) {
-                        return false;
-                    }
-                    return true;
-                }
-            }
-            return true;
-        }
+    components: {
+        ModuleTimer
     },
+    emits: ["completeModule"],
     methods: {
         updateStep(direction) {
             let activeModule = this.activeModule;
@@ -146,31 +96,10 @@ export default {
 
             localStorage.setItem('moduleProgress', JSON.stringify(store.moduleProgress));
 
-            this.setTime();
             this.activeModule = null;
             this.activateModules = false;
             this.step = 1;
-        },
-        setTime() {
-            // Implement timer logic based on this.frequency
-            const now = new Date().getTime();
-            // set time in local storage 
-            localStorage.setItem('lastModuleFinishedTimestamp', now);
-            const frequencyStore = learningFrequency();
-            const frequency = frequencyStore.frequency;
-            let timeToWait;
-            if (frequency === 'hourly') {
-                timeToWait = ONE_HOUR_MS;
-            }
-            if (frequency === 'daily') {
-                timeToWait = ONE_DAY_MS;
-            }
-            if (frequency === 'weekly') {
-                timeToWait = ONE_WEEK_MS;
-            }
-            this.timerId = setTimeout(() => {
-                this.activateModules = true;
-            }, timeToWait);
+            this.$emit('completeModule', module);
         },
         isLastStep() {
             let activeModule = this.activeModule;
@@ -271,7 +200,10 @@ li:nth-of-type(even) .trigger:hover {
     display: flex;
     justify-content: end;
     margin: 0.4rem 1.1rem 0 0;
-    color: rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.6)
+}
 
+.step {
+    margin: 0.4rem;
 }
 </style>
