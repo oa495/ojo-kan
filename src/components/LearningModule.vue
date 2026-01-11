@@ -2,7 +2,7 @@
     <section class="modules">
         <ul>
             <li class="module" v-for="module in modules" :key="module" v-if="modules">
-                <button :disabled="!activateModules" v-on:click="toggleContent(module)" class="trigger">{{ module }}
+                <button :disabled="!isModuleActive(module)" v-on:click="toggleContent(module)" class="trigger">{{ module }}
                     <span v-if="module === activeModule">
                         ↑
                     </span>
@@ -34,7 +34,7 @@
                 </div>
             </li>
         </ul>
-        <ModuleTimer v-if="!activateModules" :frequency="frequency" :timeTillNextModule="timeTillNextModule" />
+        <ModuleTimer v-if="displayTimer()" @activateModule="activateModules" :frequency="frequency" :timeStarted="timeStarted" />
     </section>
 </template>
 <script>
@@ -52,10 +52,11 @@ export default {
     name: 'LearningModule',
     data() {
         return {
-            activateModules: true,
             step: 1,
             modules: ['pronouns', 'nouns', 'verbs'],
-            activeModule: null,
+            activeModule: 'verbs',
+            shouldModuleBeActive: true,
+            timeStarted: null,
             moduleSteps: {
                 'pronouns': 4,
                 'nouns': 2,
@@ -69,6 +70,25 @@ export default {
     },
     emits: ["completeModule"],
     methods: {
+        isModuleActive(module) {
+            if (this.shouldModuleBeActive) {
+                const progress = localStorage.getItem('moduleProgress');
+                if (progress) {
+                    const parsedProgress = JSON.parse(progress);
+                    return !parsedProgress[moduleToStoreMap[module]];
+                }
+                return this.shouldModuleBeActive;
+            }
+            return false;
+        },
+        activateModules() {
+            this.timeStarted = null;
+            this.shouldModuleBeActive = true;
+            localStorage.setItem('timerOn', false);
+        },
+        displayTimer() {
+            return !this.shouldModuleBeActive
+        },
         updateStep(direction) {
             let activeModule = this.activeModule;
             // get total steps for active module
@@ -95,10 +115,11 @@ export default {
             console.log(`${module} completed!`);
 
             localStorage.setItem('moduleProgress', JSON.stringify(store.moduleProgress));
-
             this.activeModule = null;
-            this.activateModules = false;
+            this.shouldModuleBeActive = false;
             this.step = 1;
+            this.timeStarted = new Date().getTime();
+            localStorage.setItem('timerOn', true);
             this.$emit('completeModule', module);
         },
         isLastStep() {

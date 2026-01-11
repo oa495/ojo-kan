@@ -8,24 +8,38 @@ import { moduleProgress } from '@/stores/module-progress'
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 const ONE_WEEK_MS = 7 * ONE_DAY_MS; // 7 days in milliseconds
-const ONE_HOUR_MS = 60 * 60 * 1000; // 1 hour in milliseconds
+const ONE_HOUR_MS = 11000; // 1 hour in milliseconds
 
 export default {
     name: 'ModuleTimer',
     props: {
         timeTillNextModule: Number,
         frequency: String,
+        timeStarted: Number,
+        activateModule: Function,
     },
     data() {
         return {
             timerId: null,
-            activateModules: false,
             timeRemaining: 0,
             activationTimeoutId: null,
         }
     },
     mounted() {
-        this.startTimer();
+        let lastModuleFinishedTimestamp = localStorage.getItem('lastModuleFinishedTimestamp');
+        // timer already running
+        if (this.timerId) {
+            return;
+        } else if (this.lastModuleFinishedTimestamp) {
+            // no timer running but timestamp exists so flow has been run before just reloaded so check local storage
+            // update time remaining
+            this.setElapsedTime(lastModuleFinishedTimestamp);
+            this.startTimer(this.timeRemaining);
+
+        } else {
+            // start new timer
+            this.startTimer(this.prepareTimeToWait());
+        }
     },
     computed: {
         formattedTime() {
@@ -36,15 +50,10 @@ export default {
 
             return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         },
-        modulesActive() {
-            console.log('Checking if modules are active...');
-            if (this.timerId != null) {
-                return true;
-            }
-            // get module store
+        setElapsedTime(lastFinishedTimestamp) {
             const store = moduleProgress();
-            // store.resetAllProgress();
-            // localStorage.clear();
+            store.resetAllProgress();
+            localStorage.clear();
            
             let progressInStorage = localStorage.getItem('moduleProgress');
 
@@ -62,53 +71,43 @@ export default {
                     return module === true;
                 });
             }
-            console.log('Any module completed:', anyModuleCompleted);
             if (anyModuleCompleted) {
                 // check timer
-                const lastFinishedTimestamp = localStorage.getItem('lastModuleFinishedTimestamp');
-                if (lastFinishedTimestamp) {
-                    const now = new Date().getTime();
-                    const elapsed = now - lastFinishedTimestamp;
-                    // get frequency from store
-                    const frequencyStore = learningFrequency();
-                    const frequency = frequencyStore.frequency;
-                    debugger
-                    if (frequency === 'hourly' && elapsed < ONE_HOUR_MS) {
-                        return false;
-                    }
-                    if (frequency === 'daily' && elapsed < ONE_DAY_MS) {
-                        return false;
-                    }
-                    if (frequency === 'weekly' && elapsed < ONE_WEEK_MS) {
-                        return false;
-                    }
-                    return true;
-                }
-                else {
+                const now = new Date().getTime();
+                const elapsed = now - lastFinishedTimestamp;
+                this.timeRemaining = elapsed;
+                // get frequency from store
+                const frequency = this.frequency;
+                if (frequency === 'hourly' && elapsed < ONE_HOUR_MS) {
                     return false;
                 }
+                if (frequency === 'daily' && elapsed < ONE_DAY_MS) {
+                    return false;
+                }
+                if (frequency === 'weekly' && elapsed < ONE_WEEK_MS) {
+                    return false;
+                }
+                return true;
             }
             return true;
         }
     },
     methods: {
-        startTimer() {
-            // Implement timer logic based on this.frequency
-            const now = new Date().getTime();
-            // set time in local storage 
-            debugger
-            localStorage.setItem('lastModuleFinishedTimestamp', now);
-            let timeToWait;
-            let frequency = this.frequency;
+        prepareTimeToWait() {
+            const frequency = this.frequency;
+            let timeToWait = 0;
             if (frequency === 'hourly') {
                 timeToWait = ONE_HOUR_MS;
-            }
-            if (frequency === 'daily') {
+            } else if (frequency === 'daily') {
                 timeToWait = ONE_DAY_MS;
-            }
-            if (frequency === 'weekly') {
+            } else if (frequency === 'weekly') {
                 timeToWait = ONE_WEEK_MS;
             }
+            return timeToWait;
+        },
+        startTimer(timeToWait) {
+            // set time in local storage 
+            localStorage.setItem('lastModuleFinishedTimestamp', this.timeStarted);      
             // ensure timeToWait is defined
             timeToWait = timeToWait || 0;
 
@@ -122,12 +121,14 @@ export default {
                     clearInterval(this.timerId);
                 } else {
                     this.timeRemaining -= 1000;
+                    console.log('Time remaining:', this.timeRemaining);
                 }
             }, 1000);
 
             // final activation timeout
             this.activationTimeoutId = setTimeout(() => {
-                this.activateModules = true;
+                // activate modules
+                this.$emit('activateModule', true); 
                 clearInterval(this.timerId);
             }, timeToWait);
         }

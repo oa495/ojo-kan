@@ -19,9 +19,9 @@ const pronouns = {
 };
 
 const nouns = {
-    'oma': 'child',
-    'onibiren': 'girl',
-    'onokeren': 'boy'
+    'ọma': 'child',
+    'ọnobirẹn': 'girl',
+    'ọnọkẹrẹn': 'boy'
 }
 
 const allWords = { ...verbs, ...pronouns, ...nouns };

@@ -2,6 +2,7 @@
 import LearningModule from './components/LearningModule.vue'
 import { learningFrequency } from '@/stores/frequency'
 import { verbs, pronouns, nouns, allWords } from './words'
+import { h } from 'vue';
 
 export default {
   data() {
@@ -20,7 +21,8 @@ export default {
         const wordsAndSeparators = originalText.split(/(\s+)/);
         const newHTML = wordsAndSeparators.map(part => {
             // Check if the part (trimmed and lowercased) is in our object
-            const cleanedPart = part.trim().toLowerCase();
+            const cleanedPart = part.trim().toLowerCase().replace(/[.,!?;:"]/g, '');
+            console.log('All words:', allWords);
             const translation = allWords[cleanedPart];
             if (translation) {
                 const highlightClass = Object.keys(pronouns).includes(cleanedPart)
@@ -30,7 +32,6 @@ export default {
                         : Object.keys(verbs).includes(cleanedPart)
                             ? 'verbs'
                             : 'word';
-
                 // If it is, wrap it in a span with the highlight class
                 return `<span class="${highlightClass}">${part}</span>`;
             }
@@ -97,7 +98,7 @@ export default {
   <h1>Kpi'ojo</h1>
   <main>
     <p>
-      Mai da retin mi. Ọma ta ka bi. Ọma onobirẹn.
+      Mai da retin mi. Ọma ta ka bi. Ọma ọnobirẹn.
       Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
       Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
       Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ. 
