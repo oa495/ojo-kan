@@ -35,6 +35,7 @@
             </li>
         </ul>
         <ModuleTimer v-if="displayTimer()" @activateModule="activateModules" :frequency="frequency" :timeStarted="timeStarted" />
+        <button @click="resetAll">reset all</button>
     </section>
 </template>
 <script>
@@ -70,6 +71,9 @@ export default {
     },
     emits: ["completeModule"],
     methods: {
+        resetAll() {
+            localStorage.clear()
+        },
         isModuleActive(module) {
             if (this.shouldModuleBeActive) {
                 const progress = localStorage.getItem('moduleProgress');
@@ -87,6 +91,9 @@ export default {
             localStorage.setItem('timerOn', false);
         },
         displayTimer() {
+            if (localStorage.getItem('timerOn')) {
+                return true;
+            }        
             return !this.shouldModuleBeActive
         },
         updateStep(direction) {

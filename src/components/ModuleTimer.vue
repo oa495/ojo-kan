@@ -8,7 +8,12 @@ import { moduleProgress } from '@/stores/module-progress'
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 const ONE_WEEK_MS = 7 * ONE_DAY_MS; // 7 days in milliseconds
-const ONE_HOUR_MS = 11000; // 1 hour in milliseconds
+const ONE_HOUR_MS = 60 * 1000; // 1 hour in milliseconds
+
+
+// const ONE_DAY_MS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+// const ONE_WEEK_MS = 7 * ONE_DAY_MS; // 7 days in milliseconds
+// const ONE_HOUR_MS = 60 * 60 * 1000; // 1 hour in milliseconds
 
 export default {
     name: 'ModuleTimer',
@@ -30,10 +35,15 @@ export default {
         // timer already running
         if (this.timerId) {
             return;
-        } else if (this.lastModuleFinishedTimestamp) {
+        } else if (lastModuleFinishedTimestamp) {
             // no timer running but timestamp exists so flow has been run before just reloaded so check local storage
             // update time remaining
             this.setElapsedTime(lastModuleFinishedTimestamp);
+            if (this.timeRemaining <= 0) {
+                // activate modules 
+                this.$emit('activateModule', true); 
+                return;
+            }
             this.startTimer(this.timeRemaining);
 
         } else {
@@ -50,10 +60,12 @@ export default {
 
             return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         },
+    },
+    methods: {
         setElapsedTime(lastFinishedTimestamp) {
             const store = moduleProgress();
-            store.resetAllProgress();
-            localStorage.clear();
+            // store.resetAllProgress();
+            // localStorage.clear();
            
             let progressInStorage = localStorage.getItem('moduleProgress');
 
@@ -74,25 +86,21 @@ export default {
             if (anyModuleCompleted) {
                 // check timer
                 const now = new Date().getTime();
+                // how much time has elapsed since last finished
                 const elapsed = now - lastFinishedTimestamp;
-                this.timeRemaining = elapsed;
                 // get frequency from store
                 const frequency = this.frequency;
                 if (frequency === 'hourly' && elapsed < ONE_HOUR_MS) {
-                    return false;
+                    this.timeRemaining = ONE_HOUR_MS - elapsed;
                 }
                 if (frequency === 'daily' && elapsed < ONE_DAY_MS) {
-                    return false;
+                    this.timeRemaining = ONE_DAY_MS - elapsed;
                 }
                 if (frequency === 'weekly' && elapsed < ONE_WEEK_MS) {
-                    return false;
+                    this.timeRemaining = ONE_WEEK_MS - elapsed;
                 }
-                return true;
             }
-            return true;
-        }
-    },
-    methods: {
+        },
         prepareTimeToWait() {
             const frequency = this.frequency;
             let timeToWait = 0;
