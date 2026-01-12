@@ -73,6 +73,10 @@ export default {
     methods: {
         resetAll() {
             localStorage.clear()
+            this.shouldModuleBeActive = true;
+            this.timeStarted = null;
+            this.step = 1;
+            this.activeModule = null;
         },
         isModuleActive(module) {
             if (this.shouldModuleBeActive) {

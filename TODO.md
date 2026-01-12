@@ -1,10 +1,23 @@
 
 [] - Get the folk tale text and translation
 [] - Break it up into "modules". Each word should have its translation and its module
-[] - Each module (and word) has the class
-[] - Click to highlight words corresponding to each module
+[] - decide what the module should be and make it
+[] - words without an easy translation? how to handle
+[x] - Each module (and word) has the class
 [x] - Only translate after module is "passed"
 [x] - Set timer before they can do another module
 [x] - Make timer configurable
+[x] - module timer should reset on load
+
+### Interactions
+
 [] - Flip words that have been translated on click
+[] - Click to highlight words corresponding to each module
+
+## Visual
+
+[] - visual pattern for differentiating translated words
+
+## Nice to Have
 [] - percentage for how close to the full story you are?
+[] - rearrange words after whole module is finished?
