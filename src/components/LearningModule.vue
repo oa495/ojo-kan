@@ -1,26 +1,14 @@
 <template>
     <section class="modules">
         <ul>
-            <li class="module" v-for="module in modules" :key="module" v-if="modules">
-                <button :disabled="!isModuleActive(module)" v-on:click="toggleContent(module)" class="trigger">{{ module }}
-                    <span v-if="module === activeModule">
-                        ↑
-                    </span>
-                    <span v-else>
-                        ↓
-                    </span>
-                </button>
-                <div class="content" v-if="module === activeModule">
+            <li :disabled="!isModuleActive(module)" class="module" v-for="module in modules" :key="module">
+                <button class="activate" @click="activateModule(module)">{{ moduleNameToLongNameMap[module] }}</button>
+                <div class="content" v-if="module === activeModule && step > 0">
                     <span class="step-indicator">
                         {{ step }} / {{ moduleSteps[module] }}
                     </span>
-                    <!-- Module content goes here -->
                     <div class="step">
                         <p>This is the content for {{ module }}.</p>
-                        <p>La la la </p>
-                        <p>La la la </p>
-                        <p>La la la </p>
-                        <p>La la la </p>
                         <p>La la la </p>
                         <p>La la la </p>
                     </div>
@@ -34,8 +22,8 @@
                 </div>
             </li>
         </ul>
-        <ModuleTimer v-if="displayTimer()" @activateModule="activateModules" :frequency="frequency" :timeStarted="timeStarted" />
-        <button @click="resetAll">reset all</button>
+        <!-- <ModuleTimer v-if="displayTimer()" @activateModule="activateModules" :frequency="frequency" :timeStarted="timeStarted" />
+        <button @click="resetAll">reset all</button> -->
     </section>
 </template>
 <script>
@@ -49,12 +37,17 @@ const moduleToStoreMap = {
     'verbs': 'module3',
 };
 
+const moduleNameToLongNameMap = {
+    'pronouns': 'Na...',
+    'nouns': 'Who you be?',
+    'verbs': 'What shall we do today?',
+};
 export default {
     name: 'LearningModule',
     data() {
         return {
-            step: 1,
-            modules: ['pronouns', 'nouns', 'verbs'],
+            step: 0,
+            modules: Object.keys(moduleToStoreMap),
             activeModule: 'verbs',
             shouldModuleBeActive: true,
             timeStarted: null,
@@ -63,6 +56,7 @@ export default {
                 'nouns': 2,
                 'verbs': 5,
             },
+            moduleNameToLongNameMap: moduleNameToLongNameMap,
             frequency: learningFrequency().frequency
         }
     },
@@ -112,7 +106,7 @@ export default {
                 this.step += 1;
             }
         },
-        toggleContent(module) {
+        activateModule(module) {
             if (this.activeModule === module) {
                 this.activeModule = null;
             } else {
@@ -143,31 +137,12 @@ export default {
 
 </script>
 <style scoped>
-.modules {
-    width: 30%;
-    position: fixed;
-    right: 0;
-    position: fixed;
-    height: 90vh;
-    border: 2px solid black;
-    margin: 1rem;
-    bottom: 1em;
-    top: 1em;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
 .modules ul {
-    display: flex;
-    flex-direction: column;
-    flex-basis: auto;
     height: inherit;
-    justify-content: space-between;
     width: 100%;
     margin: 0;
     padding: 0;
     list-style-type: none;
-    height: inherit;
 }
 
 .modules li {
@@ -176,39 +151,25 @@ export default {
     font-style: normal;
     font-size: 4.8rem;
     height: inherit;
+    border-radius: 50%;
+    border: 1px solid black;
+    width: 4em;
+    height: 4em;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.trigger {
-    width: 100%;
-    padding: 0.8rem;
-    transition: all 0.4s;
-    background-color: #fff;
-    color: #000;
-}
-
-.trigger:disabled {
-    color: #666 !important;
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-.trigger:disabled:hover {
-    color: #666 !important;
-}
-
-li:nth-of-type(odd) .trigger {
-    background-color: #000;
-    color: #fff;
-}
-
-li:nth-of-type(odd) .trigger:hover {
-    background-color: #fff;
-    color: #000;
-}
-
-li:nth-of-type(even) .trigger:hover {
-    background-color: #000;
-    color: #fff;
+button.activate {
+    margin: 0;
+    font-size: 3rem;
+    text-align: center;
+    border: none;
+    background-color: transparent;
+    max-width: 80%;
+    font-weight: 500;
 }
 
 .module .content {
@@ -237,5 +198,25 @@ li:nth-of-type(even) .trigger:hover {
 
 .step {
     margin: 0.4rem;
+}
+
+li.module:nth-of-type(1) {
+    top: 0;
+    left: 0;
+}
+
+li.module:nth-of-type(2) {
+    top: 0;
+    right: 0;
+}
+
+li.module:nth-of-type(3) {
+    bottom: 0;
+    left: 0;
+}
+
+li.module:nth-of-type(4) {
+    bottom: 0;
+    right: 0;
 }
 </style>

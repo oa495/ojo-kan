@@ -2,6 +2,7 @@
 [] - Get the folk tale text and translation
 [] - Break it up into "modules". Each word should have its translation and its module
 [] - decide what the module should be and make it
+[] - creative module names
 [] - words without an easy translation? how to handle
 [x] - Each module (and word) has the class
 [x] - Only translate after module is "passed"
@@ -22,3 +23,8 @@
 ## Nice to Have
 [] - percentage for how close to the full story you are?
 [] - rearrange words after whole module is finished?
+
+
+---
+what shall we do today
+who you be
