@@ -17,6 +17,7 @@
 ## Visual
 
 [] - visual pattern for differentiating translated words
+[] - finalize look of the site
 
 ## Nice to Have
 [] - percentage for how close to the full story you are?
