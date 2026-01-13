@@ -208,16 +208,13 @@ label {
 
 button {
   cursor: pointer;
-}
-
-.submit {
   padding: 0.5rem;
   width: fit-content;
   background-color: white;
   border: 1px dashed black;
 }
 
-.submit:hover {
+button:hover {
   background-color: black;
   color: white;
 }
@@ -243,6 +240,10 @@ fieldset button {
   flex-direction: column;
   margin: 0 auto;
   align-items: center;
+  /* make background a repeating svg */
+  background-image: url('assets/snake.svg');
+  background-repeat: repeat; 
+  background-size: 6rem 6rem;
 }
 
 

@@ -2,7 +2,7 @@
     <section class="modules">
         <ul>
             <li :disabled="!isModuleActive(module)" class="module" v-for="module in modules" :key="module">
-                <button class="activate" @click="activateModule(module)">{{ moduleNameToLongNameMap[module] }}</button>
+                <h3>{{ moduleNameToLongNameMap[module] }}</h3>
                 <div class="content" v-if="module === activeModule && step > 0">
                     <span class="step-indicator">
                         {{ step }} / {{ moduleSteps[module] }}
@@ -12,14 +12,14 @@
                         <p>La la la </p>
                         <p>La la la </p>
                     </div>
-                    <footer>
-                        <button class="step-button" :disabled="step <= 1" v-on:click="updateStep(-1)">←</button>
-                        <button class="step-button" v-if="isLastStep()" v-on:click="completeModule(module)">Complete {{
-                            module }}</button>
-                        <button class="step-button" :disabled="isLastStep()" v-else
-                            v-on:click="updateStep(1)">→</button>
-                    </footer>
                 </div>
+                <footer>
+                    <button class="step-button" :disabled="step <= 1" v-on:click="updateStep(-1)">←</button>
+                    <button class="step-button" v-if="isLastStep()" v-on:click="completeModule(module)">Complete {{
+                        module }}</button>
+                    <button class="step-button" :disabled="isLastStep()" v-else
+                        v-on:click="updateStep(1)">→</button>
+                </footer>
             </li>
         </ul>
         <!-- <ModuleTimer v-if="displayTimer()" @activateModule="activateModules" :frequency="frequency" :timeStarted="timeStarted" />
@@ -162,12 +162,17 @@ export default {
     justify-content: center;
 }
 
-button.activate {
+.step-button {
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease-in-out;
+    margin: 0 0.5rem 0 0.5rem;
+}
+
+h3 {
     margin: 0;
     font-size: 3rem;
     text-align: center;
-    border: none;
-    background-color: transparent;
     max-width: 80%;
     font-weight: 500;
 }
@@ -177,13 +182,12 @@ button.activate {
     border-bottom: 2px solid black;
 }
 
-.content footer {
+footer {
+    position: absolute;
+    width: 100%;
     display: flex;
-    align-items: center;
-    padding: 1rem;
-    justify-content: space-between;
     flex-direction: row;
-    align-items: center;
+    justify-content: space-between;
 }
 
 .step-indicator {
