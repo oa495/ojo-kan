@@ -10,6 +10,7 @@ const verbs = {
     'gba': 'take',
     'wa': 'come',
     'fẹ': 'want',
+    'tse': 'do',
 }
 
 const pronouns = {

@@ -94,7 +94,7 @@ export default {
       </p>
       <p>
         Ọmẹtiẹ ọnobirẹn ọkan ti a kpe wun Ọlikpẹrẹbu.
-        Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ oma we, gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
+        Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ oma wee, gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
         Eyí ma ba ain wen jẹ.
         Ubo kì ubo ni ẹye we dede,  aja Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma we ain wen jẹ.
         Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
@@ -134,13 +134,14 @@ body {
 
 h1 {
   margin: 1rem;
-  font-size: 5rem;
+  font-size: 7.5rem;
   line-height: 0.9em;
   position: absolute;
   z-index: 999;
-  top: 0.5em;
+  top: .4em;
   transform: rotate(-10deg);
   font-style: italic;
+  text-align: left;
 }
 
 button {
