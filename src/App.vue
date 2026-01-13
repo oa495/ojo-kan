@@ -145,7 +145,11 @@ h1 {
   position: absolute;
   z-index: 999;
   top: 0;
-  background-color: white;
+ text-shadow:
+    6px 6px 0 #fff,
+    -6px 6px 0 #fff,
+    -6px -6px 0 #fff,
+    6px -6px 0 #fff;
 }
 
 button {
