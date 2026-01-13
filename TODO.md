@@ -24,7 +24,3 @@
 [] - percentage for how close to the full story you are?
 [] - rearrange words after whole module is finished?
 
-
----
-what shall we do today
-who you be

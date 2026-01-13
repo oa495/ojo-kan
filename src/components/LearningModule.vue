@@ -205,8 +205,8 @@ footer {
 }
 
 li.module:nth-of-type(1) {
-    top: 0;
-    left: 0;
+    bottom: 0;
+    right: 0;
 }
 
 li.module:nth-of-type(2) {

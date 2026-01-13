@@ -80,7 +80,7 @@ export default {
 
 <template>
   <h1>
-    Kp'ojo <br><span style="margin-left: 0.5em;">kp'ojo</span>
+    Ọj'ọkan
   </h1>
   <div class="circle">
     <main>
@@ -93,20 +93,14 @@ export default {
         Aghan retin mi di èmi gin gbẹ aghan.
       </p>
       <p>
-        Mai da retin mi. Ọma ta ka bi. Ọma ọnobirẹn.
-        Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
-        Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
-        Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ. 
-        Nikor sin?
-        Aghan retin mi di èmi gin gbẹ aghan.
+        Ọmẹtiẹ ọnobirẹn ọkan ti a kpe wun Ọlikpẹrẹbu.
+        Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ oma we, gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
+        Eyí ma ba ain wen jẹ.
+        Ubo kì ubo ni ẹye we dede,  aja Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma we ain wen jẹ.
+        Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
       </p>
       <p>
-        Mai da retin mi. Ọma ta ka bi. Ọma ọnobirẹn.
-        Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
-        Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
-        Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ. 
-        Nikor sin?
-        Aghan retin mi di èmi gin gbẹ aghan.
+        Ọjọ ọkan ke ẹgualẹ okan ni inọ oko ti a ka kpe wun Oribiti
       </p>
     </main>
   </div>
@@ -139,17 +133,14 @@ body {
 }
 
 h1 {
-  margin: 0;
-  font-size: 8rem;
-  line-height: 0.8em;
+  margin: 1rem;
+  font-size: 5rem;
+  line-height: 0.9em;
   position: absolute;
   z-index: 999;
-  top: 0;
- text-shadow:
-    6px 6px 0 #fff,
-    -6px 6px 0 #fff,
-    -6px -6px 0 #fff,
-    6px -6px 0 #fff;
+  top: 0.5em;
+  transform: rotate(-10deg);
+  font-style: italic;
 }
 
 button {
@@ -200,6 +191,7 @@ fieldset {
   z-index: 999;
   position: absolute;
   bottom: 0;
+  font-family: 'Open Sans', sans-serif;
 }
 
 legend {
@@ -248,7 +240,19 @@ fieldset button {
   background-image: url('assets/snake.svg');
   background-repeat: repeat; 
   background-size: 6rem 6rem;
+  background-position: 0 0; /* Start position */
+  animation: backgroundScroll 30s linear infinite;
 }
 
+@keyframes backgroundScroll {
+  from {
+    background-position: 0 0 0 0; /* Start at top-left */
+  }
+  to {
+    /* Move the background image the width of the container,
+       or the image width if it's wider than the container */
+    background-position: -100% -100%;
+  }
+}
 
 </style>
