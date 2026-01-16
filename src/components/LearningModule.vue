@@ -3,7 +3,7 @@
         <ul>
             <li :disabled="!isModuleActive(module)" class="module" v-for="module in modules" :key="module">
                 <h3>{{ moduleNameToLongNameMap[module] }}</h3>
-                <div class="content" v-if="module === activeModule && step > 0">
+                <!-- <div class="content" v-if="module === activeModule && step > 0">
                     <span class="step-indicator">
                         {{ step }} / {{ moduleSteps[module] }}
                     </span>
@@ -12,14 +12,14 @@
                         <p>La la la </p>
                         <p>La la la </p>
                     </div>
-                </div>
-                <footer>
+                </div> -->
+                <!-- <footer>
                     <button class="step-button" :disabled="step <= 1" v-on:click="updateStep(-1)">←</button>
                     <button class="step-button" v-if="isLastStep()" v-on:click="completeModule(module)">Complete {{
                         module }}</button>
                     <button class="step-button" :disabled="isLastStep()" v-else
                         v-on:click="updateStep(1)">→</button>
-                </footer>
+                </footer> -->
             </li>
         </ul>
         <!-- <ModuleTimer v-if="displayTimer()" @activateModule="activateModules" :frequency="frequency" :timeStarted="timeStarted" />

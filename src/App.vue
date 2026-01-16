@@ -79,32 +79,13 @@ export default {
 </script>
 
 <template>
-  <h1>
-    Ọj'ọkan
-  </h1>
-  <div class="circle">
-    <main>
-      <p>
-        Mai da retin mi. Ọma ta ka bi. Ọma ọnobirẹn.
-        Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
-        Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
-        Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ. 
-        Nikor sin?
-        Aghan retin mi di èmi gin gbẹ aghan.
-      </p>
-      <p>
-        Ọmẹtiẹ ọnobirẹn ọkan ti a kpe wun Ọlikpẹrẹbu.
-        Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ oma wee, gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
-        Eyí ma ba ain wen jẹ.
-        Ubo kì ubo ni ẹye we dede,  aja Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma we ain wen jẹ.
-        Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
-      </p>
-      <p>
-        Ọjọ ọkan ke ẹgualẹ okan ni inọ oko ti a ka kpe wun Oribiti
-      </p>
-    </main>
-  </div>
-  <fieldset class="frequency-selection">
+  <section class="intro">
+    <h1>
+      Ọj'ọkan
+    </h1>
+    <p class="project-description">An Itsekiri folktake that unveils itself to the reader as they learn the language step by step.
+    </p>
+    <fieldset class="frequency-selection">
       <legend>Choose a frequency:</legend>
       <div>
         <input type="radio" v-model="frequency" id="hour" name="frequency" value="hourly" checked=""/>
@@ -121,7 +102,50 @@ export default {
 
       <button class="submit" v-on:click="submitFrequency()">Submit</button>
     </fieldset>
-   
+  </section>
+  <div class="circle">
+    <main>
+      <p>
+        Mai da retin mi. Ọma ta ka bi. Ọma ọnobirẹn.
+        Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
+        Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
+        Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ. 
+        Nikọ sin?
+        Aghan retin mi di èmi gin gbẹ aghan.
+      </p>
+      <p>
+        Ọmẹtiẹ ọnobirẹn ọkan ti a kpe wun Ọlikpẹrẹbu.
+        Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ oma wee,
+        gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
+        Eyí ma ba ain wen jẹ.
+        Ubo kì ubo ni ẹye we dede,
+        aja Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma we ain wen jẹ.
+        Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
+      </p>
+          <p>
+        Ọmẹtiẹ ọnobirẹn ọkan ti a kpe wun Ọlikpẹrẹbu.
+        Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ oma wee,
+        gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
+        Eyí ma ba ain wen jẹ.
+        Ubo kì ubo ni ẹye we dede,
+        aja Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma we ain wen jẹ.
+        Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
+      </p>
+      <p>
+        Ọmẹtiẹ ọnobirẹn ọkan ti a kpe wun Ọlikpẹrẹbu.
+        Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ oma wee,
+        gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
+        Eyí ma ba ain wen jẹ.
+        Ubo kì ubo ni ẹye we dede,
+        aja Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma we ain wen jẹ.
+        Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
+      </p>
+      <p>
+        Ọjọ ọkan ke ẹgualẹ okan ni inọ oko ti a ka kpe wun Oribiti.
+      </p>
+    </main>
+  </div>
+
   <LearningModule @completeModule="onCompleteModule"  />
 </template>
 
@@ -132,16 +156,25 @@ body {
   height: 98vh;
 }
 
+.intro {
+  position: absolute;
+  left: 0;
+  border: 1px dashed black;
+  width: 15%;
+}
+
 h1 {
   margin: 1rem;
-  font-size: 7.5rem;
+  font-size: 3rem;
   line-height: 0.9em;
-  position: absolute;
-  z-index: 999;
-  top: .4em;
-  transform: rotate(-10deg);
   font-style: italic;
   text-align: left;
+}
+
+.project-description {
+  margin: 0 1rem 1rem 1rem;
+  font-size: 1.2rem;
+  font-weight: 300;
 }
 
 button {
@@ -154,19 +187,21 @@ button {
   transition: all 0.3s ease-in-out;
 }
 
-p {
-  max-width: 70%;
-  margin: 1em auto;
-}
-
 main {
   font-weight: 400;
   font-style: normal;
   font-size: 1.4rem;
-  margin: 1.2rem;
   line-height: 1.2;
-  height: 100%;
-  align-content: center;
+  overflow-y: scroll;
+  max-width: 80%;
+  max-height: 75%;
+  scrollbar-color: black transparent;
+  scrollbar-width: thin;
+  margin: 6rem;
+}
+
+main p {
+  padding: 0 0.5em;
 }
 
 .circle {
@@ -175,13 +210,12 @@ main {
   border: 1px solid;
   border-radius: 50%;
   background-color: white;
-  display: flex;
   position: relative;
-  flex-direction: column;
-  align-items: center;
   margin: auto;
-  justify-content: end;
   padding: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 fieldset {
@@ -189,9 +223,6 @@ fieldset {
   padding: .5rem;
   width: fit-content;
   background: white;
-  z-index: 999;
-  position: absolute;
-  bottom: 0;
   font-family: 'Open Sans', sans-serif;
 }
 

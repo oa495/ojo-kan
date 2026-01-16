@@ -9,6 +9,7 @@
 [x] - Set timer before they can do another module
 [x] - Make timer configurable
 [x] - module timer should reset on load
+[ ] - if multiple meanings you can switch between them
 
 ### Interactions
 

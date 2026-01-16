@@ -5,11 +5,11 @@ const verbs = {
     'di': 'let',
     'bẹ': 'beg',
     'ka': 'enable',
-    'bi': 'birth',
+    'bi': 'born',
     'kpe': 'call',
     'gba': 'take',
-    'wa': 'come',
-    'fẹ': 'want',
+    'wa': 'come|will',
+    'fẹ': 'want|find',
     'tse': 'do',
 }
 
@@ -22,18 +22,23 @@ const pronouns = {
     'mo': 'I',
     'Nikor': 'what',
     'Bokor': 'what/where',
-    'nikọ': 'what'
+    'nikọ': 'what',
+    'dede': 'all',
+    'wee': 'the',
+    'ma': 'when'
 };
 
-const adjectves = {
+const identifiers = {
     'ọkan': 'one',
     'inọ': 'inside',
+    'wee': 'the'
 }
 
 const nouns = {
     'ọma': 'child',
-    'ọnobirẹn': 'girl',
-    'ọnọkẹrẹn': 'boy',
+    'ọmẹtiẹ': 'small child',
+    'ọnobirẹn': 'woman',
+    'ọnọkẹrẹn': 'man',
     'ẹye': 'world',
     'ẹgualẹ': 'snake',
     'ọjọ': 'day',
