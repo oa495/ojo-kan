@@ -171,47 +171,6 @@ h1 {
   font-weight: 300;
 }
 
-button {
-  all: unset;
-  cursor: pointer;
-  width: 100%;
-  height: auto;
-  display: block;
-  font-weight: 300;
-  transition: all 0.3s ease-in-out;
-}
-
-main {
-  font-weight: 400;
-  font-style: normal;
-  font-size: 1.4rem;
-  line-height: 1.2;
-  overflow-y: scroll;
-  max-width: 80%;
-  max-height: 75%;
-  scrollbar-color: black transparent;
-  scrollbar-width: thin;
-  margin: 6rem;
-}
-
-main p {
-  padding: 0 0.5em;
-}
-
-.circle {
-  height: 80%;
-  width: 80%;
-  border: 1px solid;
-  border-radius: 50%;
-  background-color: white;
-  position: relative;
-  margin: auto;
-  padding: 2em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 fieldset {
   margin: 1rem;
   padding: .5rem;
@@ -228,18 +187,6 @@ label {
   margin-left: .5rem;
 }
 
-button {
-  cursor: pointer;
-  padding: 0.5rem;
-  width: fit-content;
-  background-color: white;
-  border: 1px dashed black;
-}
-
-button:hover {
-  background-color: black;
-  color: white;
-}
 
 fieldset button {
   margin-top: 1rem;
