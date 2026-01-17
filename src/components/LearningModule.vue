@@ -1,7 +1,7 @@
 <template>
     <section class="modules">
         <ul>
-            <li :disabled="!isModuleActive(module)" class="module" v-for="module in modules" :key="module">
+            <li class="module" v-for="module in modules" :key="module">
                 <h3>{{ moduleNameToLongNameMap[module] }}</h3>
                 <!-- <div class="content" v-if="module === activeModule && step > 0">
                     <span class="step-indicator">
@@ -42,6 +42,32 @@ const moduleNameToLongNameMap = {
     'nouns': 'Who you be?',
     'verbs': 'What shall we do today?',
 };
+
+function generateRandomPositionsOutsideCircle({
+  centerX,
+  centerY,
+  circleRadius,
+  count,
+  minOffset = 20,   // minimum distance outside the circle
+  maxOffset = 80    // maximum distance outside the circle
+}) {
+  const positions = [];
+
+  for (let i = 0; i < count; i++) {
+     const angle = Math.random() * Math.PI * 2;
+    const distance =
+      circleRadius +
+      minOffset +
+      Math.random() * (maxOffset - minOffset);
+
+    const x = centerX + Math.cos(angle) * distance;
+    const y = centerY + Math.sin(angle) * distance;
+    positions.push({ x, y });
+  }
+
+  return positions;
+}
+
 export default {
     name: 'LearningModule',
     data() {
@@ -62,6 +88,32 @@ export default {
     },
     components: {
         ModuleTimer
+    },
+    mounted() {
+     
+        const appDiv = document.querySelector('#app');
+        const rect = appDiv.getBoundingClientRect();
+
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const circleRadius = rect.width / 2;
+        
+
+        const positions = generateRandomPositionsOutsideCircle({
+            centerX,
+            centerY,
+            circleRadius,
+            count: 20,
+            minOffset: 15,
+            maxOffset: 60
+        });
+        const modules = document.querySelectorAll('li.module');
+
+        modules.forEach((module, index) => {            
+            module.style.left = `${positions[index].x}px)`;
+            module.style.top = `calc(10% + ${positions[index].y}px)`;
+            module.style.transform = 'translate(-50%, -50%)';
+        });
     },
     emits: ["completeModule"],
     methods: {
@@ -136,7 +188,7 @@ export default {
 }
 
 </script>
-<style scoped>
+<style>
 .modules ul {
     height: inherit;
     width: 100%;
@@ -153,13 +205,36 @@ export default {
     height: inherit;
     border-radius: 50%;
     border: 1px solid black;
-    width: 4em;
-    height: 4em;
+    width: 2em;
+    height: 2em;
     position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: white;
+}
+
+li.module:nth-of-type(odd) {
+    animation: float calc(var(--vue-timing)*14) linear infinite;
+    -webkit-animation: float calc(var(--vue-timing)*14) linear infinite;
+    animation-direction: reverse;
+    -webkit-animation-direction: reverse;
+}
+
+li.module:nth-of-type(even) {
+    animation: float calc(var(--vue-timing)*4) linear infinite;
+    -webkit-animation: float calc(var(--vue-timing)*4) linear infinite;
+}
+
+@keyframes float {
+  from {
+    transform: rotate(0deg) translate3d(0.2em, 0, 0.05em) rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg) translate3d(0.2em, 0, 0.05em) rotate(-360deg);
+  }
 }
 
 .step-button {
@@ -171,7 +246,7 @@ export default {
 
 h3 {
     margin: 0;
-    font-size: 3rem;
+    font-size: 1.2rem;
     text-align: center;
     max-width: 80%;
     font-weight: 500;
@@ -205,22 +280,7 @@ footer {
 }
 
 li.module:nth-of-type(1) {
-    bottom: 0;
-    right: 0;
-}
-
-li.module:nth-of-type(2) {
+    left: 20%;
     top: 0;
-    right: 0;
-}
-
-li.module:nth-of-type(3) {
-    bottom: 0;
-    left: 0;
-}
-
-li.module:nth-of-type(4) {
-    bottom: 0;
-    right: 0;
 }
 </style>

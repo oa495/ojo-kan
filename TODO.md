@@ -9,17 +9,19 @@
 [x] - Set timer before they can do another module
 [x] - Make timer configurable
 [x] - module timer should reset on load
-[ ] - if multiple meanings you can switch between them
+[] - info page
 
 ### Interactions
 
 [] - Flip words that have been translated on click
+[ ] - if multiple meanings you can switch between them
 [] - Click to highlight words corresponding to each module
 
 ## Visual
 
 [] - visual pattern for differentiating translated words
 [] - finalize look of the site
+[] - "blobs" should only render in a certain area
 
 ## Nice to Have
 [] - percentage for how close to the full story you are?
