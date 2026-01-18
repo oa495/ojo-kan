@@ -9,14 +9,15 @@
 [x] - Set timer before they can do another module
 [x] - Make timer configurable
 [x] - module timer should reset on load
-[] - info page
+[x] - info page
+[] - proofread info
 
 ### Interactions
 
 [] - Flip words that have been translated on click
 [] - if multiple meanings you can switch between them
 [] - Click to highlight words corresponding to each module
-[] - small circle becomes big when module is activated
+[x] - small circle becomes big when module is activated
 
 ## Visual
 

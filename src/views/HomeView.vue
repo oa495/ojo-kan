@@ -22,7 +22,6 @@ export default {
           const newHTML = wordsAndSeparators.map(part => {
               // Check if the part (trimmed and lowercased) is in our object
             const cleanedPart = part.trim().toLowerCase().replace(/[.,!?;:"]/g, '');
-            console.log('All words:', allWords);
             const translation = allWords[cleanedPart];
             if (translation) {
                 const highlightClass = Object.keys(pronouns).includes(cleanedPart)

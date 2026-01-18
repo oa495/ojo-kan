@@ -27,8 +27,8 @@
             </li>
         </ul>
     </section>
-    <div class="module-timer-container">
-        <ModuleTimer v-if="displayTimer()" @activateModule="activateModules" :frequency="frequency" :timeStarted="timeStarted" />
+    <div class="module-timer-container" v-if="displayTimer()" >
+        <ModuleTimer @activateModule="activateModules" :frequency="frequency" :timeStarted="timeStarted" />
         <button class="button" @click="resetAll">Reset Modules</button>
     </div>
 </template>
@@ -158,10 +158,11 @@ export default {
             localStorage.setItem('timerOn', false);
         },
         displayTimer() {
-            if (localStorage.getItem('timerOn')) {
-                return true;
+            const timerState = localStorage.getItem('timerOn');
+            if (timerState) {
+                return timerState === 'true' ? true : false;
             }        
-            return !this.shouldModuleBeActive
+            return !this.shouldModuleBeActive;
         },
         updateStep(direction) {
             let activeModule = this.activeModule;

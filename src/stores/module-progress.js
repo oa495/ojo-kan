@@ -15,7 +15,6 @@ export const moduleProgress = defineStore('module-progress', () => {
 
   function resetAllProgress() {
     for (const module in moduleProgress.value) {
-      console.log(moduleProgress.value[module]);
       moduleProgress.value[module] = false;
     }
   }
