@@ -124,7 +124,7 @@ main p {
   flex-direction: column;
 }
 
-button {
+.button {
   cursor: pointer;
   padding: 0.5rem;
   width: fit-content;
@@ -132,7 +132,7 @@ button {
   border: 1px dashed black;
 }
 
-button:hover {
+.button:hover {
   background-color: black;
   color: white;
 }

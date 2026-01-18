@@ -100,7 +100,7 @@ export default {
         <label for="week">Weekly</label>
       </div>
 
-      <button class="submit" v-on:click="submitFrequency()">Submit</button>
+      <button class="submit button" v-on:click="submitFrequency()">Submit</button>
     </fieldset>
   </section>
   <div class="circle">

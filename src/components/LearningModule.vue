@@ -1,8 +1,8 @@
 <template>
     <section class="modules">
         <ul>
-            <li class="module" v-for="module in modules" :key="module">
-                <h3>{{ moduleNameToLongNameMap[module] }}</h3>
+            <li class="module inactive" v-for="module in modules" :key="module">
+                <button @click="startModule(module, $event)" class="module-trigger">{{ moduleNameToLongNameMap[module] }}</button>
                 <!-- <div class="content" v-if="module === activeModule && step > 0">
                     <span class="step-indicator">
                         {{ step }} / {{ moduleSteps[module] }}
@@ -23,7 +23,7 @@
             </li>
         </ul>
         <!-- <ModuleTimer v-if="displayTimer()" @activateModule="activateModules" :frequency="frequency" :timeStarted="timeStarted" />
-        <button @click="resetAll">reset all</button> -->
+        <button class="button" @click="resetAll">reset all</button> -->
     </section>
 </template>
 <script>
@@ -158,13 +158,54 @@ export default {
                 this.step += 1;
             }
         },
-        activateModule(module) {
+        startModule(module, event) {
             if (this.activeModule === module) {
                 this.activeModule = null;
+                this.shrinkElement(event.target);
             } else {
                 this.activeModule = module;
+                this.growElement(event.target);
             }
             this.step = 1;
+        },
+        shrinkElement(el) {
+            // Get element
+            const element = el;
+            // Find the closest li ancestor
+            const liElement = element.closest('li.module');
+            liElement.classList.remove('active');
+            liElement.classList.add('inactive');
+
+            // Reset styles
+            liElement.style.width = '';
+            liElement.style.height = '';
+            liElement.style.left = '';
+            liElement.style.top = '';
+        },
+        growElement(el) {
+            // Get element
+            const element = el;
+            // Find the closest li ancestor
+            const liElement = element.closest('li.module');
+            liElement.classList.remove('inactive');
+            liElement.classList.add('active');
+
+            // Get the computed dimensions of the target element using getBoundingClientRect()
+            // This provides precise, floating-point values for the total rendered width and height
+            const targetElement = document.querySelector('.circle');
+            const elementToGrow = liElement;
+            const targetDimensions = targetElement.getBoundingClientRect();
+            const targetWidth = targetDimensions.width;
+            const targetHeight = targetDimensions.height;
+
+            // Apply the retrieved dimensions to the element to grow
+            // We must append 'px' to the numeric values when setting the style properties
+            elementToGrow.style.width = `${targetWidth}px`;
+            elementToGrow.style.height = `${targetHeight}px`;
+
+            // set position to on top of target element
+            elementToGrow.style.left = `${targetDimensions.left + targetWidth / 2}px`;
+            elementToGrow.style.top = `${targetDimensions.top + targetHeight / 2}px`;
         },
         completeModule(module) {
             const store = moduleProgress();
@@ -215,16 +256,25 @@ export default {
     background-color: white;
 }
 
-li.module:nth-of-type(odd) {
+li.module {
+    transition: all 0.3s ease-in-out;
+}
+
+li.module.inactive:nth-of-type(odd) {
     animation: float calc(var(--vue-timing)*14) linear infinite;
     -webkit-animation: float calc(var(--vue-timing)*14) linear infinite;
     animation-direction: reverse;
     -webkit-animation-direction: reverse;
 }
 
-li.module:nth-of-type(even) {
+li.module.inactive:nth-of-type(even) {
     animation: float calc(var(--vue-timing)*4) linear infinite;
     -webkit-animation: float calc(var(--vue-timing)*4) linear infinite;
+}
+
+/* grow to the size of .circle */
+li.module.active {
+    transform: scale(5);
 }
 
 @keyframes float {
@@ -244,12 +294,21 @@ li.module:nth-of-type(even) {
     margin: 0 0.5rem 0 0.5rem;
 }
 
-h3 {
+.module-trigger {
+    all: unset;
     margin: 0;
     font-size: 1.2rem;
     text-align: center;
+    width: 100%;
     max-width: 80%;
+    height: 100%;
     font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.module-trigger:hover {
+    transform: scale(1.1);
 }
 
 .module .content {

@@ -14,8 +14,9 @@
 ### Interactions
 
 [] - Flip words that have been translated on click
-[ ] - if multiple meanings you can switch between them
+[] - if multiple meanings you can switch between them
 [] - Click to highlight words corresponding to each module
+[] - small circle becomes big when module is activated
 
 ## Visual
 
