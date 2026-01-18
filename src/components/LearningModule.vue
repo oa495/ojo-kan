@@ -2,8 +2,11 @@
     <section class="modules">
         <ul>
             <li class="module inactive" v-for="module in modules" :key="module">
-                <button @click="startModule(module, $event)" class="module-trigger">{{ moduleNameToLongNameMap[module] }}</button>
-                <!-- <div class="content" v-if="module === activeModule && step > 0">
+                <button :disabled="isModuleDisabled(module)" @click="startModule(module, $event)" class="module-trigger">
+                    <span v-if="module === activeModule">X</span>
+                    <span v-else>{{ moduleNameToLongNameMap[module] }}</span>
+                </button>
+                <div class="content" v-if="module === activeModule && step > 0">
                     <span class="step-indicator">
                         {{ step }} / {{ moduleSteps[module] }}
                     </span>
@@ -12,19 +15,22 @@
                         <p>La la la </p>
                         <p>La la la </p>
                     </div>
-                </div> -->
-                <!-- <footer>
-                    <button class="step-button" :disabled="step <= 1" v-on:click="updateStep(-1)">←</button>
-                    <button class="step-button" v-if="isLastStep()" v-on:click="completeModule(module)">Complete {{
-                        module }}</button>
-                    <button class="step-button" :disabled="isLastStep()" v-else
-                        v-on:click="updateStep(1)">→</button>
-                </footer> -->
+                    <footer>
+                        <button class="step-button" :disabled="step <= 1" v-on:click="updateStep(-1)">←</button>
+                        <button class="step-button button" v-if="isLastStep()" v-on:click="completeModule(module, $event)">Complete {{
+                            module }}</button>
+                        <button class="step-button" :disabled="isLastStep()" v-else
+                            v-on:click="updateStep(1)">→</button>
+                    </footer>
+                </div>
+     
             </li>
         </ul>
-        <!-- <ModuleTimer v-if="displayTimer()" @activateModule="activateModules" :frequency="frequency" :timeStarted="timeStarted" />
-        <button class="button" @click="resetAll">reset all</button> -->
     </section>
+    <div class="module-timer-container">
+        <ModuleTimer v-if="displayTimer()" @activateModule="activateModules" :frequency="frequency" :timeStarted="timeStarted" />
+        <button class="button" @click="resetAll">Reset Modules</button>
+    </div>
 </template>
 <script>
 import { moduleProgress } from '@/stores/module-progress'
@@ -74,7 +80,7 @@ export default {
         return {
             step: 0,
             modules: Object.keys(moduleToStoreMap),
-            activeModule: 'verbs',
+            activeModule: null,
             shouldModuleBeActive: true,
             timeStarted: null,
             moduleSteps: {
@@ -84,6 +90,17 @@ export default {
             },
             moduleNameToLongNameMap: moduleNameToLongNameMap,
             frequency: learningFrequency().frequency
+        }
+    },
+    computed: {
+        isModuleDisabled() {
+            return (module) => {
+                if (!this.shouldModuleBeActive) return !this.shouldModuleBeActive;
+                if (module !== this.activeModule && this.activeModule !== null) {
+                    return true;
+                }
+               return false;
+            }
         }
     },
     components: {
@@ -207,11 +224,10 @@ export default {
             elementToGrow.style.left = `${targetDimensions.left + targetWidth / 2}px`;
             elementToGrow.style.top = `${targetDimensions.top + targetHeight / 2}px`;
         },
-        completeModule(module) {
+        completeModule(module, event) {
             const store = moduleProgress();
             store.completeModule(moduleToStoreMap[module]);
             console.log(`${module} completed!`);
-
             localStorage.setItem('moduleProgress', JSON.stringify(store.moduleProgress));
             this.activeModule = null;
             this.shouldModuleBeActive = false;
@@ -219,6 +235,7 @@ export default {
             this.timeStarted = new Date().getTime();
             localStorage.setItem('timerOn', true);
             this.$emit('completeModule', module);
+            this.shrinkElement(event.target);
         },
         isLastStep() {
             let activeModule = this.activeModule;
@@ -239,25 +256,27 @@ export default {
 }
 
 .modules li {
-    font-family: 'Ojuju', sans-serif;
-    font-weight: 700;
-    font-style: normal;
-    font-size: 4.8rem;
-    height: inherit;
-    border-radius: 50%;
-    border: 1px solid black;
-    width: 2em;
-    height: 2em;
+    width: 8em;
+    height: 8em;
     position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: white;
+    border-radius: 50%;
+    border: 1px solid black;
 }
 
 li.module {
     transition: all 0.3s ease-in-out;
+}
+
+.module.active .module-trigger {
+    width: unset;
+    height: unset;
+    font-size: 2rem;
+    font-weight: 700;
 }
 
 li.module.inactive:nth-of-type(odd) {
@@ -272,9 +291,27 @@ li.module.inactive:nth-of-type(even) {
     -webkit-animation: float calc(var(--vue-timing)*4) linear infinite;
 }
 
-/* grow to the size of .circle */
-li.module.active {
-    transform: scale(5);
+li.module:has(.module-trigger:disabled) {
+    opacity: 0.5;
+}
+
+.module-trigger {
+    margin: 0;
+    font-size: 1.2rem;
+    text-align: center;
+    width: 80%;
+    height: 80%;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.module-trigger:disabled {
+    cursor: not-allowed;
+}
+
+.module-trigger:hover {
+    transform: scale(1.1);
 }
 
 @keyframes float {
@@ -286,60 +323,53 @@ li.module.active {
     transform: rotate(360deg) translate3d(0.2em, 0, 0.05em) rotate(-360deg);
   }
 }
+.module .content {
+    font-size: 1.6rem;
+    height: 70%;
+    width: 70%;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+footer {
+    width: 92%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0.8rem;
+}
+
+.step-indicator {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin: 0.4rem 1.6rem 0 0;
+    color: rgba(0, 0, 0, 0.6);
+    align-self: flex-end;
+}
+
+.step {
+    margin: 0.4rem;
+    width: 100%;
+    min-height: 80%;
+}
 
 .step-button {
     font-size: 1.2rem;
     padding: 0.5rem 1rem;
     transition: all 0.3s ease-in-out;
     margin: 0 0.5rem 0 0.5rem;
+    width: fit-content;
 }
 
-.module-trigger {
-    all: unset;
-    margin: 0;
-    font-size: 1.2rem;
-    text-align: center;
-    width: 100%;
-    max-width: 80%;
-    height: 100%;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-.module-trigger:hover {
-    transform: scale(1.1);
-}
-
-.module .content {
-    font-size: 1.6rem;
-    border-bottom: 2px solid black;
-}
-
-footer {
+.module-timer-container {
     position: absolute;
-    width: 100%;
+    top: 1rem;
+    right: 1rem;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.step-indicator {
-    font-size: 1.2rem;
-    font-weight: 300;
-    width: inherit;
-    display: flex;
-    justify-content: end;
-    margin: 0.4rem 1.1rem 0 0;
-    color: rgba(0, 0, 0, 0.6)
-}
-
-.step {
-    margin: 0.4rem;
-}
-
-li.module:nth-of-type(1) {
-    left: 20%;
-    top: 0;
+    flex-direction: column;
+    align-items: end;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <span class="module-timer">
-        Time Till Next Module Activation: <span class="time">{{ formattedTime }}</span>
+        Next Module Activates in: <span class="time">{{ formattedTime }}</span>
     </span>
 </template>
 <script>
@@ -147,10 +147,15 @@ export default {
 .module-timer {
     font-family: 'Open Sans', sans-serif;
     font-size: 1rem;
-    display: flex;
+    text-decoration: dotted;
+    font-weight: 200;
+    width: 80%;
+    text-align: right;
+    margin-bottom: 1em;
 }
+
 .time {
-   text-decoration: dotted;
    font-weight: bold;
+   font-size: 1.4rem;
 }
 </style>
