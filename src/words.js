@@ -20,7 +20,6 @@ const pronouns = {
     'o': 'she/he',
     'mi': 'me',
     'mo': 'I',
-    'Nikor': 'what',
     'Bokor': 'what/where',
     'nikọ': 'what',
     'dede': 'all',

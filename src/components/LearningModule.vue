@@ -128,17 +128,6 @@ export default {
             modulePassed: false
         }
     },
-    computed: {
-        isModuleDisabled() {
-            return (module) => {
-                if (!this.shouldModuleBeActive) return !this.shouldModuleBeActive;
-                if (module !== this.activeModule && this.activeModule !== null) {
-                    return true;
-                }
-               return false;
-            }
-        }
-    },
     components: {
         ModuleTimer,
         MiniQuiz
@@ -169,6 +158,13 @@ export default {
         });
     },
     methods: {
+        isModuleDisabled(module) {
+            if (!this.shouldModuleBeActive) return !this.shouldModuleBeActive;
+            if (module !== this.activeModule && this.activeModule !== null) {
+                return true;
+            }
+            return false;
+        },
         partitionedStepContent(module) {
             const steps = this.moduleStepsCount[module];
             if (module === 'pronouns') {
@@ -285,6 +281,7 @@ export default {
             this.modulePassed = true;
         },
         completeModule(module, event) {
+            debugger;
             const store = moduleProgress();
             store.completeModule(moduleToStoreMap[module]);
             console.log(`${module} completed!`);
