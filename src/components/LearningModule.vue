@@ -159,7 +159,9 @@ export default {
     },
     methods: {
         isModuleDisabled(module) {
-            if (!this.shouldModuleBeActive) return !this.shouldModuleBeActive;
+            // timer is on and so no modules should be enabled
+            if (!this.shouldModuleBeActive) return true;
+            // timer is off check if module is active (i.e expanded)
             if (module !== this.activeModule && this.activeModule !== null) {
                 return true;
             }

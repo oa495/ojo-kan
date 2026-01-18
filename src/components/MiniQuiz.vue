@@ -43,7 +43,7 @@
     methods: {
         validateAnswer(e, translated, index) {
             let val = e.target.value;
-            if (val === translated) {
+            if (val.toLowerCase() === translated.toLowerCase()) {
                 if (index == 0) {
                     this.firstAnswer = true;
                 } else {
