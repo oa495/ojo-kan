@@ -197,6 +197,6 @@ fieldset button {
   display: inline-block;
   border-bottom: 1px solid #fff;
   cursor: pointer;
-  font-size: 3.5rem;
+  font-size: 1.8rem;
 }
 </style>
