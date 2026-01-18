@@ -2,7 +2,7 @@
     <section class="modules">
         <ul>
             <li class="module inactive" v-for="module in modules" :key="module">
-                <button :disabled="isModuleDisabled(module)" @click="startModule(module, $event)" class="module-trigger">
+                <button :disabled="!isModuleActive(module)" @click="startModule(module, $event)" class="module-trigger">
                     <span v-if="module === activeModule">X</span>
                     <span v-else>{{ moduleNameToLongNameMap[module] }}</span>
                 </button>
@@ -158,15 +158,6 @@ export default {
         });
     },
     methods: {
-        isModuleDisabled(module) {
-            // timer is on and so no modules should be enabled
-            if (!this.shouldModuleBeActive) return true;
-            // timer is off check if module is active (i.e expanded)
-            if (module !== this.activeModule && this.activeModule !== null) {
-                return true;
-            }
-            return false;
-        },
         partitionedStepContent(module) {
             const steps = this.moduleStepsCount[module];
             if (module === 'pronouns') {
@@ -196,13 +187,43 @@ export default {
             this.modulePassed = false;
         },
         isModuleActive(module) {
-            if (this.shouldModuleBeActive) {
+            /*
+                The possible cases:
+                 - Flow has just started, all modules active
+                 - flow has started and a module has been selected, others are inactive
+                 - A module has been completed so all modules are inactive, timer is on
+                 - timer is off check module progress
+            */
+            // if this is false that means we have finished a module
+            if (!this.shouldModuleBeActive) {
+                // if timer is on then no modules should be active
+                if (this.displayTimer()) return false;
+                // if timer is off then it's time to reactivate
+                // check localstorage, some modules may be completed
                 const progress = localStorage.getItem('moduleProgress');
                 if (progress) {
                     const parsedProgress = JSON.parse(progress);
                     return !parsedProgress[moduleToStoreMap[module]];
                 }
-                return this.shouldModuleBeActive;
+            } else {
+                // either we are just starting or the timer just went off or 
+                // we have started and haven't finished a module
+
+                // no module has been started yet
+                if (this.activeModule === null) {
+                    // module has been finished before
+                    const progress = localStorage.getItem('moduleProgress');
+                    if (progress) {
+                        const parsedProgress = JSON.parse(progress);
+                        return !parsedProgress[moduleToStoreMap[module]];
+                    }
+                    // no progress captured, all modules can be active
+                    return true;
+                }
+                else if (module === this.activeModule) { // activeModule is not null so only "activate" the active module
+                    return true;
+                } 
+                return false;
             }
             return false;
         },
@@ -283,7 +304,6 @@ export default {
             this.modulePassed = true;
         },
         completeModule(module, event) {
-            debugger;
             const store = moduleProgress();
             store.completeModule(moduleToStoreMap[module]);
             console.log(`${module} completed!`);

@@ -63,10 +63,7 @@ export default {
     },
     methods: {
         setElapsedTime(lastFinishedTimestamp) {
-            const store = moduleProgress();
-            // store.resetAllProgress();
-            // localStorage.clear();
-           
+            const store = moduleProgress();           
             let progressInStorage = localStorage.getItem('moduleProgress');
 
             console.log(progressInStorage, '---');
