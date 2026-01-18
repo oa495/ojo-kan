@@ -138,4 +138,13 @@ main p {
   color: white;
 }
 
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button:disabled:hover {
+  background-color: white;
+  color: black;
+}
 </style>

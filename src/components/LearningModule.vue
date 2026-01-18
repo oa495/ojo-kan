@@ -8,18 +8,29 @@
                 </button>
                 <div class="content" v-if="module === activeModule && step > 0">
                     <span class="step-indicator">
-                        {{ step }} / {{ moduleSteps[module] }}
+                        {{ step }} / {{ moduleStepsCount[module] }}
                     </span>
-                    <div class="step">
-                        <p>This is the content for {{ module }}.</p>
-                        <p>La la la </p>
-                        <p>La la la </p>
-                    </div>
+                    <ul class="steps">
+                        <li class="step" v-for="(partitionedStepContent, partitionedStepContentIndex) in partitionedStepContent(module)" :key="partitionedStepContentIndex"
+                        v-show="step === partitionedStepContentIndex + 1"
+                        >
+                            <table>
+                                <tr class="row" v-for="(translation, itsekiriWord) in partitionedStepContent" :key="itsekiriWord">
+                                    <span class="word itsekiri"><td>{{ itsekiriWord }}</td></span>
+                                    <span>&rarr;</span>
+                                    <span class="word"><td>{{ translation }}</td></span>
+                                </tr>
+                            </table>
+                        </li>
+                        <li v-if="step === moduleStepsCount[module]">
+                            <MiniQuiz @passModule="passModule" :stepContent="stepContent(module)" />
+                        </li>
+                    </ul>
                     <footer>
-                        <button class="step-button" :disabled="step <= 1" v-on:click="updateStep(-1)">←</button>
-                        <button class="step-button button" v-if="isLastStep()" v-on:click="completeModule(module, $event)">Complete {{
+                        <button class="step-button button" :disabled="step <= 1 ? true : false" v-on:click="updateStep(-1)">←</button>
+                       <button class="step-button button" v-if="isLastStep()" :disabled="!modulePassed ? true : false" @click="completeModule(module, $event)">Complete {{
                             module }}</button>
-                        <button class="step-button" :disabled="isLastStep()" v-else
+                        <button class="step-button button" :disabled="isLastStep()" v-else
                             v-on:click="updateStep(1)">→</button>
                     </footer>
                 </div>
@@ -36,6 +47,8 @@
 import { moduleProgress } from '@/stores/module-progress'
 import { learningFrequency } from '@/stores/frequency';
 import ModuleTimer from './ModuleTimer.vue';
+import { verbs, pronouns, nouns } from '../words'
+import MiniQuiz from './MiniQuiz.vue';
 
 const moduleToStoreMap = {
     'pronouns': 'module1',
@@ -74,6 +87,28 @@ function generateRandomPositionsOutsideCircle({
   return positions;
 }
 
+function partitionProperties(obj, partsCount) {
+  // 1. Convert the object's properties into an array of [key, value] entries
+  const entries = Object.entries(obj); //
+  const totalEntries = entries.length;
+  const parts = [];
+
+  // 2. Iterate and use slice to divide the entries into N chunks
+  for (let i = 1, start = 0; i <= partsCount; ++i) {
+    // Calculate the end index for each slice
+    // Using bitwise OR 0 ( | 0) is a fast way to get an integer part (floor)
+    const end = (i / partsCount * totalEntries) | 0;
+
+    // 3. Slice the array of entries and convert each chunk back to an object
+    const chunk = entries.slice(start, end);
+    parts.push(Object.fromEntries(chunk)); //
+
+    start = end;
+  }
+
+  return parts;
+}
+
 export default {
     name: 'LearningModule',
     data() {
@@ -83,13 +118,14 @@ export default {
             activeModule: null,
             shouldModuleBeActive: true,
             timeStarted: null,
-            moduleSteps: {
-                'pronouns': 4,
-                'nouns': 2,
-                'verbs': 5,
+            moduleStepsCount: {
+                'pronouns': Math.round(Object.keys(pronouns).length / 4) + 1,
+                'nouns': Math.round(Object.keys(nouns).length / 4) + 1,
+                'verbs': Math.round(Object.keys(verbs).length / 4) + 1,
             },
             moduleNameToLongNameMap: moduleNameToLongNameMap,
-            frequency: learningFrequency().frequency
+            frequency: learningFrequency().frequency,
+            modulePassed: false
         }
     },
     computed: {
@@ -104,10 +140,10 @@ export default {
         }
     },
     components: {
-        ModuleTimer
+        ModuleTimer,
+        MiniQuiz
     },
     mounted() {
-     
         const appDiv = document.querySelector('#app');
         const rect = appDiv.getBoundingClientRect();
 
@@ -132,14 +168,34 @@ export default {
             module.style.transform = 'translate(-50%, -50%)';
         });
     },
-    emits: ["completeModule"],
     methods: {
+        partitionedStepContent(module) {
+            const steps = this.moduleStepsCount[module];
+            if (module === 'pronouns') {
+                return partitionProperties(pronouns, steps - 1);
+            } else if (module === 'nouns') {
+               return partitionProperties(nouns, steps - 1);
+            } else if (module === 'verbs') {
+                return partitionProperties(verbs, steps - 1);
+            }
+            return content;
+        },
+        stepContent(module) {
+            if (module === 'pronouns') {
+                return pronouns;
+            } else if (module === 'nouns') {
+               return nouns;
+            } else if (module === 'verbs') {
+                return verbs;
+            }
+        },
         resetAll() {
             localStorage.clear()
             this.shouldModuleBeActive = true;
             this.timeStarted = null;
             this.step = 1;
             this.activeModule = null;
+            this.modulePassed = false;
         },
         isModuleActive(module) {
             if (this.shouldModuleBeActive) {
@@ -167,7 +223,7 @@ export default {
         updateStep(direction) {
             let activeModule = this.activeModule;
             // get total steps for active module
-            let totalSteps = this.moduleSteps[activeModule];
+            let totalSteps = this.moduleStepsCount[activeModule];
             if (direction === -1) {
                 if (this.step <= 1) return;
                 this.step -= 1;
@@ -225,6 +281,9 @@ export default {
             elementToGrow.style.left = `${targetDimensions.left + targetWidth / 2}px`;
             elementToGrow.style.top = `${targetDimensions.top + targetHeight / 2}px`;
         },
+        passModule() {
+            this.modulePassed = true;
+        },
         completeModule(module, event) {
             const store = moduleProgress();
             store.completeModule(moduleToStoreMap[module]);
@@ -232,6 +291,7 @@ export default {
             localStorage.setItem('moduleProgress', JSON.stringify(store.moduleProgress));
             this.activeModule = null;
             this.shouldModuleBeActive = false;
+            this.modulePassed = false;
             this.step = 1;
             this.timeStarted = new Date().getTime();
             localStorage.setItem('timerOn', true);
@@ -240,7 +300,7 @@ export default {
         },
         isLastStep() {
             let activeModule = this.activeModule;
-            let totalSteps = this.moduleSteps[activeModule];
+            let totalSteps = this.moduleStepsCount[activeModule];
             return this.step === totalSteps;
         }
     },
@@ -256,7 +316,7 @@ export default {
     list-style-type: none;
 }
 
-.modules li {
+.modules .module {
     width: 8em;
     height: 8em;
     position: absolute;
@@ -351,15 +411,20 @@ footer {
     align-self: flex-end;
 }
 
-.step {
+.steps {
     margin: 0.4rem;
     width: 100%;
     min-height: 80%;
 }
 
+.step {
+    display: grid;
+    height: inherit;
+    font-size: 1.4em;
+}
+
 .step-button {
     font-size: 1.2rem;
-    padding: 0.5rem 1rem;
     transition: all 0.3s ease-in-out;
     margin: 0 0.5rem 0 0.5rem;
     width: fit-content;
@@ -372,5 +437,20 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: end;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .2em;
+}
+
+.word {
+    padding: 0 1em;
+}
+
+.word.itsekiri {
+    border-bottom: 1px dashed;
 }
 </style>
