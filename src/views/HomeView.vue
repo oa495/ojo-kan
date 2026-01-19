@@ -71,6 +71,14 @@ export default {
           el.classList.add('translated');
           el.dataset.translation = word;
       });
+    },
+    resetAllModules() {
+        const translated = document.querySelectorAll('.translated');
+        translated.forEach(el => {
+            const originalWord = el.dataset.translation;
+            el.textContent = originalWord;
+            el.classList.remove('translated');
+        });
     }
   }
 }
@@ -144,7 +152,7 @@ export default {
       </p>
     </main>
   </div>
-  <LearningModule @completeModule="onCompleteModule"  />
+  <LearningModule @completeModule="onCompleteModule" @reset="resetAllModules" />
 </template>
 
 <style>

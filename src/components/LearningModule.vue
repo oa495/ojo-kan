@@ -16,9 +16,9 @@
                         >
                             <table>
                                 <tr class="row" v-for="(translation, itsekiriWord) in partitionedStepContent" :key="itsekiriWord">
-                                    <span class="word itsekiri"><td>{{ itsekiriWord }}</td></span>
-                                    <span>&rarr;</span>
-                                    <span class="word"><td>{{ translation }}</td></span>
+                                    <td> <span class="word itsekiri">{{ itsekiriWord }}</span></td>
+                                    <td>&rarr;</td>
+                                    <td class="word"><span>{{ translation }}</span></td>
                                 </tr>
                             </table>
                         </li>
@@ -38,8 +38,8 @@
             </li>
         </ul>
     </section>
-    <div class="module-timer-container" v-if="displayTimer()" >
-        <ModuleTimer @activateModule="activateModules" :frequency="frequency" :timeStarted="timeStarted" />
+    <div class="module-timer-container">
+        <ModuleTimer v-if="displayTimer()" @activateModule="activateModules" :frequency="frequency" :timeStarted="timeStarted" />
         <button class="button" @click="resetAll">Reset Modules</button>
     </div>
 </template>
@@ -132,6 +132,7 @@ export default {
         ModuleTimer,
         MiniQuiz
     },
+    emits: ["completeModule", "reset"],
     mounted() {
         const appDiv = document.querySelector('#app');
         const rect = appDiv.getBoundingClientRect();
@@ -157,6 +158,53 @@ export default {
             module.style.transform = 'translate(-50%, -50%)';
         });
     },
+    computed: {
+        isModuleActive() {
+             return (module) => {
+                /*
+                    The possible cases:
+                    - Flow has just started, all modules active
+                    - flow has started and a module has been selected, others are inactive
+                    - A module has been completed so all modules are inactive, timer is on
+                    - timer is off check module progress
+                    - reload, timer is on
+                */
+                // if timer is on then no modules should be active
+                if (this.displayTimer()) return false;
+
+                // if this is false that means we have finished a module
+                if (!this.shouldModuleBeActive) {
+                    // if timer is on then no modules should be active
+                    // if timer is off then it's time to reactivate
+                    // check localstorage, some modules may be completed
+                    const progress = localStorage.getItem('moduleProgress');
+                    if (progress) {
+                        const parsedProgress = JSON.parse(progress);
+                        return !parsedProgress[moduleToStoreMap[module]];
+                    }
+                } else {
+                    // either we are just starting or the timer just went off or 
+                    // we have started and haven't finished a module
+                    // no module has been started yet or we're resetting
+                    if (this.activeModule === null) {
+                        // module has been finished before
+                        const progress = localStorage.getItem('moduleProgress');
+                        if (progress) {
+                            const parsedProgress = JSON.parse(progress);
+                            return !parsedProgress[moduleToStoreMap[module]];
+                        }
+                        // no progress captured, all modules can be active
+                        return true;
+                    }
+                    else if (module === this.activeModule) { // activeModule is not null so only "activate" the active module
+                        return true;
+                    } 
+                    return false;
+                }
+                return false;
+            }
+        },
+    },
     methods: {
         partitionedStepContent(module) {
             const steps = this.moduleStepsCount[module];
@@ -179,53 +227,12 @@ export default {
             }
         },
         resetAll() {
-            localStorage.clear()
+            localStorage.clear();
             this.shouldModuleBeActive = true;
-            this.timeStarted = null;
             this.step = 1;
             this.activeModule = null;
             this.modulePassed = false;
-        },
-        isModuleActive(module) {
-            /*
-                The possible cases:
-                 - Flow has just started, all modules active
-                 - flow has started and a module has been selected, others are inactive
-                 - A module has been completed so all modules are inactive, timer is on
-                 - timer is off check module progress
-            */
-            // if this is false that means we have finished a module
-            if (!this.shouldModuleBeActive) {
-                // if timer is on then no modules should be active
-                if (this.displayTimer()) return false;
-                // if timer is off then it's time to reactivate
-                // check localstorage, some modules may be completed
-                const progress = localStorage.getItem('moduleProgress');
-                if (progress) {
-                    const parsedProgress = JSON.parse(progress);
-                    return !parsedProgress[moduleToStoreMap[module]];
-                }
-            } else {
-                // either we are just starting or the timer just went off or 
-                // we have started and haven't finished a module
-
-                // no module has been started yet
-                if (this.activeModule === null) {
-                    // module has been finished before
-                    const progress = localStorage.getItem('moduleProgress');
-                    if (progress) {
-                        const parsedProgress = JSON.parse(progress);
-                        return !parsedProgress[moduleToStoreMap[module]];
-                    }
-                    // no progress captured, all modules can be active
-                    return true;
-                }
-                else if (module === this.activeModule) { // activeModule is not null so only "activate" the active module
-                    return true;
-                } 
-                return false;
-            }
-            return false;
+            this.$emit('reset', true);
         },
         activateModules() {
             this.timeStarted = null;

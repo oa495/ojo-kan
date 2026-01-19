@@ -8,7 +8,7 @@ import { moduleProgress } from '@/stores/module-progress'
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 const ONE_WEEK_MS = 7 * ONE_DAY_MS; // 7 days in milliseconds
-const ONE_HOUR_MS = 60 * 1000; // 1 hour in milliseconds
+const ONE_HOUR_MS = 60 * 2 * 1000; // 1 hour in milliseconds
 
 
 // const ONE_DAY_MS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
@@ -31,7 +31,9 @@ export default {
         }
     },
     mounted() {
+        console.log(localStorage)
         let lastModuleFinishedTimestamp = localStorage.getItem('lastModuleFinishedTimestamp');
+        console.log('last finished val', lastModuleFinishedTimestamp)
         // timer already running
         if (this.timerId) {
             return;
@@ -111,8 +113,10 @@ export default {
             return timeToWait;
         },
         startTimer(timeToWait) {
-            // set time in local storage 
-            localStorage.setItem('lastModuleFinishedTimestamp', this.timeStarted);      
+            // set time in local storage if it isn't set already
+            if (this.timeStarted) {
+                localStorage.setItem('lastModuleFinishedTimestamp', this.timeStarted);      
+            }
             // ensure timeToWait is defined
             timeToWait = timeToWait || 0;
 
