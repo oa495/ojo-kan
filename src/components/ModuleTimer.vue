@@ -31,7 +31,6 @@ export default {
         }
     },
     mounted() {
-        console.log(localStorage)
         let lastModuleFinishedTimestamp = localStorage.getItem('lastModuleFinishedTimestamp');
         console.log('last finished val', lastModuleFinishedTimestamp)
         // timer already running

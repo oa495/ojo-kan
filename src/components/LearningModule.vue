@@ -39,7 +39,7 @@
         </ul>
     </section>
     <div class="module-timer-container">
-        <ModuleTimer v-if="displayTimer()" @activateModule="activateModules" :frequency="frequency" :timeStarted="timeStarted" />
+        <ModuleTimer v-if="displayTimer" @activateModule="activateModules" :frequency="frequency" :timeStarted="timeStarted" />
         <button class="button" @click="resetAll">Reset Modules</button>
     </div>
 </template>
@@ -157,6 +157,13 @@ export default {
             module.style.top = `calc(10% + ${positions[index].y}px)`;
             module.style.transform = 'translate(-50%, -50%)';
         });
+
+        // set time started if timer is on
+        const timerState = localStorage.getItem('timerOn');
+        if (timerState && timerState === 'true') {
+            const timeStarted = localStorage.getItem('lastModuleFinishedTimestamp');
+            if (timeStarted) this.timeStarted = parseInt(timeStarted);
+        }
     },
     computed: {
         isModuleActive() {
@@ -170,7 +177,7 @@ export default {
                     - reload, timer is on
                 */
                 // if timer is on then no modules should be active
-                if (this.displayTimer()) return false;
+                if (this.displayTimer) return false;
 
                 // if this is false that means we have finished a module
                 if (!this.shouldModuleBeActive) {
@@ -204,6 +211,9 @@ export default {
                 return false;
             }
         },
+        displayTimer() {
+            return this.timeStarted;
+        },
     },
     methods: {
         partitionedStepContent(module) {
@@ -227,8 +237,11 @@ export default {
             }
         },
         resetAll() {
-            localStorage.clear();
             this.shouldModuleBeActive = true;
+            this.timeStarted = null;
+
+            console.log('h', this.shouldModuleBeActive);
+            localStorage.clear();
             this.step = 1;
             this.activeModule = null;
             this.modulePassed = false;
@@ -240,14 +253,6 @@ export default {
             this.timeStarted = null;
             this.shouldModuleBeActive = true;
             localStorage.removeItem('timerOn');
-        },
-        displayTimer() {
-            const timerState = localStorage.getItem('timerOn');
-            if (timerState) {
-                debugger;
-                return timerState === 'true' ? true : false;
-            }        
-            return !this.shouldModuleBeActive;
         },
         updateStep(direction) {
             let activeModule = this.activeModule;
