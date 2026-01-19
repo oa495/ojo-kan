@@ -232,16 +232,19 @@ export default {
             this.step = 1;
             this.activeModule = null;
             this.modulePassed = false;
+            let store = moduleProgress();
+            store.resetAllProgress();
             this.$emit('reset', true);
         },
         activateModules() {
             this.timeStarted = null;
             this.shouldModuleBeActive = true;
-            localStorage.setItem('timerOn', false);
+            localStorage.removeItem('timerOn');
         },
         displayTimer() {
             const timerState = localStorage.getItem('timerOn');
             if (timerState) {
+                debugger;
                 return timerState === 'true' ? true : false;
             }        
             return !this.shouldModuleBeActive;
@@ -311,10 +314,24 @@ export default {
             this.modulePassed = true;
         },
         completeModule(module, event) {
+            // get progress from localstorage and update store (which does not persist on reload)
+            const progress = localStorage.getItem('moduleProgress');
             const store = moduleProgress();
+
+            let parsedProgress;
+            if (progress) {
+                parsedProgress = JSON.parse(progress);
+                for (let module in parsedProgress) {
+                    if (parsedProgress[module] === true) {
+                        store.completeModule(module);
+                    }
+                }
+            }
+
             store.completeModule(moduleToStoreMap[module]);
             console.log(`${module} completed!`);
             localStorage.setItem('moduleProgress', JSON.stringify(store.moduleProgress));
+
             this.activeModule = null;
             this.shouldModuleBeActive = false;
             this.modulePassed = false;

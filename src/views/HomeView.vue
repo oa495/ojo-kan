@@ -1,7 +1,20 @@
 <script>
 import LearningModule from '../components/LearningModule.vue'
+import { moduleProgress } from '@/stores/module-progress'
 import { learningFrequency } from '@/stores/frequency'
 import { verbs, pronouns, nouns, allWords } from '../words'
+
+const moduleToStoreMap = {
+    'pronouns': 'module1',
+    'nouns': 'module2',
+    'verbs': 'module3',
+};
+
+const storeToModuleMap = {
+    'module1': 'pronouns',
+    'module2': 'nouns',
+    'module3': 'verbs',
+};
 
 export default {
   data() {
@@ -17,10 +30,10 @@ export default {
       this.$nextTick(() => {
         let paragraphs = document.querySelectorAll('main p');
         paragraphs.forEach(paragraph => {
-          const originalText = paragraph.textContent;
-          const wordsAndSeparators = originalText.split(/(\s+)/);
-          const newHTML = wordsAndSeparators.map(part => {
-              // Check if the part (trimmed and lowercased) is in our object
+            const originalText = paragraph.textContent;
+            const wordsAndSeparators = originalText.split(/(\s+)/);
+            const newHTML = wordsAndSeparators.map(part => {
+                // Check if the part (trimmed and lowercased) is in our object
             const cleanedPart = part.trim().toLowerCase().replace(/[.,!?;:"]/g, '');
             const translation = allWords[cleanedPart];
             if (translation) {
@@ -36,10 +49,24 @@ export default {
             }
             // Otherwise, return the part as is (including spaces and punctuation)
             return part;
-         }).join('');
+            }).join('');
 
-        paragraph.innerHTML = newHTML;
-      });
+            paragraph.innerHTML = newHTML;
+        });
+      
+        const progress = localStorage.getItem('moduleProgress');
+        const store = moduleProgress();
+
+        let parsedProgress;
+        if (progress) {
+            parsedProgress = JSON.parse(progress);
+            for (let module in parsedProgress) {
+                if (parsedProgress[module] === true) {
+                    store.completeModule(module);
+                    this.onCompleteModule(storeToModuleMap[module]);
+                }
+            }
+        }
     });
   },
   methods: {
@@ -65,9 +92,13 @@ export default {
           break;
       }
       moduleElements.forEach(el => {
-          const word = el.textContent.trim().toLowerCase();
-          const translation = wordsToHighlight[word];
-          el.textContent = translation;
+          const text = el.textContent.trim().toLowerCase();
+          // split word from punctuation safely
+          const match = text.match(/^([a-zA-Z]+)([.,!?;:]*)$/);
+          const word = match ? match[1] : text;
+          const punctuation = match ? match[2] : '';
+          const translation = wordsToHighlight[word] || text;
+          el.textContent = translation + punctuation;
           el.classList.add('translated');
           el.dataset.translation = word;
       });

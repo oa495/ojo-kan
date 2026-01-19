@@ -122,7 +122,7 @@ export default {
 
             // reactive remaining time and activation flag
             this.timeRemaining = timeToWait;
-
+            console.log('Starting timer for', timeToWait, this.timeRemaining);
             // update remaining time every second
             this.timerId = setInterval(() => {
                 if (this.timeRemaining <= 1000) {
@@ -130,15 +130,16 @@ export default {
                     clearInterval(this.timerId);
                 } else {
                     this.timeRemaining -= 1000;
-                    console.log('Time remaining:', this.timeRemaining);
                 }
             }, 1000);
 
             // final activation timeout
             this.activationTimeoutId = setTimeout(() => {
                 // activate modules
-                this.$emit('activateModule', true); 
                 clearInterval(this.timerId);
+                clearTimeout(this.activationTimeoutId);
+                localStorage.removeItem('lastModuleFinishedTimestamp');
+                this.$emit('activateModule', true); 
             }, timeToWait);
         }
     }
