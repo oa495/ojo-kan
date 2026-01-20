@@ -4,11 +4,6 @@ import { moduleProgress } from '@/stores/module-progress'
 import { learningFrequency } from '@/stores/frequency'
 import { verbs, pronouns, nouns, allWords } from '../words'
 
-const moduleToStoreMap = {
-    'pronouns': 'module1',
-    'nouns': 'module2',
-    'verbs': 'module3',
-};
 
 const storeToModuleMap = {
     'module1': 'pronouns',
