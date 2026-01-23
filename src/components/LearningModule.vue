@@ -138,7 +138,7 @@ export default {
         const rect = appDiv.getBoundingClientRect();
 
         const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
+        const centerY = rect.top + rect.height / 2 + window.scrollY;
         const circleRadius = rect.width / 2;
         
 
@@ -153,7 +153,7 @@ export default {
         const modules = document.querySelectorAll('li.module');
 
         modules.forEach((module, index) => {            
-            module.style.left = `${positions[index].x}px)`;
+            module.style.left = `${positions[index].x}px`;
             module.style.top = `calc(10% + ${positions[index].y}px)`;
             module.style.transform = 'translate(-50%, -50%)';
         });
@@ -240,7 +240,6 @@ export default {
             this.shouldModuleBeActive = true;
             this.timeStarted = null;
 
-            console.log('h', this.shouldModuleBeActive);
             localStorage.clear();
             this.step = 1;
             this.activeModule = null;
@@ -302,9 +301,12 @@ export default {
             // This provides precise, floating-point values for the total rendered width and height
             const targetElement = document.querySelector('.circle');
             const elementToGrow = liElement;
+            
             const targetDimensions = targetElement.getBoundingClientRect();
             const targetWidth = targetDimensions.width;
             const targetHeight = targetDimensions.height;
+
+            console.log('Target Dimensions:', targetWidth, targetHeight);
 
             // Apply the retrieved dimensions to the element to grow
             // We must append 'px' to the numeric values when setting the style properties
@@ -313,7 +315,7 @@ export default {
 
             // set position to on top of target element
             elementToGrow.style.left = `${targetDimensions.left + targetWidth / 2}px`;
-            elementToGrow.style.top = `${targetDimensions.top + targetHeight / 2}px`;
+            elementToGrow.style.top = `${(targetDimensions.top + targetHeight / 2) + window.scrollY}px`;
         },
         passModule() {
             this.modulePassed = true;

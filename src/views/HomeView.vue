@@ -116,7 +116,7 @@ export default {
     <h1>
       Ọj'ọkan
     </h1>
-    <p class="project-description">An Itsekiri folktake that unveils itself to the reader as they learn the language step by step.
+    <p class="project-description">An Itsekiri folktake that unveils itself to the reader as they learn the language step by step. Click on a 
     </p>
     <fieldset class="frequency-selection">
       <legend>Choose a frequency:</legend>
