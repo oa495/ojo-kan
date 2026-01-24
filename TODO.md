@@ -2,7 +2,9 @@
 [] - Get the folk tale text and translation
 [] - creative module names
 [] - words without an easy translation? how to handle
-[] - rearrange + animate words after whole module is finished? because they won't always make sense translated directly to english
+[] - FINAL STATE: 
+    - rearrange + animate words after whole module because they won't always make sense translated directly to english
+    - flip background to black
 [x] - Break it up into "modules". Each word should have its translation and its module
 [x] - make sure frequency works (it can't work when the timer is going)
 [x] - store frequency also in localstorage
