@@ -62,30 +62,44 @@ const moduleNameToLongNameMap = {
     'verbs': 'What shall we do today?',
 };
 
-function generateRandomPositionsOutsideCircle({
-  centerX,
-  centerY,
-  circleRadius,
-  count,
-  minOffset = 20,   // minimum distance outside the circle
-  maxOffset = 80    // maximum distance outside the circle
-}) {
+function generateRandomPositionsOutsideCircle({ count }) {
   const positions = [];
+  const radius = 55; // percentage; 0 is center of circle, 50 is on circumference, 55 is slightly outside
 
   for (let i = 0; i < count; i++) {
-     const angle = Math.random() * Math.PI * 2;
-    const distance =
-      circleRadius +
-      minOffset +
-      Math.random() * (maxOffset - minOffset);
+    const baseAngle = (i / count) * Math.PI * 2;
+    const angle = baseAngle + Math.random() * (1.2 / count) * Math.PI;
 
-    const x = centerX + Math.cos(angle) * distance;
-    const y = centerY + Math.sin(angle) * distance;
+    const x = 50 + Math.cos(angle) * radius;
+    const y = 50 + Math.sin(angle) * radius;
     positions.push({ x, y });
   }
 
-  return positions;
+  return shuffleArray(positions);
 }
+
+function placeModules() {
+  const modules = document.querySelectorAll("li.module");
+
+  const positions = generateRandomPositionsOutsideCircle({
+    count: modules.length
+  });
+
+  modules.forEach((module, index) => {
+    module.style.left = `${positions[index].x}%`;
+    module.style.top = `calc(${positions[index].y}%)`;
+    // module.style.transform = "translate(-50%, -50%)";
+  });
+}
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 
 function partitionProperties(obj, partsCount) {
   // 1. Convert the object's properties into an array of [key, value] entries
@@ -134,29 +148,7 @@ export default {
     },
     emits: ["completeModule", "reset"],
     mounted() {
-        const appDiv = document.querySelector('#app');
-        const rect = appDiv.getBoundingClientRect();
-
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2 + window.scrollY;
-        const circleRadius = rect.width / 2;
-        
-
-        const positions = generateRandomPositionsOutsideCircle({
-            centerX,
-            centerY,
-            circleRadius,
-            count: 20,
-            minOffset: 15,
-            maxOffset: 60
-        });
-        const modules = document.querySelectorAll('li.module');
-
-        modules.forEach((module, index) => {            
-            module.style.left = `${positions[index].x}px`;
-            module.style.top = `calc(10% + ${positions[index].y}px)`;
-            module.style.transform = 'translate(-50%, -50%)';
-        });
+        placeModules();
 
         // set time started if timer is on
         const timerState = localStorage.getItem('timerOn');
@@ -281,13 +273,13 @@ export default {
             // Find the closest li ancestor
             const liElement = element.closest('li.module');
             liElement.classList.remove('active');
+            liElement.classList.remove('active-step-two');
+
             liElement.classList.add('inactive');
 
             // Reset styles
             liElement.style.width = '';
             liElement.style.height = '';
-            liElement.style.left = '';
-            liElement.style.top = '';
         },
         growElement(el) {
             // Get element
@@ -299,7 +291,7 @@ export default {
 
             // Get the computed dimensions of the target element using getBoundingClientRect()
             // This provides precise, floating-point values for the total rendered width and height
-            const targetElement = document.querySelector('.circle');
+            const targetElement = document.querySelector('.modules');
             const elementToGrow = liElement;
             
             const targetDimensions = targetElement.getBoundingClientRect();
@@ -311,11 +303,7 @@ export default {
             // Apply the retrieved dimensions to the element to grow
             // We must append 'px' to the numeric values when setting the style properties
             elementToGrow.style.width = `${targetWidth}px`;
-            elementToGrow.style.height = `${targetHeight}px`;
-
-            // set position to on top of target element
-            elementToGrow.style.left = `${targetDimensions.left + targetWidth / 2}px`;
-            elementToGrow.style.top = `${(targetDimensions.top + targetHeight / 2) + window.scrollY}px`;
+            elementToGrow.style.height = `${targetHeight}px`;            
         },
         passModule() {
             this.modulePassed = true;
@@ -366,6 +354,12 @@ export default {
     list-style-type: none;
 }
 
+.modules {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
 .modules .module {
     width: 8em;
     height: 8em;
@@ -380,7 +374,14 @@ export default {
 }
 
 li.module {
-    transition: all 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out, left 0.3s ease-in-out, top 0.3s ease-in-out;
+    z-index: 99;
+}
+
+.module.active {
+    z-index: 1000;
+    left: unset !important;
+    top: unset !important;
 }
 
 .module.active .module-trigger {
@@ -481,12 +482,9 @@ footer {
 }
 
 .module-timer-container {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
     display: flex;
     flex-direction: column;
-    align-items: end;
+    align-items: center;
 }
 
 .row {

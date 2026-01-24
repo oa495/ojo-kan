@@ -177,8 +177,8 @@ export default {
         Ọjọ ọkan ke ẹgualẹ okan ni inọ oko ti a ka kpe wun Oribiti.
       </p>
     </main>
+    <LearningModule @completeModule="onCompleteModule" @reset="resetAllModules" />
   </div>
-  <LearningModule @completeModule="onCompleteModule" @reset="resetAllModules" />
 </template>
 
 <style>
@@ -210,6 +210,10 @@ fieldset {
   width: fit-content;
   background: white;
   font-family: 'Open Sans', sans-serif;
+}
+
+main {
+  z-index: 999;
 }
 
 legend {

@@ -26,7 +26,7 @@
 
 [] - visual pattern for differentiating translated words, test out undeline, above line height, background color
 [x] - finalize look of the site
-[] - "blobs" should only render in a certain area***
+[x] - "blobs" should only render in a certain area***
 [] - should be responsive
 
 ## Nice to Have

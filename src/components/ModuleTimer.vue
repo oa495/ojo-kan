@@ -151,7 +151,7 @@ export default {
     text-decoration: dotted;
     font-weight: 200;
     width: 80%;
-    text-align: right;
+    text-align: center;
     margin-bottom: 1em;
 }
 
