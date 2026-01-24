@@ -47,5 +47,5 @@ const nouns = {
     'obirẹn': 'wife'
 }
 
-const allWords = { ...verbs, ...pronouns, ...nouns };
-export { verbs, pronouns, nouns, allWords };
+const allWords = { ...verbs, ...pronouns, ...nouns, ...identifiers };
+export { verbs, pronouns, nouns, identifiers, allWords };

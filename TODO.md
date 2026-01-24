@@ -1,9 +1,9 @@
 
 [] - Get the folk tale text and translation
-[x] - Break it up into "modules". Each word should have its translation and its module
 [] - creative module names
 [] - words without an easy translation? how to handle
-[] - make sure frequency works (it can't work when the timer is going)
+[x] - Break it up into "modules". Each word should have its translation and its module
+[x] - make sure frequency works (it can't work when the timer is going)
 [x] - store frequency also in localstorage
 [x] - decide what the module should be and make it
 [x] - Each module (and word) has the class
@@ -23,15 +23,17 @@
 ### Bugs
 
 [] - reset modules needs reload
+[] - capitalization isn't preserved
 
 ## Visual
 
 [] - visual pattern for differentiating translated words, test out undeline, above line height, background color
+[] - should be responsive
 [x] - finalize look of the site
 [x] - "blobs" should only render in a certain area***
-[] - should be responsive
 
 ## Nice to Have
+
 [] - rearrange + animate words after whole module is finished? because they won't always make sense translated directly to english
 [] - recordings scattered around (to simulate gossip)
 [] - have a reference for the words and translations

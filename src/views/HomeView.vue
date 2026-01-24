@@ -2,13 +2,14 @@
 import LearningModule from '../components/LearningModule.vue'
 import { moduleProgress } from '@/stores/module-progress'
 import { learningFrequency } from '@/stores/frequency'
-import { verbs, pronouns, nouns, allWords } from '../words'
+import { verbs, pronouns, nouns, allWords, identifiers } from '../words'
 
 
 const storeToModuleMap = {
     'module1': 'pronouns',
     'module2': 'nouns',
     'module3': 'verbs',
+    'module4': 'identifiers',
 };
 
 export default {
@@ -38,6 +39,8 @@ export default {
                         ? 'nouns'
                         : Object.keys(verbs).includes(cleanedPart)
                             ? 'verbs'
+                            : Object.keys(identifiers).includes(cleanedPart)
+                               ? 'identifiers'
                             : 'word';
                 // If it is, wrap it in a span with the highlight class
                 return `<span class="${highlightClass}">${part}</span>`;
@@ -89,6 +92,9 @@ export default {
           break;
         case 'verbs':
           wordsToHighlight = verbs;
+          break;
+        case 'identifiers':
+          wordsToHighlight = identifiers;
           break;
       }
       moduleElements.forEach(el => {

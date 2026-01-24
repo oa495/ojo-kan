@@ -47,19 +47,21 @@
 import { moduleProgress } from '@/stores/module-progress'
 import { learningFrequency } from '@/stores/frequency';
 import ModuleTimer from './ModuleTimer.vue';
-import { verbs, pronouns, nouns } from '../words'
+import { verbs, pronouns, nouns, identifiers } from '../words'
 import MiniQuiz from './MiniQuiz.vue';
 
 const moduleToStoreMap = {
     'pronouns': 'module1',
     'nouns': 'module2',
     'verbs': 'module3',
+    'identifiers': 'module4',
 };
 
 const moduleNameToLongNameMap = {
     'pronouns': 'Na...',
     'nouns': 'Who you be?',
     'verbs': 'What shall we do today?',
+    'identifiers': 'not sure',
 };
 
 function generateRandomPositionsOutsideCircle({ count }) {
@@ -136,6 +138,7 @@ export default {
                 'pronouns': Math.round(Object.keys(pronouns).length / 4) + 1,
                 'nouns': Math.round(Object.keys(nouns).length / 4) + 1,
                 'verbs': Math.round(Object.keys(verbs).length / 4) + 1,
+                'identifiers': Math.round(Object.keys(identifiers).length / 4) + 1,
             },
             moduleNameToLongNameMap: moduleNameToLongNameMap,
             frequency: learningFrequency().frequency,
@@ -217,6 +220,9 @@ export default {
             } else if (module === 'verbs') {
                 return partitionProperties(verbs, steps - 1);
             }
+            else if (module === 'identifiers') {
+                return partitionProperties(identifiers, steps - 1);
+            }
             return content;
         },
         stepContent(module) {
@@ -226,6 +232,8 @@ export default {
                return nouns;
             } else if (module === 'verbs') {
                 return verbs;
+            } else if (module === 'identifiers') {
+                return identifiers;
             }
         },
         resetAll() {

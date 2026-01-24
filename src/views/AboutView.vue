@@ -6,7 +6,7 @@
 
             <p>Many times the lessons turned out to be a lot of fun. I relished being able to make my teacher laugh in another language, our language. And when she told me stories about herself, it felt like the kind of story too sweet to reach me in English. </p>
 
-            <p>Itsẹkiri was and is the language of most of her days. But for me growing up, it was the language of secrets -- my mom whispering to my dad in an elevator with foreigners -- and the language I strained to understand talking on the phone with my grandmother. Now, it is slowly becoming the language of tenderness. There is nothing like my mother saying 'duduyemi' or 'otormi to sengwa otormi to na' when she sees me after a long while. And, it is also becoming the language of snark, of conspiration. I am, for the first time ever, <i>sometimes</i> in on the gossip.</p>
+            <p>Itsẹkiri was and is the language of most of her days. But for me growing up, it was the language of secrets—my mom whispering to my dad in an elevator with foreigners—and the language I strained to understand talking on the phone with my grandmother. Now, it is slowly becoming the language of tenderness. There is nothing like my mother saying 'duduyemi' or 'otormi to sengwa otormi to na' when she sees me after a long while. And, it is also becoming the language of snark, of conspiration. I am, for the first time ever, <i>sometimes</i> in on the gossip.</p>
 
             <p>I don't know if it'll ever become my language of quickness, of ease. </p>
 
@@ -42,8 +42,12 @@
     position: absolute;
     top: 1rem;
     left: 1rem;
-    font-size: 2rem;
-    color: black;
+    font-size: 1.5rem;
     text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
 }
 </style>
