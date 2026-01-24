@@ -29,7 +29,7 @@ export default {
             const originalText = paragraph.textContent;
             const wordsAndSeparators = originalText.split(/(\s+)/);
             const newHTML = wordsAndSeparators.map(part => {
-                // Check if the part (trimmed and lowercased) is in our object
+            // Check if the part (trimmed and lowercased) is in our object
             const cleanedPart = part.trim().toLowerCase().replace(/[.,!?;:"]/g, '');
             const translation = allWords[cleanedPart];
             if (translation) {
@@ -98,13 +98,14 @@ export default {
           break;
       }
       moduleElements.forEach(el => {
+          const isUppercase = el.textContent[0] === el.textContent[0].toUpperCase();
           const text = el.textContent.trim().toLowerCase();
           // split word from punctuation safely
           const match = text.match(/^([a-zA-Z]+)([.,!?;:]*)$/);
           const word = match ? match[1] : text;
           const punctuation = match ? match[2] : '';
           const translation = wordsToHighlight[word] || text;
-          el.textContent = translation + punctuation;
+          el.textContent = isUppercase ? translation[0].toUpperCase() + translation.slice(1) + punctuation : translation + punctuation;
           el.classList.add('translated');
           el.dataset.translation = word;
       });
@@ -238,11 +239,15 @@ fieldset button {
   margin-top: 1rem;
 }
 
+.pronouns, .verbs, .nouns, .identifiers {
+  transition: all 0.3s ease-in-out;
+}
+
 .translated {
-  transform: translateY(-10px);
   display: inline-block;
-  border-bottom: 1px solid #fff;
   cursor: pointer;
   font-size: 1.8rem;
+  background-color: black;
+  color: white;
 }
 </style>

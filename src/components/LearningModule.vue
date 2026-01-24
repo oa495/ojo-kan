@@ -39,7 +39,7 @@
         </ul>
     </section>
     <div class="module-timer-container">
-        <ModuleTimer v-if="displayTimer" @activateModule="activateModules" :frequency="frequency" :timeStarted="timeStarted" />
+        <ModuleTimer v-if="displayTimer" @activateModule="activateModules" :timeStarted="timeStarted" />
         <button class="button" @click="resetAll">Reset Modules</button>
     </div>
 </template>
@@ -66,7 +66,7 @@ const moduleNameToLongNameMap = {
 
 function generateRandomPositionsOutsideCircle({ count }) {
   const positions = [];
-  const radius = 55; // percentage; 0 is center of circle, 50 is on circumference, 55 is slightly outside
+  const radius = 65; // percentage; 0 is center of circle, 50 is on circumference, 55 is slightly outside
 
   for (let i = 0; i < count; i++) {
     const baseAngle = (i / count) * Math.PI * 2;
@@ -134,6 +134,7 @@ export default {
             activeModule: null,
             shouldModuleBeActive: true,
             timeStarted: null,
+            reset: false,
             moduleStepsCount: {
                 'pronouns': Math.round(Object.keys(pronouns).length / 4) + 1,
                 'nouns': Math.round(Object.keys(nouns).length / 4) + 1,
@@ -152,7 +153,6 @@ export default {
     emits: ["completeModule", "reset"],
     mounted() {
         placeModules();
-
         // set time started if timer is on
         const timerState = localStorage.getItem('timerOn');
         if (timerState && timerState === 'true') {
@@ -163,6 +163,9 @@ export default {
     computed: {
         isModuleActive() {
              return (module) => {
+                if (this.reset) {
+                    return true;
+                }
                 /*
                     The possible cases:
                     - Flow has just started, all modules active
@@ -247,8 +250,10 @@ export default {
             let store = moduleProgress();
             store.resetAllProgress();
             this.$emit('reset', true);
+            this.reset = true;
         },
         activateModules() {
+            this.reset = false;
             this.timeStarted = null;
             this.shouldModuleBeActive = true;
             localStorage.removeItem('timerOn');
@@ -266,6 +271,7 @@ export default {
             }
         },
         startModule(module, event) {
+            this.reset = false;
             if (this.activeModule === module) {
                 this.activeModule = null;
                 this.shrinkElement(event.target);
@@ -281,8 +287,6 @@ export default {
             // Find the closest li ancestor
             const liElement = element.closest('li.module');
             liElement.classList.remove('active');
-            liElement.classList.remove('active-step-two');
-
             liElement.classList.add('inactive');
 
             // Reset styles
@@ -305,8 +309,6 @@ export default {
             const targetDimensions = targetElement.getBoundingClientRect();
             const targetWidth = targetDimensions.width;
             const targetHeight = targetDimensions.height;
-
-            console.log('Target Dimensions:', targetWidth, targetHeight);
 
             // Apply the retrieved dimensions to the element to grow
             // We must append 'px' to the numeric values when setting the style properties

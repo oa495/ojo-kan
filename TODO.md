@@ -2,6 +2,7 @@
 [] - Get the folk tale text and translation
 [] - creative module names
 [] - words without an easy translation? how to handle
+[] - rearrange + animate words after whole module is finished? because they won't always make sense translated directly to english
 [x] - Break it up into "modules". Each word should have its translation and its module
 [x] - make sure frequency works (it can't work when the timer is going)
 [x] - store frequency also in localstorage
@@ -20,21 +21,21 @@
 [] - if multiple meanings you can switch between them by clicking
 [x] - small circle becomes big when module is activated
 
+
 ### Bugs
 
-[] - reset modules needs reload
-[] - capitalization isn't preserved
+[x] - reset modules needs reload
+[x] - capitalization isn't preserved
 
 ## Visual
 
-[] - visual pattern for differentiating translated words, test out undeline, above line height, background color
-[] - should be responsive
+[] - should be responsive/mobile
+[x] - visual pattern for differentiating translated words, test out undeline, above line height, background color
 [x] - finalize look of the site
 [x] - "blobs" should only render in a certain area***
 
 ## Nice to Have
 
-[] - rearrange + animate words after whole module is finished? because they won't always make sense translated directly to english
 [] - recordings scattered around (to simulate gossip)
 [] - have a reference for the words and translations
 [] - make blobs draggable
