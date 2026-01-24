@@ -1,7 +1,7 @@
 <template>
     <section class="modules">
         <ul>
-            <li class="module inactive" v-for="module in modules" :key="module">
+            <li class="module inactive" v-for="module in modules" :key="module" :id="module">
                 <button :disabled="!isModuleActive(module)" @click="startModule(module, $event)" class="module-trigger">
                     <span v-if="module === activeModule">X</span>
                     <span v-else>{{ moduleNameToLongNameMap[module] }}</span>
@@ -485,6 +485,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 99;
 }
 
 .row {

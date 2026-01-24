@@ -63,12 +63,17 @@ export default {
             }
         }
     });
+
+    if (localStorage.getItem('learningFrequency')) {
+        this.frequency = localStorage.getItem('learningFrequency');
+        this.store.setFrequency(this.frequency);
+    } 
   },
   methods: {
-    submitFrequency() {
+    changeFrequency() {
       if (this.frequency) {
         this.store.setFrequency(this.frequency);
-        console.log('Frequency set to:', this.store.frequency);
+        localStorage.setItem('learningFrequency', this.frequency);
       }
     },
     onCompleteModule(module) {
@@ -116,24 +121,22 @@ export default {
     <h1>
       Ọj'ọkan
     </h1>
-    <p class="project-description">An Itsekiri folktake that unveils itself to the reader as they learn the language step by step. Click on a 
+    <p class="project-description">An Itsẹkiri folktake that unveils itself to the reader as they learn words from the language step by step. <u>Click on "bubble" to get started.</u> 
     </p>
     <fieldset class="frequency-selection">
-      <legend>Choose a frequency:</legend>
+      <legend>Choose a frequency for the tale to unfold:</legend>
       <div>
-        <input type="radio" v-model="frequency" id="hour" name="frequency" value="hourly" checked=""/>
+        <input type="radio" v-model="frequency" id="hour" name="frequency" value="hourly" checked="" @change="changeFrequency"/>
         <label for="hour">Hourly</label>
       </div>
       <div>
-        <input type="radio" v-model="frequency" id="day" name="frequency" value="daily"  />
+        <input type="radio" v-model="frequency" id="day" name="frequency" value="daily" @change="changeFrequency" />
         <label for="day">Daily</label>
       </div>
       <div>
-        <input type="radio" v-model="frequency" id="week" name="frequency" value="weekly" />
+        <input type="radio" v-model="frequency" id="week" name="frequency" value="weekly" @change="changeFrequency" />
         <label for="week">Weekly</label>
       </div>
-
-      <button class="submit button" v-on:click="submitFrequency()">Submit</button>
     </fieldset>
   </section>
   <div class="circle">

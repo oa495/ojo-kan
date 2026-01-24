@@ -5,6 +5,7 @@
 </template>
 <script>
 import { moduleProgress } from '@/stores/module-progress'
+import { learningFrequency } from '@/stores/frequency'
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 const ONE_WEEK_MS = 7 * ONE_DAY_MS; // 7 days in milliseconds
@@ -19,7 +20,6 @@ export default {
     name: 'ModuleTimer',
     props: {
         timeTillNextModule: Number,
-        frequency: String,
         timeStarted: Number,
         activateModule: Function,
     },
@@ -32,7 +32,6 @@ export default {
     },
     mounted() {
         let lastModuleFinishedTimestamp = localStorage.getItem('lastModuleFinishedTimestamp');
-        console.log('last finished val', lastModuleFinishedTimestamp)
         // timer already running
         if (this.timerId) {
             return;
@@ -87,7 +86,7 @@ export default {
                 // how much time has elapsed since last finished
                 const elapsed = now - lastFinishedTimestamp;
                 // get frequency from store
-                const frequency = this.frequency;
+                const frequency = localStorage.getItem('learningFrequency') || learningFrequency().frequency;
                 if (frequency === 'hourly' && elapsed < ONE_HOUR_MS) {
                     this.timeRemaining = ONE_HOUR_MS - elapsed;
                 }
@@ -100,7 +99,8 @@ export default {
             }
         },
         prepareTimeToWait() {
-            const frequency = this.frequency;
+            const frequency = localStorage.getItem('learningFrequency') || learningFrequency().frequency;
+            debugger;
             let timeToWait = 0;
             if (frequency === 'hourly') {
                 timeToWait = ONE_HOUR_MS;
