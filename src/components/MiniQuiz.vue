@@ -75,6 +75,7 @@ input[type="text"] {
     padding: 0.5em;
     font-size: 1.2em;
     font-family: 'Open Sans', sans-serif;
+    line-height: 1.4em;
 }
 
 .input-group {

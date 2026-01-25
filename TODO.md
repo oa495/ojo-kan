@@ -23,6 +23,11 @@
 [] - if multiple meanings you can switch between them by clicking
 [x] - small circle becomes big when module is activated
 
+### REFINEMENT
+[] - add tests
+[x] - test in chrome & safari
+[] - accessibility pass
+[] - perf pass: minify, clean up css etc
 
 ### Bugs
 

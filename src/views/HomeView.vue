@@ -198,6 +198,7 @@ export default {
   border: 1px dashed black;
   width: 15%;
   margin: 0.2em;
+  line-height: 1.6em;
 }
 
 h1 {

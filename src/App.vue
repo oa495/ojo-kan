@@ -64,6 +64,7 @@ a {
   margin: 0.2em;
   font-weight: 500;
   transition: all 0.3s ease-in-out;
+  color: black;
 }
 
 a:hover {
@@ -95,13 +96,24 @@ main {
   font-weight: 400;
   font-style: normal;
   font-size: 1.4rem;
-  line-height: 1.2;
+  line-height: 1.6em;
   overflow-y: scroll;
   max-width: 80%;
   max-height: 75%;
   scrollbar-color: black transparent;
   scrollbar-width: thin;
   margin: 6rem;
+}
+
+::-webkit-scrollbar {
+  background: black;
+  width: .3em;
+  border-radius: 1em;
+}
+
+/* Style the scrollbar handle */
+::-webkit-scrollbar-thumb {
+  background: transparent;
 }
 
 main p {
@@ -145,5 +157,14 @@ main p {
 .button:disabled:hover {
   background-color: white;
   color: black;
+}
+
+::selection {
+    background-color: #FFDA81;
+    color: black;
+}
+::-moz-selection {
+    background-color: #FFDA81;
+    color: black;
 }
 </style>
