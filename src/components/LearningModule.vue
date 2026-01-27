@@ -401,14 +401,7 @@ li.module {
     font-weight: 700;
 }
 
-li.module.inactive:nth-of-type(odd) {
-    animation: float calc(var(--vue-timing)*14) linear infinite;
-    -webkit-animation: float calc(var(--vue-timing)*14) linear infinite;
-    animation-direction: reverse;
-    -webkit-animation-direction: reverse;
-}
-
-li.module.inactive:nth-of-type(even) {
+li.module.inactive {
     animation: float calc(var(--vue-timing)*4) linear infinite;
     -webkit-animation: float calc(var(--vue-timing)*4) linear infinite;
 }
