@@ -33,10 +33,11 @@
 
 [x] - reset modules needs reload
 [x] - capitalization isn't preserved
+[x] - don't require accents to "pass" 
 
 ## Visual
 
-[] - should be responsive/mobile
+[x] - should be responsive/mobile
 [x] - visual pattern for differentiating translated words, test out undeline, above line height, background color
 [x] - finalize look of the site
 [x] - "blobs" should only render in a certain area***

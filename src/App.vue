@@ -12,7 +12,44 @@
 
 <style>
 
+@media (max-width: 1400px) {
+  #app {
+    flex-direction: column;
+  }
+
+  .intro, #big-circle {
+    position: relative !important;
+    margin: 1em auto 1em auto !important;
+    min-width: 85%;
+  }
+
+  main {
+    margin: 1rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .modules .module {
+    width: 6em !important;
+    height: 6em !important;
+  }
+
+  .module-trigger {
+    font-size: 1em !important;
+  }
+
+  main {
+    margin: 2rem !important;
+  }
+}
+
 #app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+#big-circle {
   height: 100%;
   width: 55%;
   border: 1px solid;
@@ -51,11 +88,12 @@ body {
 } 
 
 nav {
-  position: absolute;
+  position: fixed;
   bottom: 1rem;
   right: 1rem;
   font-size: 1.5rem;
   color: black;
+  background-color: white;
 }
 
 a {

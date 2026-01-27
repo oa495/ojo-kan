@@ -18,7 +18,13 @@
 </template>
 
 <script>
-    export default {
+
+function removeAccents(str) {
+  // Normalize to NFD (Canonical Decomposition) to separate base letters and accents
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+export default {
     name: 'ModuleTimer',
     props: {
         stepContent: Object,
@@ -42,8 +48,9 @@
     },
     methods: {
         validateAnswer(e, translated, index) {
-            let val = e.target.value;
-            if (val.toLowerCase() === translated.toLowerCase()) {
+            let val = removeAccents(e.target.value.toLowerCase());
+            translated = removeAccents(translated.toLowerCase());
+            if (val === translated) {
                 if (index == 0) {
                     this.firstAnswer = true;
                 } else {

@@ -101,9 +101,11 @@ export default {
           const isUppercase = el.textContent[0] === el.textContent[0].toUpperCase();
           const text = el.textContent.trim().toLowerCase();
           // split word from punctuation safely
-          const match = text.match(/^([a-zA-Z]+)([.,!?;:]*)$/);
+          // This line is already present and handles the word/punctuation split
+          const match = text.match(/^([\p{L}]+)([.,!?;:]*)$/u);
           const word = match ? match[1] : text;
           const punctuation = match ? match[2] : '';
+          console.log(word, punctuation, match)
           const translation = wordsToHighlight[word] || text;
           el.textContent = isUppercase ? translation[0].toUpperCase() + translation.slice(1) + punctuation : translation + punctuation;
           el.classList.add('translated');
@@ -128,7 +130,7 @@ export default {
     <h1>
       Ọj'ọkan
     </h1>
-    <p class="project-description">An Itsẹkiri folktake that unveils itself to the reader as they learn words from the language step by step. <u>Click on "bubble" to get started.</u> 
+    <p class="project-description">An Itsẹkiri folktale that unveils itself to the reader as they learn words from the language step by step. <u>Click on "bubble" to get started.</u> 
     </p>
     <fieldset class="frequency-selection">
       <legend>Choose a frequency for the tale to unfold:</legend>
@@ -146,48 +148,50 @@ export default {
       </div>
     </fieldset>
   </section>
-  <div class="circle">
-    <main>
-      <p>
-        Mai da retin mi. Ọma ta ka bi. Ọma ọnobirẹn.
-        Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
-        Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
-        Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ. 
-        Nikọ sin?
-        Aghan retin mi di èmi gin gbẹ aghan.
-      </p>
-      <p>
-        Ọmẹtiẹ ọnobirẹn ọkan ti a kpe wun Ọlikpẹrẹbu.
-        Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ oma wee,
-        gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
-        Eyí ma ba ain wen jẹ.
-        Ubo kì ubo ni ẹye we dede,
-        aja Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma we ain wen jẹ.
-        Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
-      </p>
-          <p>
-        Ọmẹtiẹ ọnobirẹn ọkan ti a kpe wun Ọlikpẹrẹbu.
-        Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ oma wee,
-        gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
-        Eyí ma ba ain wen jẹ.
-        Ubo kì ubo ni ẹye we dede,
-        aja Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma we ain wen jẹ.
-        Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
-      </p>
-      <p>
-        Ọmẹtiẹ ọnobirẹn ọkan ti a kpe wun Ọlikpẹrẹbu.
-        Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ oma wee,
-        gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
-        Eyí ma ba ain wen jẹ.
-        Ubo kì ubo ni ẹye we dede,
-        aja Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma we ain wen jẹ.
-        Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
-      </p>
-      <p>
-        Ọjọ ọkan ke ẹgualẹ okan ni inọ oko ti a ka kpe wun Oribiti.
-      </p>
-    </main>
-    <LearningModule @completeModule="onCompleteModule" @reset="resetAllModules" />
+  <div id="big-circle">
+    <div class="circle">
+      <main>
+        <p>
+          Mai da retin mi. Ọma ta ka bi. Ọma ọnobirẹn.
+          Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
+          Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
+          Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ. 
+          Nikọ sin?
+          Aghan retin mi di èmi gin gbẹ aghan.
+        </p>
+        <p>
+          Ọmẹtiẹ ọnobirẹn ọkan ti a kpe wun Ọlikpẹrẹbu.
+          Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ oma wee,
+          gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
+          Eyí ma ba ain wen jẹ.
+          Ubo kì ubo ni ẹye we dede,
+          aja Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma we ain wen jẹ.
+          Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
+        </p>
+            <p>
+          Ọmẹtiẹ ọnobirẹn ọkan ti a kpe wun Ọlikpẹrẹbu.
+          Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ oma wee,
+          gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
+          Eyí ma ba ain wen jẹ.
+          Ubo kì ubo ni ẹye we dede,
+          aja Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma we ain wen jẹ.
+          Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
+        </p>
+        <p>
+          Ọmẹtiẹ ọnobirẹn ọkan ti a kpe wun Ọlikpẹrẹbu.
+          Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ oma wee,
+          gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
+          Eyí ma ba ain wen jẹ.
+          Ubo kì ubo ni ẹye we dede,
+          aja Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma we ain wen jẹ.
+          Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
+        </p>
+        <p>
+          Ọjọ ọkan ke ẹgualẹ okan ni inọ oko ti a ka kpe wun Oribiti.
+        </p>
+      </main>
+      <LearningModule @completeModule="onCompleteModule" @reset="resetAllModules" />
+    </div>
   </div>
 </template>
 

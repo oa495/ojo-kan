@@ -8,8 +8,8 @@ const verbs = {
     'bi': 'born',
     'kpe': 'call',
     'gba': 'take',
-    'wa': 'come|will',
-    'fẹ': 'want|find',
+    'wa': 'come/will',
+    'fẹ': 'want/find',
     'tse': 'do',
 }
 
