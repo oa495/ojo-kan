@@ -336,13 +336,18 @@ export default {
             store.completeModule(moduleToStoreMap[module]);
             console.log(`${module} completed!`);
             localStorage.setItem('moduleProgress', JSON.stringify(store.moduleProgress));
-
+            
             this.activeModule = null;
             this.shouldModuleBeActive = false;
             this.modulePassed = false;
             this.step = 1;
-            this.timeStarted = new Date().getTime();
-            localStorage.setItem('timerOn', true);
+
+            // if all modules completed
+            if (!store.allModulesCompleted()) {
+                this.timeStarted = new Date().getTime();
+                localStorage.setItem('timerOn', true);
+            }
+           
             this.$emit('completeModule', module);
             this.shrinkElement(event.target);
         },
@@ -356,6 +361,11 @@ export default {
 
 </script>
 <style>
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
 .modules ul {
     height: inherit;
     width: 100%;
@@ -505,4 +515,23 @@ footer {
 .word.itsekiri {
     border-bottom: 1px dashed;
 }
+
+@media (max-width: 800px) {
+  .modules .module {
+    width: 6em;
+    height: 6em;
+    font-size: 1em;
+  }
+
+  .module .content {
+    font-size: 1em;
+  }
+
+  table .row {
+    flex-direction: column;
+    padding: 0.4em;
+    border-bottom: 1px solid black;
+  }
+}
+
 </style>

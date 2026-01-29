@@ -6,6 +6,7 @@ export const moduleProgress = defineStore('module-progress', () => {
     module1: false,
     module2: false,
     module3: false,
+    module4: false,
   });
 
 
@@ -13,10 +14,14 @@ export const moduleProgress = defineStore('module-progress', () => {
      moduleProgress.value[module] = true;
   }
 
+  function allModulesCompleted() {
+    return Object.values(moduleProgress.value).every(status => status === true);
+  }
+
   function resetAllProgress() {
     for (const module in moduleProgress.value) {
       moduleProgress.value[module] = false;
     }
   }
-  return { moduleProgress, completeModule, resetAllProgress }
+  return { moduleProgress, completeModule, resetAllProgress, allModulesCompleted }
 })

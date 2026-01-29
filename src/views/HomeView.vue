@@ -61,7 +61,7 @@ export default {
             for (let module in parsedProgress) {
                 if (parsedProgress[module] === true) {
                     store.completeModule(module);
-                    this.onCompleteModule(storeToModuleMap[module]);
+                    this.onCompleteModule(module, storeToModuleMap[module]);
                 }
             }
         }
@@ -79,7 +79,7 @@ export default {
         localStorage.setItem('learningFrequency', this.frequency);
       }
     },
-    onCompleteModule(module) {
+    onCompleteModule(moduleNameInStore, module) {
       console.log(`Module completed: ${module} in app.vue`);
       const moduleElements = document.querySelectorAll(`span.${module}`);
       let wordsToHighlight = allWords;
@@ -111,6 +111,15 @@ export default {
           el.classList.add('translated');
           el.dataset.translation = word;
       });
+      let store = moduleProgress();
+      store.completeModule(moduleNameInStore);
+
+      if (store.allModulesCompleted()) {
+          console.log('All modules completed!');
+          const circle = document.querySelector('.circle');
+          circle.classList.add('complete');
+      }
+
     },
     resetAllModules() {
         const translated = document.querySelectorAll('.translated');
@@ -119,6 +128,10 @@ export default {
             el.textContent = originalWord;
             el.classList.remove('translated');
         });
+        let store = moduleProgress();
+        store.resetAllProgress();
+        const circle = document.querySelector('.circle');
+        circle.classList.remove('complete');
     }
   }
 }
@@ -161,7 +174,7 @@ export default {
         </p>
         <p>
           Ọmẹtiẹ ọnobirẹn ọkan ti a kpe wun Ọlikpẹrẹbu.
-          Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ oma wee,
+          Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ ọma wee,
           gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
           Eyí ma ba ain wen jẹ.
           Ubo kì ubo ni ẹye we dede,
@@ -170,7 +183,7 @@ export default {
         </p>
             <p>
           Ọmẹtiẹ ọnobirẹn ọkan ti a kpe wun Ọlikpẹrẹbu.
-          Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ oma wee,
+          Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ ọma wee,
           gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
           Eyí ma ba ain wen jẹ.
           Ubo kì ubo ni ẹye we dede,
@@ -179,7 +192,7 @@ export default {
         </p>
         <p>
           Ọmẹtiẹ ọnobirẹn ọkan ti a kpe wun Ọlikpẹrẹbu.
-          Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ oma wee,
+          Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ ọma wee,
           gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
           Eyí ma ba ain wen jẹ.
           Ubo kì ubo ni ẹye we dede,
@@ -254,5 +267,14 @@ fieldset button {
   font-size: 1.8rem;
   background-color: black;
   color: white;
+}
+
+.circle.complete {
+  background-color: black;
+}
+
+.circle.complete p {
+  color: white;
+  font-size: 1.8rem;
 }
 </style>

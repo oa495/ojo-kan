@@ -29,15 +29,6 @@
 }
 
 @media (max-width: 800px) {
-  .modules .module {
-    width: 6em !important;
-    height: 6em !important;
-  }
-
-  .module-trigger {
-    font-size: 1em !important;
-  }
-
   main {
     margin: 2rem !important;
   }
@@ -171,6 +162,7 @@ main p {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  transition: all 0.3s ease-in-out;
 }
 
 .button {

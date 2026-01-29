@@ -2,9 +2,9 @@
 [] - Get the folk tale text and translation
 [] - creative module names
 [] - words without an easy translation? how to handle
-[] - FINAL STATE: 
+[] - FINAL STATE:  **[NEXT UP]**
     - rearrange + animate words after whole module because they won't always make sense translated directly to english
-    - flip background to black
+    [x] flip background to black
 [x] - Break it up into "modules". Each word should have its translation and its module
 [x] - make sure frequency works (it can't work when the timer is going)
 [x] - store frequency also in localstorage
@@ -19,14 +19,14 @@
 
 ### Interactions
 
-[] - Flip words that have been translated on click
+[] - Flip words that have been translated on click **[NEXT UP]**
 [] - if multiple meanings you can switch between them by clicking
 [x] - small circle becomes big when module is activated
 
 ### REFINEMENT
 [] - add tests
 [x] - test in chrome & safari
-[] - accessibility pass
+[] - accessibility pass  **[NEXT UP]**
 [] - perf pass: minify, clean up css etc
 
 ### Bugs
@@ -34,6 +34,9 @@
 [x] - reset modules needs reload
 [x] - capitalization isn't preserved
 [x] - don't require accents to "pass" 
+[] - doesn't reset after input is right
+[] - not so much a bug but user has to click out of input to know if it's correct
+[] - recalculate .circle positioning on resize
 
 ## Visual
 

@@ -10,7 +10,7 @@
         <div v-else>
             <label for="itsekiri-word">What's the Itsekiri word for "{{ englishWord }}"?</label>
             <div class="input-group">
-                <input type="text" id="itsekiri-translation" name="itsekiri-translation"  v-on:change="validateAnswer($event, itsekiriWord, index)"/>
+                <input type="text" id="itsekiri-translation" name="itsekiri-translation" v-on:change="validateAnswer($event, itsekiriWord, index)"/>
                 <span class="check" v-if="secondAnswer">&#10003;</span>
             </div>
         </div>

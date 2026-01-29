@@ -11,6 +11,7 @@ const verbs = {
     'wa': 'come/will',
     'fẹ': 'want/find',
     'tse': 'do',
+    'gba-a': '-ing'
 }
 
 const pronouns = {
@@ -19,6 +20,7 @@ const pronouns = {
     'a': 'they',
     'o': 'she/he',
     'mi': 'me',
+    'èmi': 'me',
     'mo': 'I',
     'Bokor': 'what/where',
     'nikọ': 'what',
