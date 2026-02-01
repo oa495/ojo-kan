@@ -19,7 +19,8 @@ const verbs = {
     'dinma': 'embrace (romantically)',
     'do': 'marry',
     'ró': 'tie',
-    'ni': 'wear', // add accent
+    'ni': 'wear', // add accent,
+    'dá': 'change'
 }
 
 const pronouns = {
@@ -84,7 +85,7 @@ const nouns = {
     'iyẹ': 'mother',
     'ọwa': 'father',
     'ọkọ': 'husband',
-    
+    'ara': 'body',
 }
 
 const allWords = { ...verbs, ...pronouns, ...nouns, ...identifiers };

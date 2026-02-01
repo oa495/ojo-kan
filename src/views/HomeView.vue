@@ -3,14 +3,7 @@ import LearningModule from '../components/LearningModule.vue'
 import { moduleProgress } from '@/stores/module-progress'
 import { learningFrequency } from '@/stores/frequency'
 import { verbs, pronouns, nouns, allWords, identifiers } from '../words'
-
-
-const storeToModuleMap = {
-    'module1': 'pronouns',
-    'module2': 'nouns',
-    'module3': 'verbs',
-    'module4': 'misc',
-};
+import { storeToModuleMap } from '@/constants'
 
 export default {
   data() {
@@ -174,11 +167,11 @@ export default {
         </p>
         <p>
           Ọmẹtiẹ ọnobirẹn ọkan ti a kpe Ọlikpẹrẹbu.
-          Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ ọma wee,
+          Éè nẹ ajá Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ ọma wee,
           gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
           Eyí ma ba ain wen jẹ.
           Ubo kì ubo ni ẹye wee dede,
-          aja Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma we ain wen jẹ.
+          ajá Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma we ain wen jẹ.
           Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
         </p> 
         <p>

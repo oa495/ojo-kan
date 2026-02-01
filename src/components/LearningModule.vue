@@ -49,20 +49,7 @@ import { learningFrequency } from '@/stores/frequency';
 import ModuleTimer from './ModuleTimer.vue';
 import { verbs, pronouns, nouns, identifiers } from '../words'
 import MiniQuiz from './MiniQuiz.vue';
-
-const moduleToStoreMap = {
-    'pronouns': 'module1',
-    'nouns': 'module2',
-    'verbs': 'module3',
-    'misc': 'module4',
-};
-
-const moduleNameToLongNameMap = {
-    'pronouns': 'How we go fit call you?',
-    'nouns': 'Who you be?',
-    'verbs': 'Wetin you go do?',
-    'misc': 'All join',
-};
+import { moduleToStoreMap, moduleNameToLongNameMap } from '../constants';
 
 function generateRandomPositionsOutsideCircle({ count }) {
   const positions = [];

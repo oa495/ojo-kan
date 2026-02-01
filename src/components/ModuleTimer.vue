@@ -8,13 +8,9 @@ import { moduleProgress } from '@/stores/module-progress'
 import { learningFrequency } from '@/stores/frequency'
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+const ONE_HOUR_MS = 60 * 60 * 1000; // 1 hour in milliseconds
 const ONE_WEEK_MS = 7 * ONE_DAY_MS; // 7 days in milliseconds
-const ONE_HOUR_MS = 60 * 2 * 1000; // 1 hour in milliseconds
 
-
-// const ONE_DAY_MS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-// const ONE_WEEK_MS = 7 * ONE_DAY_MS; // 7 days in milliseconds
-// const ONE_HOUR_MS = 60 * 60 * 1000; // 1 hour in milliseconds
 
 export default {
     name: 'ModuleTimer',
