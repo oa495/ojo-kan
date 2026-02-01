@@ -2,7 +2,7 @@
 import LearningModule from '../components/LearningModule.vue'
 import { moduleProgress } from '@/stores/module-progress'
 import { learningFrequency } from '@/stores/frequency'
-import { verbs, pronouns, nouns, allWords, identifiers } from '../words'
+import { verbs, pronouns, nouns, allWords, adjectives_adverbs, misc } from '../words'
 import { storeToModuleMap } from '@/constants'
 
 export default {
@@ -32,11 +32,13 @@ export default {
                         ? 'nouns'
                         : Object.keys(verbs).includes(cleanedPart)
                             ? 'verbs'
-                            : Object.keys(identifiers).includes(cleanedPart)
-                               ? 'identifiers'
+                            : Object.keys(misc).includes(cleanedPart)
+                               ? 'misc'
+                            : Object.keys(adjectives_adverbs).includes(cleanedPart)
+                              ? 'adjectives_adverbs'
                             : 'word';
-                // If it is, wrap it in a span with the highlight class
-                return `<span class="${highlightClass}">${part}</span>`;
+                // If it is, wrap it in a button with the highlight class
+                return `<button disabled="true" class="${highlightClass}">${part}</button>`;
             }
             // Otherwise, return the part as is (including spaces and punctuation)
             return part;
@@ -74,7 +76,7 @@ export default {
     },
     onCompleteModule(moduleNameInStore, module) {
       console.log(`Module completed: ${module} in app.vue`);
-      const moduleElements = document.querySelectorAll(`span.${module}`);
+      const moduleElements = document.querySelectorAll(`button.${module}`);
       let wordsToHighlight = allWords;
       switch (module) {
         case 'pronouns':
@@ -86,8 +88,11 @@ export default {
         case 'verbs':
           wordsToHighlight = verbs;
           break;
-        case 'identifiers':
-          wordsToHighlight = identifiers;
+        case 'misc':
+          wordsToHighlight = misc;
+          break;
+        case 'adjectives_adverbs':
+          wordsToHighlight = adjectives_adverbs;
           break;
       }
       moduleElements.forEach(el => {
@@ -102,6 +107,8 @@ export default {
           const translation = wordsToHighlight[word] || text;
           el.textContent = isUppercase ? translation[0].toUpperCase() + translation.slice(1) + punctuation : translation + punctuation;
           el.classList.add('translated');
+          el.removeAttribute('disabled');
+          // change to button tag
           el.dataset.translation = word;
       });
       let store = moduleProgress();
@@ -112,7 +119,6 @@ export default {
           const circle = document.querySelector('.circle');
           circle.classList.add('complete');
       }
-
     },
     resetAllModules() {
         const translated = document.querySelectorAll('.translated');
@@ -125,6 +131,21 @@ export default {
         store.resetAllProgress();
         const circle = document.querySelector('.circle');
         circle.classList.remove('complete');
+    },
+    toggleWord(event) {
+      let target = event.target;
+      if (target.matches('button.translated')) {
+        // toggle word and translation
+        let translated = target.dataset.translation;
+        let currentText = target.textContent;
+        const isUppercase = currentText[0] === currentText[0].toUpperCase();
+        const match = currentText.match(/^([\p{L}\s]+?)([.,!?;:?]*)$/u);
+        const word = match ? match[1] : currentText;
+        target.dataset.translation = word;
+
+        const punctuation = match ? match[2] : '';
+        target.textContent = isUppercase ? translated[0].toUpperCase() + translated.slice(1) + punctuation : translated + punctuation;
+      }
     }
   }
 }
@@ -155,13 +176,13 @@ export default {
     </fieldset>
   </section>
   <div id="big-circle">
-    <div class="circle">
+    <div class="circle" @click="toggleWord">
       <main>
         <p>
           Mai retin mi. Ọma ta ka bì. Ọma ọnobirẹn.
-          Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
-          Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
-          Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ. 
+          Ọnọkẹrẹn eyí ma bẹ o ka gin éè jẹ.
+          Ọnọkẹrẹn eyí ma bẹ o ka gin éè jẹ.
+          Ọnọkẹrẹn eyí ma bẹ o ka gin éè jẹ. 
           Nikọ sin???
           Aghan retin mi di èmi gin gbẹ aghan.
         </p>
@@ -175,14 +196,14 @@ export default {
           Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
         </p> 
         <p>
-          Ọjọ ọkan ke ẹgualẹ okan ni inọ oko ti a ka kpe wun Oribiti.
-          Ain ọma bokọ e we'ye ọma onobirẹn t'a ka bẹ to ka gin wen/éè forijẹ, ain won wa ra to uwẹre
+          Ọjọ ọkan ke ẹgualẹ ọkan ni inọ oko ti a ka kpe wun Oribiti.
+          Ain ọma bokọ e we'ye ọma onobirẹn t'a ka bẹ t'o ka gin wen/éè forijẹ, ain won wa ra tó uwẹre
           Oribiti wee ke won gba re ra dá ara ro
 
-          O gba to ubo ti ẹsẹn gha o ka bì'ẹsẹn
-          O gba to ubo ti ẹwọ gha, o ka bì'ẹwọ.
-          O gba to ubo ti origho gha, o ka bì'origho.
-          O gba to ubo ti eju gha, o ka bì'eju.
+          O gba tó ubo ti ẹsẹn gha o ka bì'ẹsẹn
+          O gba tó ubo ti ẹwọ gha, o ka bì'ẹwọ.
+          O gba tó ubo ti origho gha, o ka bì'origho.
+          O gba tó ubo ti eju gha, o ka bì'eju.
 
           O ka ni'ewu
           O ka ró'aso
@@ -193,7 +214,7 @@ export default {
           Ọma wee de do sẹngua
           Oma wee Olikperubu ghele olikperebu
 
-          Ọmatiẹ ọnobirẹn Ọlikpẹrẹbu gba ri, o ka sa gbaa buru, o ka dinma ro, o ka kpe iye ro biri ọwa ro, o ka gin eyi ọkọ t'èmi fe do re.
+          Ọmatiẹ ọnobirẹn Ọlikpẹrẹbu gba ri, o ka sa gbaa buru, o ka dinma ro, o ka kpe iye ro biri ọwa ro, o ka gin eyí ọkọ t'èmi fe do re.
         </p>
       </main>
       <LearningModule @completeModule="onCompleteModule" @reset="resetAllModules" />
@@ -250,7 +271,7 @@ fieldset button {
   margin-top: 1rem;
 }
 
-.pronouns, .verbs, .nouns, .identifiers {
+.pronouns, .verbs, .nouns, .misc, .adjectives_adverbs {
   transition: all 0.3s ease-in-out;
 }
 
@@ -269,5 +290,9 @@ fieldset button {
 .circle.complete p {
   color: white;
   font-size: 1.8rem;
+}
+
+main button {
+  display: inline;
 }
 </style>

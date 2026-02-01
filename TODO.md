@@ -19,7 +19,7 @@
 
 ### Interactions
 
-[] - Flip words that have been translated on click **[NEXT UP]**
+[x] - Flip words that have been translated on click
 [x] - small circle becomes big when module is activated
 
 ### REFINEMENT

@@ -28,8 +28,7 @@
                     </ul>
                     <footer>
                         <button class="step-button button" :disabled="step <= 1 ? true : false" v-on:click="updateStep(-1)">←</button>
-                       <button class="step-button button" v-if="isLastStep()" :disabled="!modulePassed ? true : false" @click="completeModule(module, $event)">Complete {{
-                            module }}</button>
+                       <button class="step-button button" v-if="isLastStep()" :disabled="!modulePassed ? true : false" @click="completeModule(module, $event)">Complete</button>
                         <button class="step-button button" :disabled="isLastStep()" v-else
                             v-on:click="updateStep(1)">→</button>
                     </footer>
@@ -47,9 +46,9 @@
 import { moduleProgress } from '@/stores/module-progress'
 import { learningFrequency } from '@/stores/frequency';
 import ModuleTimer from './ModuleTimer.vue';
-import { verbs, pronouns, nouns, identifiers } from '../words'
+import { verbs, pronouns, nouns, misc, adjectives_adverbs } from '../words'
 import MiniQuiz from './MiniQuiz.vue';
-import { moduleToStoreMap, moduleNameToLongNameMap } from '../constants';
+import { moduleToStoreMap, moduleNameToLongNameMap } from '@/constants'
 
 function generateRandomPositionsOutsideCircle({ count }) {
   const positions = [];
@@ -63,7 +62,6 @@ function generateRandomPositionsOutsideCircle({ count }) {
     const y = 50 + Math.sin(angle) * radius;
     positions.push({ x, y });
   }
-
   return shuffleArray(positions);
 }
 
@@ -76,8 +74,7 @@ function placeModules() {
 
   modules.forEach((module, index) => {
     module.style.left = `${positions[index].x}%`;
-    module.style.top = `calc(${positions[index].y}%)`;
-    // module.style.transform = "translate(-50%, -50%)";
+    module.style.top = `${Math.min(positions[index].y, 100)}%`;
   });
 }
 
@@ -126,7 +123,8 @@ export default {
                 'pronouns': Math.round(Object.keys(pronouns).length / 4) + 1,
                 'nouns': Math.round(Object.keys(nouns).length / 4) + 1,
                 'verbs': Math.round(Object.keys(verbs).length / 4) + 1,
-                'identifiers': Math.round(Object.keys(identifiers).length / 4) + 1,
+                'misc': Math.round(Object.keys(misc).length / 4) + 1,
+                'adjectives_adverbs': Math.round(Object.keys(adjectives_adverbs).length / 4) + 1
             },
             moduleNameToLongNameMap: moduleNameToLongNameMap,
             frequency: learningFrequency().frequency,
@@ -210,8 +208,10 @@ export default {
             } else if (module === 'verbs') {
                 return partitionProperties(verbs, steps - 1);
             }
-            else if (module === 'identifiers') {
-                return partitionProperties(identifiers, steps - 1);
+            else if (module === 'misc') {
+                return partitionProperties(misc, steps - 1);
+            } else if (module === 'adjectives_adverbs') {
+                return partitionProperties(adjectives_adverbs, steps - 1);
             }
             return content;
         },
@@ -222,8 +222,10 @@ export default {
                return nouns;
             } else if (module === 'verbs') {
                 return verbs;
-            } else if (module === 'identifiers') {
-                return identifiers;
+            } else if (module === 'misc') {
+                return misc;
+            } else if (module === 'adjectives_adverbs') {
+                return adjectives_adverbs;
             }
         },
         resetAll() {
@@ -319,8 +321,8 @@ export default {
                     }
                 }
             }
-
-            store.completeModule(moduleToStoreMap[module]);
+            let moduleStoreName = moduleToStoreMap[module];
+            store.completeModule(moduleStoreName);
             console.log(`${module} completed!`);
             localStorage.setItem('moduleProgress', JSON.stringify(store.moduleProgress));
             
@@ -335,7 +337,7 @@ export default {
                 localStorage.setItem('timerOn', true);
             }
            
-            this.$emit('completeModule', module);
+            this.$emit('completeModule', moduleStoreName, module);
             this.shrinkElement(event.target);
         },
         isLastStep() {

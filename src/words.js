@@ -20,11 +20,12 @@ const verbs = {
     'do': 'marry',
     'ró': 'tie',
     'ni': 'wear', // add accent,
-    'dá': 'change'
+    'dá': 'change',
+    'tó': 'reach'
 }
 
 const pronouns = {
-    'eyi': 'this',
+    'eyí': 'this',
     'aghan': 'they',
     'a': 'they',
     'o': 'she/he',
@@ -47,7 +48,7 @@ const adjectives_adverbs = {
     'do': 'very'
 }
 
-const identifiers = {
+const misc = {
     'ọkan': 'one',
     'inọ': 'inside',
     'wee': 'the',
@@ -60,7 +61,7 @@ const identifiers = {
 }
 
 const nouns = {
-    'ọlikpẹrẹbu': '',
+    'ọlikpẹrẹbu': 'a woman who has it all',
     'ọma': 'child',
     'ọmẹtiẹ': 'small child',
     'ọnobirẹn': 'woman',
@@ -88,5 +89,5 @@ const nouns = {
     'ara': 'body',
 }
 
-const allWords = { ...verbs, ...pronouns, ...nouns, ...identifiers };
-export { verbs, pronouns, nouns, identifiers, allWords };
+const allWords = { ...verbs, ...pronouns, ...nouns, ...misc, ...adjectives_adverbs };
+export { verbs, pronouns, nouns, misc, adjectives_adverbs, allWords };

@@ -110,7 +110,6 @@ a:visited, a:active, a:focus {
 button {
   all: unset;
   cursor: pointer;
-  width: 100%;
   height: auto;
   display: block;
   font-weight: 300;
