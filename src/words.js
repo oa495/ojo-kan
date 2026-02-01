@@ -32,6 +32,8 @@ const verbs = {
     'gbe': 'carry',
     'mu gbẹẹ': 'give',
     'da': 'turn/throw',
+    'kin': 'greet',
+    'wo': 'enter'
 }
 
 const pronouns = {
@@ -56,7 +58,7 @@ const adjectives_adverbs = {
     'sẹngua': 'beautiful',
     'ghele':'really',
     'do': 'very',
-    'san': 'ok'
+    'san': 'okay'
 }
 
 const misc = {
@@ -68,7 +70,8 @@ const misc = {
     'wen': 'not',
     'éè': 'not',
     'gha': 'where',
-    'de/derekede': 'but'
+    'de/derekede': 'but',
+    'tee': 'yet'
 }
 
 const nouns = {

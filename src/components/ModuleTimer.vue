@@ -9,8 +9,6 @@ import { learningFrequency } from '@/stores/frequency'
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 const ONE_HOUR_MS = 60 * 60 * 1000; // 1 hour in milliseconds
-const ONE_WEEK_MS = 7 * ONE_DAY_MS; // 7 days in milliseconds
-
 
 export default {
     name: 'ModuleTimer',
@@ -89,8 +87,12 @@ export default {
                 if (frequency === 'daily' && elapsed < ONE_DAY_MS) {
                     this.timeRemaining = ONE_DAY_MS - elapsed;
                 }
-                if (frequency === 'weekly' && elapsed < ONE_WEEK_MS) {
-                    this.timeRemaining = ONE_WEEK_MS - elapsed;
+                if (frequency === 'own-pace') {
+                    this.timeRemaining = 0;
+                }
+                if (frequency === 'surprise-me') {
+                    // convert to number before calculation
+                    this.timeRemaining = parseInt(localStorage.getItem('surpriseMeTimeToWait')) - elapsed; 
                 }
             }
         },
@@ -102,8 +104,11 @@ export default {
                 timeToWait = ONE_HOUR_MS;
             } else if (frequency === 'daily') {
                 timeToWait = ONE_DAY_MS;
-            } else if (frequency === 'weekly') {
-                timeToWait = ONE_WEEK_MS;
+            } else if (frequency === 'own-pace') {
+                timeToWait = 0;
+            } else if (frequency === 'surprise-me') {
+                timeToWait = Math.floor(Math.random() * (ONE_DAY_MS - ONE_HOUR_MS) + ONE_HOUR_MS);
+                localStorage.setItem('surpriseMeTimeToWait', timeToWait);
             }
             return timeToWait;
         },
@@ -134,6 +139,7 @@ export default {
                 clearInterval(this.timerId);
                 clearTimeout(this.activationTimeoutId);
                 localStorage.removeItem('lastModuleFinishedTimestamp');
+                localStorage.removeItem('surpriseMeTimeToWait');
                 this.$emit('activateModule', true); 
             }, timeToWait);
         }

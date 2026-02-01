@@ -162,6 +162,10 @@ export default {
     <fieldset class="frequency-selection">
       <legend>Choose a frequency for the tale to unfold:</legend>
       <div>
+        <input type="radio" v-model="frequency" id="own-pace" name="frequency" value="own-pace" @change="changeFrequency" />
+        <label for="own-pace">Own pace</label>
+      </div>
+      <div>
         <input type="radio" v-model="frequency" id="hour" name="frequency" value="hourly" checked="" @change="changeFrequency"/>
         <label for="hour">Hourly</label>
       </div>
@@ -170,8 +174,8 @@ export default {
         <label for="day">Daily</label>
       </div>
       <div>
-        <input type="radio" v-model="frequency" id="week" name="frequency" value="weekly" @change="changeFrequency" />
-        <label for="week">Weekly</label>
+        <input type="radio" v-model="frequency" id="surprise-me" name="frequency" value="surprise-me" @change="changeFrequency" />
+        <label for="surprise-me">Surprise me!</label>
       </div>
     </fieldset>
   </section>
