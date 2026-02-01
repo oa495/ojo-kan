@@ -49,7 +49,8 @@
 [] - recordings scattered around (to simulate gossip)
 [] - have a reference for the words and translations
 [] - make blobs draggable
-
+[] - surprise me frequency
+[] - transition route changes
 
 ## Testing flow
 

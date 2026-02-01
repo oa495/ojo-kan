@@ -1,6 +1,6 @@
 <template>
    <router-link to="/" class="back-arrow">←</router-link>
-    <div id="big-circle">
+    <div class="big-circle">
         <div class="circle">
             <main>
                 <p>I can't count how many times I've waited in dread for the Teams meeting to load and my Itsẹkiri teacher's voice to greet me "Ere ọsọn Yeli. Bokọ uwo tegha?"</p>

@@ -3,31 +3,26 @@
 </script>
 
 <template>
-  <router-view></router-view>
+   <!-- <transition name="fade" mode="out-in"> -->
+      <router-view></router-view>
+  <!-- </transition> -->
   <nav>
+    <router-link class="nav-link" to="/story" title="story">ita</router-link>
     <router-link class="nav-link" to="/about" title="question">ùbírọ̀</router-link>
     <router-link class="nav-link" to="/" title="home">ulí</router-link>
   </nav>
 </template>
 
 <style>
-
-@media (max-width: 1400px) {
-  #app {
-    flex-direction: column;
-  }
-
-  .intro, #big-circle {
-    position: relative !important;
-    margin: 1em auto 1em auto !important;
-    min-width: 85%;
-  }
-
-  main {
-    margin: 1rem;
-  }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
 }
 
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 
 #app {
   width: 100%;
@@ -35,7 +30,7 @@
   display: flex;
 }
 
-#big-circle {
+.big-circle {
   height: 100%;
   width: 55%;
   border: 1px solid;
@@ -193,12 +188,28 @@ main p {
     color: black;
 }
 
+@media (max-width: 1400px) {
+  #app {
+    flex-direction: column;
+  }
+
+  .intro, .big-circle {
+    position: relative !important;
+    margin: 1em auto 1em auto !important;
+    min-width: 85%;
+  }
+
+  main {
+    margin: 1rem;
+  }
+}
+
 @media (max-width: 800px) {
   main {
     margin: 2rem !important;
   }
 
-  #big-circle {
+  .big-circle {
     height: 80%;
     width: 100%;
   }
