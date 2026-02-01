@@ -9,7 +9,7 @@ const verbs = {
     'kpe': 'call',
     'gba': 'take',
     'wa': 'come/will',
-    'fẹ': 'want/find',
+    'fẹ': 'want',
     'tse': 'do',
     'bà': 'meet',
     'gba-a': '-ing',
@@ -17,15 +17,25 @@ const verbs = {
     'forijẹ': 'agree',
     'buru': 'meet in motion',
     'dinma': 'embrace (romantically)',
-    'do': 'marry',
+    'dọ': 'marry',
     'ró': 'tie',
     'ni': 'wear', // add accent,
     'dá': 'change',
-    'tó': 'reach'
+    'tó': 'reach',
+    'desin': 'know',
+    'jẹrun': 'eat',
+    'tsọn': 'look',
+    'tsitsi': 'resemble',
+    'jẹ': 'eat',
+    'la': 'lick',
+    'kuro': 'finish',
+    'gbe': 'carry',
+    'mu gbẹẹ': 'give',
+    'da': 'turn/throw',
 }
 
 const pronouns = {
-    'eyí': 'this',
+    'èyí': 'this',
     'aghan': 'they',
     'a': 'they',
     'o': 'she/he',
@@ -45,7 +55,8 @@ const pronouns = {
 const adjectives_adverbs = {
     'sẹngua': 'beautiful',
     'ghele':'really',
-    'do': 'very'
+    'do': 'very',
+    'san': 'ok'
 }
 
 const misc = {
@@ -87,6 +98,9 @@ const nouns = {
     'ọwa': 'father',
     'ọkọ': 'husband',
     'ara': 'body',
+    'ọjẹ': 'food',
+    'abẹtẹ': 'room',
+    'irẹye': 'person/people'
 }
 
 const allWords = { ...verbs, ...pronouns, ...nouns, ...misc, ...adjectives_adverbs };

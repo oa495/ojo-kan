@@ -1,7 +1,9 @@
 <template>
-    <div class="big-circle">
-        <div class="circle">
+    <div>
+        <div>
             <main>
+                Welcome to Oj'okan. 
+                
             </main>
         </div>
     </div>

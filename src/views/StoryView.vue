@@ -180,9 +180,9 @@ export default {
       <main>
         <p>
           Mai retin mi. Ọma ta ka bì. Ọma ọnobirẹn.
-          Ọnọkẹrẹn eyí ma bẹ o ka gin éè jẹ.
-          Ọnọkẹrẹn eyí ma bẹ o ka gin éè jẹ.
-          Ọnọkẹrẹn eyí ma bẹ o ka gin éè jẹ. 
+          Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ.
+          Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ.
+          Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ. 
           Nikọ sin???
           Aghan retin mi di èmi gin gbẹ aghan.
         </p>
@@ -190,14 +190,14 @@ export default {
           Ọmẹtiẹ ọnobirẹn ọkan ti a kpe Ọlikpẹrẹbu.
           Éè nẹ ajá Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ ọma wee,
           gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
-          Eyí ma ba ain wen jẹ.
+          Èyí ma ba ain wen jẹ.
           Ubo kì ubo ni ẹye wee dede,
           ajá Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma we ain wen jẹ.
           Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
         </p> 
         <p>
           Ọjọ ọkan ke ẹgualẹ ọkan ni inọ oko ti a ka kpe wun Oribiti.
-          Ain ọma bokọ e we'ye ọma onobirẹn t'a ka bẹ t'o ka gin wen/éè forijẹ, ain won wa ra tó uwẹre
+          Ain ọma bokọ e we'ye ọma onobirẹn t'a ka bẹ t'o ka gin wen/éè forijẹ, ain won wa ra tó uwẹre.
           Oribiti wee ke won gba re ra dá ara ro
 
           O gba tó ubo ti ẹsẹn gha o ka bì'ẹsẹn
@@ -214,7 +214,20 @@ export default {
           Ọma wee de do sẹngua.
           Oma wee Olikperubu ghele olikperebu.
 
-          Ọmatiẹ ọnobirẹn Ọlikpẹrẹbu gba ri, o ka sa gbaa buru, o ka dinma ro, o ka kpe iye ro biri ọwa ro, o ka gin eyí ọkọ t'èmi fe do re.
+          Ọmatiẹ ọnobirẹn Ọlikpẹrẹbu gba ri, o ka sa gbaa buru, o ka dinma ro, o ka kpe iye ro biri ọwa ro, o ka gin èyí ọkọ t'èmi fe dọ re.
+        </p>
+        <p>
+          Iyọ! A ka gin èyí ọnọkẹrẹn ti wo fẹ dọ?
+          O ka gin èyí ọnọkẹrẹn t'emi fẹ dọ re oo.
+          Wo desin tsi?
+          Ain ọnọkẹrẹn ti o fẹ dọ we re.
+          A ka gin o san oo.
+          Ẹgualẹ wee gba w'ọli, a ka kin, a ka mu ọjẹ gbẹẹ.
+          O ka gin ain we te jẹrun gin d'a gbe ọjẹ we d'a gbe tsi abẹtẹ, a ka gbe tsi abẹtẹ.
+          O gba tsọn èyí tsọn èyí.
+          O ka wọ inọ abẹtẹ we, o ka da ara ro gba da ẹgualẹ wee Oribiti wee.
+          O ka da ọjẹ we tsi'alẹ, o la, o ka la, o ka la jẹ kuro.
+          O ka da tsitsi irẹye.
         </p>
       </main>
       <LearningModule @completeModule="onCompleteModule" @reset="resetAllModules" />

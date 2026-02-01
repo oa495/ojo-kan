@@ -1,6 +1,6 @@
 
 [] - Get the folk tale text and translation
-[] - creative module names
+[x] - creative module names
 [] - words without an easy translation? how to handle
 [] - FINAL STATE:  **[NEXT UP]**
     - rearrange + animate words after whole module because they won't always make sense translated directly to english
