@@ -9,7 +9,7 @@ const storeToModuleMap = {
     'module1': 'pronouns',
     'module2': 'nouns',
     'module3': 'verbs',
-    'module4': 'identifiers',
+    'module4': 'misc',
 };
 
 export default {
@@ -165,42 +165,42 @@ export default {
     <div class="circle">
       <main>
         <p>
-          Mai da retin mi. Ọma ta ka bi. Ọma ọnobirẹn.
+          Mai retin mi. Ọma ta ka bì. Ọma ọnobirẹn.
           Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
           Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ.
           Ọnọkẹrẹn eyi ma bẹ o ka gin éè jẹ. 
-          Nikọ sin?
+          Nikọ sin???
           Aghan retin mi di èmi gin gbẹ aghan.
         </p>
         <p>
-          Ọmẹtiẹ ọnobirẹn ọkan ti a kpe wun Ọlikpẹrẹbu.
+          Ọmẹtiẹ ọnobirẹn ọkan ti a kpe Ọlikpẹrẹbu.
           Éè nẹ aja Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ ọma wee,
           gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
           Eyí ma ba ain wen jẹ.
-          Ubo kì ubo ni ẹye we dede,
+          Ubo kì ubo ni ẹye wee dede,
           aja Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma we ain wen jẹ.
           Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
         </p> 
         <p>
           Ọjọ ọkan ke ẹgualẹ okan ni inọ oko ti a ka kpe wun Oribiti.
           Ain ọma bokọ e we'ye ọma onobirẹn t'a ka bẹ to ka gin wen/éè forijẹ, ain won wa ra to uwẹre
-          Oribiti we ke won gba re ra dá ara ro
+          Oribiti wee ke won gba re ra dá ara ro
 
-          O gba to ubo ti ẹsẹn gha o ka bi'ẹsẹn
-          O gba to ubo ti ẹwọ gha, o ka bi'ẹwọ.
-          O gba to ubo ti origho gha, o ka bi'origho.
-          O gba to ubo ti eju gha, o ka bi'eju.
+          O gba to ubo ti ẹsẹn gha o ka bì'ẹsẹn
+          O gba to ubo ti ẹwọ gha, o ka bì'ẹwọ.
+          O gba to ubo ti origho gha, o ka bì'origho.
+          O gba to ubo ti eju gha, o ka bì'eju.
 
-          O ka n'ewu
-          O ka r'aso
+          O ka ni'ewu
+          O ka ró'aso
           O ka di'isabatu 
-          O ka bi'ọkpa
-          O ka bi'ẹkoro
+          O ka bì'ọkpa
+          O ka bì'ẹkoro
           O ka re o gin o wa ba ọmẹtiẹ onobirẹn Ọlikpẹrẹbu wee
-          Ọma we de do sẹngua
+          Ọma wee de do sẹngua
           Oma wee Olikperubu ghele olikperebu
 
-          Ọmatiẹ Onobirẹn Ọlikpẹrẹbu gba ri, o ka sa gbaa buru, o ka dinma ro, o ka kpe iyo ro biri ọwa ro, o ka gin eyi ọkọ temi fe do re.
+          Ọmatiẹ ọnobirẹn Ọlikpẹrẹbu gba ri, o ka sa gbaa buru, o ka dinma ro, o ka kpe iye ro biri ọwa ro, o ka gin eyi ọkọ t'èmi fe do re.
         </p>
       </main>
       <LearningModule @completeModule="onCompleteModule" @reset="resetAllModules" />

@@ -81,9 +81,6 @@ nav {
   color: black;
   background-color: white;
   z-index: 99999;
-}
-
- {
   min-height: 2rem;
   min-width: 2rem;
 }

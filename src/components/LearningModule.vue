@@ -54,14 +54,14 @@ const moduleToStoreMap = {
     'pronouns': 'module1',
     'nouns': 'module2',
     'verbs': 'module3',
-    'identifiers': 'module4',
+    'misc': 'module4',
 };
 
 const moduleNameToLongNameMap = {
-    'pronouns': 'Na...',
+    'pronouns': 'How we go fit call you?',
     'nouns': 'Who you be?',
-    'verbs': 'What shall we do today?',
-    'identifiers': 'not sure',
+    'verbs': 'Wetin you go do?',
+    'misc': 'All join',
 };
 
 function generateRandomPositionsOutsideCircle({ count }) {
