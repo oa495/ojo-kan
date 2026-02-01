@@ -28,11 +28,6 @@
   }
 }
 
-@media (max-width: 800px) {
-  main {
-    margin: 2rem !important;
-  }
-}
 
 #app {
   width: 100%;
@@ -85,11 +80,15 @@ nav {
   font-size: 1.5rem;
   color: black;
   background-color: white;
+  z-index: 99999;
+}
+
+ {
+  min-height: 2rem;
+  min-width: 2rem;
 }
 
 a {
-  height: 2rem;
-  width: 2rem;
   margin: 0.2em;
   font-weight: 500;
   transition: all 0.3s ease-in-out;
@@ -196,5 +195,25 @@ main p {
 ::-moz-selection {
     background-color: #FFDA81;
     color: black;
+}
+
+@media (max-width: 800px) {
+  main {
+    margin: 2rem !important;
+  }
+
+  #big-circle {
+    height: 80%;
+    width: 100%;
+  }
+
+  .circle {
+    height: 70%;
+    width: 70%;
+  }
+
+  nav {
+    border: 1px dashed black;
+  }
 }
 </style>

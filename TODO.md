@@ -20,7 +20,6 @@
 ### Interactions
 
 [] - Flip words that have been translated on click **[NEXT UP]**
-[] - if multiple meanings you can switch between them by clicking
 [x] - small circle becomes big when module is activated
 
 ### REFINEMENT

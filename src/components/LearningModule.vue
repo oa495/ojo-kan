@@ -518,9 +518,9 @@ footer {
 
 @media (max-width: 800px) {
   .modules .module {
-    width: 6em;
-    height: 6em;
-    font-size: 1em;
+    min-width: 6em;
+    min-height: 6em;
+    font-size: 0.8em;
   }
 
   .module .content {
