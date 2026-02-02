@@ -112,7 +112,8 @@ const nouns = {
     'ara': 'body',
     'ọjẹ': 'food',
     'abẹtẹ': 'room',
-    'irẹye': 'person'
+    'irẹye': 'person',
+    'ulí': 'house'
 }
 
 const allWords = { ...verbs, ...pronouns, ...nouns, ...misc, ...adjectives_adverbs };

@@ -228,7 +228,7 @@ export default {
           Ọma wee de do sẹngua.
           Oma wee Olikperubu ghele olikperebu.
 
-          Ọmatiẹ ọnobirẹn Ọlikpẹrẹbu gba ri, o ka sa gbaa buru, o ka dinma ro, o ka kpe iye ro biri ọwa ro, o ka gin èyí ọkọ t'èmi fe dọ re.
+          Ọmatiẹ ọnobirẹn Ọlikpẹrẹbu gba ri, o ka sa gbaa buru, o ka dinma ro, o ka kpe iye ro biri ọwa ro, o ka gin èyí ọkọ ti ' èmi fe dọ re.
         </p>
         <p>
           Iyọ! A ka gin èyí ọnọkẹrẹn ti wo fẹ dọ?
@@ -236,7 +236,7 @@ export default {
           Wo desin tsi?
           Ain ọnọkẹrẹn ti o fẹ dọ we re.
           A ka gin o san oo.
-          Ẹgualẹ wee gba w'ọli, a ka kin, a ka mu ọjẹ gbẹẹ.
+          Ẹgualẹ wee gba wọ ' ulí, a ka kin, a ka mu ọjẹ gbẹẹ.
           O ka gin ain we te jẹrun gin d'a gbe ọjẹ wee d'a gbe tsi abẹtẹ, a ka gbe tsi abẹtẹ.
           O gba tsọn èyí tsọn èyí.
           O ka wọ inọ abẹtẹ wee, o ka dá ara ro gba dá ẹgualẹ wee Oribiti wee.
