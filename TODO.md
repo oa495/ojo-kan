@@ -35,7 +35,7 @@
 [x] - don't require accents to "pass" 
 [] - doesn't reset after input is right
 [] - not so much a bug but user has to click out of input to know if it's correct
-[] - recalculate .circle positioning on resize
+[x] - recalculate .circle positioning on resize
 
 ## Visual
 

@@ -33,7 +33,7 @@ const verbs = {
     'mu gbẹẹ': 'give',
     'da': 'turn/throw',
     'kin': 'greet',
-    'wo': 'enter'
+    'wọ': 'enter'
 }
 
 const pronouns = {
@@ -46,7 +46,7 @@ const pronouns = {
     'mi': 'me',
     'èmi': 'me',
     'mo': 'I',
-    'Bokor': 'what',
+    'bokọ': 'what',
     'nikọ': 'what',
     'dede': 'all',
     'wee': 'the',
@@ -71,7 +71,11 @@ const misc = {
     'éè': 'not',
     'gha': 'where',
     'de/derekede': 'but',
-    'tee': 'yet'
+    'tee': 'yet',
+    'te': 'yet',
+    "t'a": "that they",
+    "t'o": "that he/she",
+    'tsi': 'before'
 }
 
 const nouns = {

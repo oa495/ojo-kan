@@ -109,6 +109,18 @@ function partitionProperties(obj, partsCount) {
   return parts;
 }
 
+function throttle(func, limit) {
+  let inThrottle
+  return function(...args) {
+    if (!inThrottle) {
+      func.apply(this, args)
+      inThrottle = true
+      setTimeout(() => inThrottle = false, limit)
+    }
+  }
+}
+
+
 export default {
     name: 'LearningModule',
     data() {
@@ -128,7 +140,8 @@ export default {
             },
             moduleNameToLongNameMap: moduleNameToLongNameMap,
             frequency: learningFrequency().frequency,
-            modulePassed: false
+            modulePassed: false,
+            handleResize: null
         }
     },
     components: {
@@ -136,6 +149,15 @@ export default {
         MiniQuiz
     },
     emits: ["completeModule", "reset"],
+    created() {
+        this.handleResize = throttle(() => {
+            this.resizeModule();
+        }, 200);
+        window.addEventListener("resize", this.handleResize);
+    },
+    destroyed() {
+        window.removeEventListener("resize", this.handleResize);
+    },
     mounted() {
         placeModules();
         // set time started if timer is on
@@ -199,6 +221,12 @@ export default {
         },
     },
     methods: {
+        resizeModule() {
+            const activeModule = document.querySelector('.module.active');
+            if (!activeModule) return;
+            const targetElement = document.querySelector('.modules');            
+            this.growToEl(targetElement, activeModule);
+        },
         partitionedStepContent(module) {
             const steps = this.moduleStepsCount[module];
             if (module === 'pronouns') {
@@ -295,6 +323,9 @@ export default {
             const targetElement = document.querySelector('.modules');
             const elementToGrow = liElement;
             
+            this.growToEl(targetElement, elementToGrow);
+        },
+        growToEl(targetElement, elementToGrow) {           
             const targetDimensions = targetElement.getBoundingClientRect();
             const targetWidth = targetDimensions.width;
             const targetHeight = targetDimensions.height;
@@ -302,7 +333,7 @@ export default {
             // Apply the retrieved dimensions to the element to grow
             // We must append 'px' to the numeric values when setting the style properties
             elementToGrow.style.width = `${targetWidth}px`;
-            elementToGrow.style.height = `${targetHeight}px`;            
+            elementToGrow.style.height = `${targetHeight}px`;   
         },
         passModule() {
             this.modulePassed = true;

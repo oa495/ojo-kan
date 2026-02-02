@@ -183,7 +183,7 @@ export default {
     <div class="circle" @click="toggleWord">
       <main>
         <p>
-          Mai retin mi. Ọma ta ka bì. Ọma ọnobirẹn.
+          Mai retin mi. Ọma t'a ka bì. Ọma ọnobirẹn.
           Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ.
           Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ.
           Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ. 
@@ -201,7 +201,7 @@ export default {
         </p> 
         <p>
           Ọjọ ọkan ke ẹgualẹ ọkan ni inọ oko ti a ka kpe wun Oribiti.
-          Ain ọma bokọ e we'ye ọma onobirẹn t'a ka bẹ t'o ka gin wen/éè forijẹ, ain won wa ra tó uwẹre.
+          Ain ọma bokọ e we'ye ọma ọnobirẹn t'a ka bẹ t'o ka gin wen/éè forijẹ, ain won wa ra tó uwẹre.
           Oribiti wee ke won gba re ra dá ara ro
 
           O gba tó ubo ti ẹsẹn gha o ka bì'ẹsẹn
@@ -227,9 +227,9 @@ export default {
           Ain ọnọkẹrẹn ti o fẹ dọ we re.
           A ka gin o san oo.
           Ẹgualẹ wee gba w'ọli, a ka kin, a ka mu ọjẹ gbẹẹ.
-          O ka gin ain we te jẹrun gin d'a gbe ọjẹ we d'a gbe tsi abẹtẹ, a ka gbe tsi abẹtẹ.
+          O ka gin ain we te jẹrun gin d'a gbe ọjẹ wee d'a gbe tsi abẹtẹ, a ka gbe tsi abẹtẹ.
           O gba tsọn èyí tsọn èyí.
-          O ka wọ inọ abẹtẹ we, o ka da ara ro gba da ẹgualẹ wee Oribiti wee.
+          O ka wọ inọ abẹtẹ wee, o ka da ara ro gba da ẹgualẹ wee Oribiti wee.
           O ka da ọjẹ we tsi'alẹ, o la, o ka la, o ka la jẹ kuro.
           O ka da tsitsi irẹye.
         </p>
