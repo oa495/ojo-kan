@@ -380,7 +380,7 @@ export default {
 }
 
 </script>
-<style>
+<style scoped>
 table {
     width: 100%;
     table-layout: fixed;

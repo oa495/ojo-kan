@@ -10,6 +10,7 @@ export default {
     return {
       frequency: '',
       store: learningFrequency(),
+      allModulesCompleted: false,
     }
   },
   components: {
@@ -21,32 +22,31 @@ export default {
         paragraphs.forEach(paragraph => {
             const originalText = paragraph.textContent;
             const wordsAndSeparators = originalText.split(/(\s+)/);
-            const newHTML = wordsAndSeparators.map(part => {
-            // Check if the part (trimmed and lowercased) is in our object
-            const cleanedPart = part.trim().toLowerCase().replace(/[.,!?;:"]/g, '');
-            const translation = allWords[cleanedPart];
-            if (translation) {
-                const highlightClass = Object.keys(pronouns).includes(cleanedPart)
-                    ? 'pronouns'
-                    : Object.keys(nouns).includes(cleanedPart)
-                        ? 'nouns'
-                        : Object.keys(verbs).includes(cleanedPart)
-                            ? 'verbs'
-                            : Object.keys(misc).includes(cleanedPart)
-                               ? 'misc'
-                            : Object.keys(adjectives_adverbs).includes(cleanedPart)
-                              ? 'adjectives_adverbs'
-                            : 'word';
-                // If it is, wrap it in a button with the highlight class
-                return `<button disabled="true" class="${highlightClass}">${part}</button>`;
-            }
-            // Otherwise, return the part as is (including spaces and punctuation)
-            return part;
+            const newHTML = wordsAndSeparators.map((part, i) => {
+              // Check if the part (trimmed and lowercased) is in our object
+              const cleanedPart = part.trim().toLowerCase().replace(/[.,!?;:"]/g, '');
+              const translation = allWords[cleanedPart];
+              if (translation) {
+                  const highlightClass = Object.keys(pronouns).includes(cleanedPart)
+                      ? 'pronouns'
+                      : Object.keys(nouns).includes(cleanedPart)
+                          ? 'nouns'
+                          : Object.keys(verbs).includes(cleanedPart)
+                              ? 'verbs'
+                              : Object.keys(misc).includes(cleanedPart)
+                                ? 'misc'
+                              : Object.keys(adjectives_adverbs).includes(cleanedPart)
+                                ? 'adjectives_adverbs'
+                              : 'word';
+                  // If it is, wrap it in a button with the highlight class
+                  return `<button disabled="true" index="${i}" class="${highlightClass} word">${part}</button>`;
+              }
+              // Otherwise, return the part as is (including spaces and punctuation)
+              return part;
             }).join('');
 
             paragraph.innerHTML = newHTML;
         });
-      
         const progress = localStorage.getItem('moduleProgress');
         const store = moduleProgress();
 
@@ -118,6 +118,8 @@ export default {
           console.log('All modules completed!');
           const circle = document.querySelector('.circle');
           circle.classList.add('complete');
+          this.allModulesCompleted = true;
+          this.shuffleWords();
       }
     },
     resetAllModules() {
@@ -146,6 +148,14 @@ export default {
         const punctuation = match ? match[2] : '';
         target.textContent = isUppercase ? translated[0].toUpperCase() + translated.slice(1) + punctuation : translated + punctuation;
       }
+    },
+    shuffleWords() {
+      let paragraphs = document.querySelectorAll('main p');
+        paragraphs.forEach(paragraph => {
+          const originalText = paragraph.textContent;
+          const wordsAndSeparators = originalText.split(/(\s+)/);
+          console.log(wordsAndSeparators);
+        });
     }
   }
 }
@@ -194,9 +204,9 @@ export default {
           Ọmẹtiẹ ọnobirẹn ọkan ti a kpe Ọlikpẹrẹbu.
           Éè nẹ ajá Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ ọma wee,
           gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
-          Èyí ma ba ain wen jẹ.
+          Èyí ma bà ain wen jẹ.
           Ubo kì ubo ni ẹye wee dede,
-          ajá Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma we ain wen jẹ.
+          ajá Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma wee ain wen jẹ.
           Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
         </p> 
         <p>
@@ -204,17 +214,17 @@ export default {
           Ain ọma bokọ e we'ye ọma ọnobirẹn t'a ka bẹ t'o ka gin wen/éè forijẹ, ain won wa ra tó uwẹre.
           Oribiti wee ke won gba re ra dá ara ro
 
-          O gba tó ubo ti ẹsẹn gha o ka bì'ẹsẹn
-          O gba tó ubo ti ẹwọ gha, o ka bì'ẹwọ.
-          O gba tó ubo ti origho gha, o ka bì'origho.
-          O gba tó ubo ti eju gha, o ka bì'eju.
+          O gba tó ubo ti ẹsẹn gha o ka bí ' ẹsẹn
+          O gba tó ubo ti ẹwọ gha, o ka bí ' ẹwọ.
+          O gba tó ubo ti origho gha, o ka bí ' origho.
+          O gba tó ubo ti eju gha, o ka bí ' eju.
 
-          O ka ni'ewu.
-          O ka ró'aso.
-          O ka di'isabatu. 
-          O ka bì'ọkpa.
-          O ka bì'ẹkoro.
-          O ka re o gin o wa ba ọmẹtiẹ onobirẹn Ọlikpẹrẹbu wee.
+          O ka ni ' ewu.
+          O ka ró ' aso.
+          O ka di ' isabatu. 
+          O ka bí ' ọkpa.
+          O ka bí ' ẹkoro.
+          O ka re o gin o wa bà ọmẹtiẹ onobirẹn Ọlikpẹrẹbu wee.
           Ọma wee de do sẹngua.
           Oma wee Olikperubu ghele olikperebu.
 
@@ -229,9 +239,9 @@ export default {
           Ẹgualẹ wee gba w'ọli, a ka kin, a ka mu ọjẹ gbẹẹ.
           O ka gin ain we te jẹrun gin d'a gbe ọjẹ wee d'a gbe tsi abẹtẹ, a ka gbe tsi abẹtẹ.
           O gba tsọn èyí tsọn èyí.
-          O ka wọ inọ abẹtẹ wee, o ka da ara ro gba da ẹgualẹ wee Oribiti wee.
-          O ka da ọjẹ we tsi'alẹ, o la, o ka la, o ka la jẹ kuro.
-          O ka da tsitsi irẹye.
+          O ka wọ inọ abẹtẹ wee, o ka dá ara ro gba dá ẹgualẹ wee Oribiti wee.
+          O ka da ọjẹ we tsi'alẹ, o la, o ka la, o ka la jẹ̀ kuro.
+          O ka dá tsitsi irẹye.
         </p>
       </main>
       <LearningModule @completeModule="onCompleteModule" @reset="resetAllModules" />
@@ -305,11 +315,21 @@ fieldset button {
 }
 
 .circle.complete p {
+  position: relative; 
   color: white;
   font-size: 1.8rem;
 }
 
 main button {
   display: inline;
+}
+
+.word {
+  display: inline-block; /* Essential for transform to work */
+  transition: transform 0.5s ease; 
+}
+
+.word:disabled {
+  cursor: none;
 }
 </style>

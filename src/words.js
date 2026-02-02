@@ -1,7 +1,7 @@
 const verbs = {
     'retin': 'listen',
     'gin': 'say',
-    'je': 'agree',
+    'jẹ': 'accept',
     'di': 'let',
     'bẹ': 'beg',
     'ka': 'able',
@@ -20,20 +20,21 @@ const verbs = {
     'dọ': 'marry',
     'ró': 'tie',
     'ni': 'wear', // add accent,
-    'dá': 'change',
+    'dá': 'transform',
     'tó': 'reach',
     'desin': 'know',
     'jẹrun': 'eat',
     'tsọn': 'look',
     'tsitsi': 'resemble',
-    'jẹ': 'eat',
+    'jẹ̀': 'eat',
     'la': 'lick',
     'kuro': 'finish',
     'gbe': 'carry',
     'mu gbẹẹ': 'give',
     'da': 'turn/throw',
     'kin': 'greet',
-    'wọ': 'enter'
+    'wọ': 'enter',
+    'nẹ': 'have'
 }
 
 const pronouns = {
@@ -52,6 +53,7 @@ const pronouns = {
     'wee': 'the',
     'ma': 'when',
     'ro': 'her/him',
+    'wo': 'you'
 };
 
 const adjectives_adverbs = {
@@ -60,7 +62,6 @@ const adjectives_adverbs = {
     'do': 'very',
     'san': 'okay'
 }
-
 const misc = {
     'ọkan': 'one',
     'inọ': 'inside',
@@ -75,11 +76,12 @@ const misc = {
     'te': 'yet',
     "t'a": "that they",
     "t'o": "that he/she",
-    'tsi': 'before'
+    'tsi': 'before',
+    'ni': 'in',
+    'biri': 'and'
 }
 
 const nouns = {
-    'ọlikpẹrẹbu': 'a woman who has it all',
     'ọma': 'child',
     'ọmẹtiẹ': 'small child',
     'ọnobirẹn': 'woman',
@@ -107,7 +109,7 @@ const nouns = {
     'ara': 'body',
     'ọjẹ': 'food',
     'abẹtẹ': 'room',
-    'irẹye': 'person/people'
+    'irẹye': 'person'
 }
 
 const allWords = { ...verbs, ...pronouns, ...nouns, ...misc, ...adjectives_adverbs };
