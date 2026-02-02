@@ -203,25 +203,25 @@ export default {
         <p>
           Ọmẹtiẹ ọnobirẹn ọkan ti a kpe Ọlikpẹrẹbu.
           Éè nẹ ajá Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ ọma wee,
-          gin aghan fẹ gba tse obirẹn, ain wen jẹ. 
-          Èyí ma bà ain wen jẹ.
+          gin aghan fẹ gba tse obirẹn, ain éè jẹ. 
+          Èyí ma bà ain éè jẹ.
           Ubo kì ubo ni ẹye wee dede,
-          ajá Itsẹkiri kí ajá Itsẹkiri dede owun wa gba fẹ ọma wee ain wen jẹ.
-          Nikọ re/e tse ti wo gba gin we jẹ? Ain wen jẹ, ain we fẹ aghan ki aghan.
+          ajá Itsẹkiri kí ajá Itsẹkiri dede owún wa gba fẹ ọma wee ain éè jẹ.
+          Nikọ re/e tse ti wo gba gin we jẹ? Ain éè jẹ, ain we fẹ aghan kí aghan.
         </p> 
         <p>
-          Ọjọ ọkan ke ẹgualẹ ọkan ni inọ oko ti a ka kpe wun Oribiti.
-          Ain ọma bokọ e we'ye ọma ọnobirẹn t'a ka bẹ t'o ka gin wen/éè forijẹ, ain won wa ra tó uwẹre.
+          Ọjọ ọkan ke ẹgualẹ ọkan ni inọ oko ti a ka kpe owún Oribiti.
+          Ain ọma bokọ e w ' ẹye ọma ọnobirẹn t'a ka bẹ t'o ka gin éè forijẹ, ain won wa ra tó uwẹre.
           Oribiti wee ke won gba re ra dá ara ro
 
-          O gba tó ubo ti ẹsẹn gha o ka bí ' ẹsẹn
+          O gba tó ubo ti ẹsẹn gha, o ka bí ' ẹsẹn.
           O gba tó ubo ti ẹwọ gha, o ka bí ' ẹwọ.
           O gba tó ubo ti origho gha, o ka bí ' origho.
-          O gba tó ubo ti eju gha, o ka bí ' eju.
+          O gba tó ubo ti ẹju gha, o ka bí ' ẹju.
 
-          O ka ni ' ewu.
-          O ka ró ' aso.
-          O ka di ' isabatu. 
+          O ka ni ' ẹwu.
+          O ka ró ' aṣọ.
+          O ka ni ' isabatu. 
           O ka bí ' ọkpa.
           O ka bí ' ẹkoro.
           O ka re o gin o wa bà ọmẹtiẹ onobirẹn Ọlikpẹrẹbu wee.

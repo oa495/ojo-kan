@@ -53,7 +53,8 @@ const pronouns = {
     'wee': 'the',
     'ma': 'when',
     'ro': 'her/him',
-    'wo': 'you'
+    'wo': 'you',
+    'owún': 'na him/her'
 };
 
 const adjectives_adverbs = {
@@ -68,7 +69,6 @@ const misc = {
     'wee': 'the',
     'sin': 'is it',
     'ti': 'that',
-    'wen': 'not',
     'éè': 'not',
     'gha': 'where',
     'de/derekede': 'but',
@@ -77,8 +77,11 @@ const misc = {
     "t'a": "that they",
     "t'o": "that he/she",
     'tsi': 'before',
+    'tsii': 'in the way of',
     'ni': 'in',
-    'biri': 'and'
+    'biri': 'and',
+    'ubo kì ubo': 'any place',
+    'kí': 'any'
 }
 
 const nouns = {
