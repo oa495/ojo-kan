@@ -168,7 +168,7 @@ export default {
       <h1>
         Ọj'ọkan
       </h1>
-      <p class="project-description">An Itsẹkiri folktale that unveils itself to the reader as they learn words from the language step by step. <u>Click on "bubble" to get started.</u> 
+      <p class="project-description">An Itsẹkiri folktale that unveils itself to the reader as they learn words from the language. <u>Click on "bubble" to get started learning.</u> 
       </p>
       <fieldset class="frequency-selection">
         <legend>Choose a frequency for the tale to unfold:</legend>
@@ -262,11 +262,12 @@ export default {
 }
 
 h1 {
-  margin: 1rem;
   font-size: 3rem;
   line-height: 0.9em;
   font-style: italic;
   text-align: left;
+  margin: 1rem;
+  padding-bottom: 0.2em;
 }
 
 .project-description {

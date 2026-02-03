@@ -112,12 +112,19 @@ button {
   transition: all 0.3s ease-in-out;
 }
 
+ul {
+  list-style-type: none;
+}
+
+.circle main {
+  overflow-y: auto;
+}
+
 main {
   font-weight: 400;
   font-style: normal;
   font-size: 1.4rem;
   line-height: 1.6em;
-  overflow-y: scroll;
   max-width: 80%;
   max-height: 75%;
   scrollbar-color: black transparent;
@@ -223,15 +230,5 @@ main p {
   nav {
     border: 1px dashed black;
   }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>
