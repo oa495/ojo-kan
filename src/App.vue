@@ -3,9 +3,9 @@
 </script>
 
 <template>
-   <!-- <transition name="fade" mode="out-in"> -->
+   <transition name="scale" mode="out-in">
       <router-view></router-view>
-  <!-- </transition> -->
+   </transition>
   <nav>
     <router-link class="nav-link" to="/story" title="story">ita</router-link>
     <router-link class="nav-link" to="/about" title="question">ùbírọ̀</router-link>
@@ -14,14 +14,15 @@
 </template>
 
 <style>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
+.scale-enter-active,
+.scale-leave-active {
+  transition: all 0.5s ease;
 }
 
-.fade-enter-from,
-.fade-leave-to {
+.scale-enter-from,
+.scale-leave-to {
   opacity: 0;
+  transform: scale(0.95);
 }
 
 #app {
@@ -222,5 +223,15 @@ main p {
   nav {
     border: 1px dashed black;
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

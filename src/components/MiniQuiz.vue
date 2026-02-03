@@ -3,14 +3,14 @@
         <div v-if="index === 0">
             <label for="english-word">What's does "{{ itsekiriWord }}" mean?</label>
             <div class="input-group">
-                <input type="text" id="english-translation" name="english-translation" v-on:change="validateAnswer($event, englishWord, index)"/>
+                <input type="text" id="english-translation" name="english-translation" v-on:mouseleave="validateAnswer($event, itsekiriWord)" v-on:change="validateAnswer($event, englishWord, index)"/>
                 <span v-if="firstAnswer">&#10003;</span>
             </div>
         </div>
         <div v-else>
             <label for="itsekiri-word">What's the Itsekiri word for "{{ englishWord }}"?</label>
             <div class="input-group">
-                <input type="text" id="itsekiri-translation" name="itsekiri-translation" v-on:change="validateAnswer($event, itsekiriWord, index)"/>
+                <input type="text" id="itsekiri-translation" name="itsekiri-translation" v-on:mouseleave="validateAnswer($event, itsekiriWord)" v-on:change="validateAnswer($event, itsekiriWord, index)"/>
                 <span class="check" v-if="secondAnswer">&#10003;</span>
             </div>
         </div>

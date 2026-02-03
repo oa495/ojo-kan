@@ -163,88 +163,90 @@ export default {
 </script>
 
 <template>
-  <section class="intro">
-    <h1>
-      Ọj'ọkan
-    </h1>
-    <p class="project-description">An Itsẹkiri folktale that unveils itself to the reader as they learn words from the language step by step. <u>Click on "bubble" to get started.</u> 
-    </p>
-    <fieldset class="frequency-selection">
-      <legend>Choose a frequency for the tale to unfold:</legend>
-      <div>
-        <input type="radio" v-model="frequency" id="own-pace" name="frequency" value="own-pace" @change="changeFrequency" />
-        <label for="own-pace">Own pace</label>
-      </div>
-      <div>
-        <input type="radio" v-model="frequency" id="hour" name="frequency" value="hourly" checked="" @change="changeFrequency"/>
-        <label for="hour">Hourly</label>
-      </div>
-      <div>
-        <input type="radio" v-model="frequency" id="day" name="frequency" value="daily" @change="changeFrequency" />
-        <label for="day">Daily</label>
-      </div>
-      <div>
-        <input type="radio" v-model="frequency" id="surprise-me" name="frequency" value="surprise-me" @change="changeFrequency" />
-        <label for="surprise-me">Surprise me!</label>
-      </div>
-    </fieldset>
-  </section>
-  <div class="big-circle">
-    <div class="circle" @click="toggleWord">
-      <main>
-        <p>
-          Mai retin mi. Ọma t'a ka bì. Ọma ọnobirẹn.
-          Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ.
-          Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ.
-          Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ. 
-          Nikọ sin???
-          Aghan retin mi di èmi gin gbẹ aghan.
-        </p>
-        <p>
-          Ọmẹtiẹ ọnobirẹn ọkan ti a kpe Ọlikpẹrẹbu.
-          Éè nẹ ajá Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ ọma wee,
-          gin aghan fẹ gba tse obirẹn, ain éè jẹ. 
-          Èyí ma bà ain éè jẹ.
-          Ubo kì ubo ni ẹye wee dede,
-          ajá Itsẹkiri kí ajá Itsẹkiri dede owún wa gba fẹ ọma wee ain éè jẹ.
-          Nikọ re/e tse ti wo gba gin we jẹ? Ain éè jẹ, ain we fẹ aghan kí aghan.
-        </p> 
-        <p>
-          Ọjọ ọkan ke ẹgualẹ ọkan ni inọ oko ti a ka kpe owún Oribiti.
-          Ain ọma bokọ e w ' ẹye ọma ọnobirẹn t'a ka bẹ t'o ka gin éè forijẹ, ain won wa ra tó uwẹre.
-          Oribiti wee ke won gba re ra dá ara ro
+  <div>
+    <section class="intro">
+      <h1>
+        Ọj'ọkan
+      </h1>
+      <p class="project-description">An Itsẹkiri folktale that unveils itself to the reader as they learn words from the language step by step. <u>Click on "bubble" to get started.</u> 
+      </p>
+      <fieldset class="frequency-selection">
+        <legend>Choose a frequency for the tale to unfold:</legend>
+        <div>
+          <input type="radio" v-model="frequency" id="own-pace" name="frequency" value="own-pace" @change="changeFrequency" />
+          <label for="own-pace">Own pace</label>
+        </div>
+        <div>
+          <input type="radio" v-model="frequency" id="hour" name="frequency" value="hourly" checked="" @change="changeFrequency"/>
+          <label for="hour">Hourly</label>
+        </div>
+        <div>
+          <input type="radio" v-model="frequency" id="day" name="frequency" value="daily" @change="changeFrequency" />
+          <label for="day">Daily</label>
+        </div>
+        <div>
+          <input type="radio" v-model="frequency" id="surprise-me" name="frequency" value="surprise-me" @change="changeFrequency" />
+          <label for="surprise-me">Surprise me!</label>
+        </div>
+      </fieldset>
+    </section>
+    <div class="big-circle">
+      <div class="circle" @click="toggleWord">
+        <main>
+          <p>
+            Mai retin mi. Ọma t'a ka bì. Ọma ọnobirẹn.
+            Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ.
+            Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ.
+            Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ. 
+            Nikọ sin???
+            Aghan retin mi di èmi gin gbẹ aghan.
+          </p>
+          <p>
+            Ọmẹtiẹ ọnobirẹn ọkan ti a kpe Ọlikpẹrẹbu.
+            Éè nẹ ajá Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ ọma wee,
+            gin aghan fẹ gba tse obirẹn, ain éè jẹ. 
+            Èyí ma bà ain éè jẹ.
+            Ubo kì ubo ni ẹye wee dede,
+            ajá Itsẹkiri kí ajá Itsẹkiri dede owún wa gba fẹ ọma wee ain éè jẹ.
+            Nikọ re/e tse ti wo gba gin we jẹ? Ain éè jẹ, ain we fẹ aghan kí aghan.
+          </p> 
+          <p>
+            Ọjọ ọkan ke ẹgualẹ ọkan ni inọ oko ti a ka kpe owún Oribiti.
+            Ain ọma bokọ e w ' ẹye ọma ọnobirẹn t'a ka bẹ t'o ka gin éè forijẹ, ain won wa ra tó uwẹre.
+            Oribiti wee ke won gba re ra dá ara ro
 
-          O gba tó ubo ti ẹsẹn gha, o ka bí ' ẹsẹn.
-          O gba tó ubo ti ẹwọ gha, o ka bí ' ẹwọ.
-          O gba tó ubo ti origho gha, o ka bí ' origho.
-          O gba tó ubo ti ẹju gha, o ka bí ' ẹju.
+            O gba tó ubo ti ẹsẹn gha, o ka bí ' ẹsẹn.
+            O gba tó ubo ti ẹwọ gha, o ka bí ' ẹwọ.
+            O gba tó ubo ti origho gha, o ka bí ' origho.
+            O gba tó ubo ti ẹju gha, o ka bí ' ẹju.
 
-          O ka ni ' ẹwu.
-          O ka ró ' aṣọ.
-          O ka ni ' isabatu. 
-          O ka bí ' ọkpa.
-          O ka bí ' ẹkoro.
-          O ka re o gin o wa bà ọmẹtiẹ onobirẹn Ọlikpẹrẹbu wee.
-          Ọma wee de do sẹngua.
-          Oma wee Olikperubu ghele olikperebu.
+            O ka ni ' ẹwu.
+            O ka ró ' aṣọ.
+            O ka ni ' isabatu. 
+            O ka bí ' ọkpa.
+            O ka bí ' ẹkoro.
+            O ka re o gin o wa bà ọmẹtiẹ onobirẹn Ọlikpẹrẹbu wee.
+            Ọma wee de do sẹngua.
+            Oma wee Olikperubu ghele olikperebu.
 
-          Ọmatiẹ ọnobirẹn Ọlikpẹrẹbu gba ri, o ka sa gbaa buru, o ka dinma ro, o ka kpe iye ro biri ọwa ro, o ka gin èyí ọkọ ti ' èmi fe dọ re.
-        </p>
-        <p>
-          Iyọ! A ka gin èyí ọnọkẹrẹn ti wo fẹ dọ?
-          O ka gin èyí ọnọkẹrẹn t'emi fẹ dọ re oo.
-          Wo desin tsi?
-          Ain ọnọkẹrẹn ti o fẹ dọ we re.
-          A ka gin o san oo.
-          Ẹgualẹ wee gba wọ ' ulí, a ka kin, a ka mu ọjẹ gbẹẹ.
-          O ka gin ain we te jẹrun gin d'a gbe ọjẹ wee d'a gbe tsi abẹtẹ, a ka gbe tsi abẹtẹ.
-          O gba tsọn èyí tsọn èyí.
-          O ka wọ inọ abẹtẹ wee, o ka dá ara ro gba dá ẹgualẹ wee Oribiti wee.
-          O ka da ọjẹ we tsi'alẹ, o la, o ka la, o ka la jẹ̀ kuro.
-          O ka dá tsitsi irẹye.
-        </p>
-      </main>
-      <LearningModule @completeModule="onCompleteModule" @reset="resetAllModules" />
+            Ọmatiẹ ọnobirẹn Ọlikpẹrẹbu gba ri, o ka sa gbaa buru, o ka dinma ro, o ka kpe iye ro biri ọwa ro, o ka gin èyí ọkọ ti ' èmi fe dọ re.
+          </p>
+          <p>
+            Iyọ! A ka gin èyí ọnọkẹrẹn ti wo fẹ dọ?
+            O ka gin èyí ọnọkẹrẹn t'emi fẹ dọ re oo.
+            Wo desin tsi?
+            Ain ọnọkẹrẹn ti o fẹ dọ we re.
+            A ka gin o san oo.
+            Ẹgualẹ wee gba wọ ' ulí, a ka kin, a ka mu ọjẹ gbẹẹ.
+            O ka gin ain we te jẹrun gin d'a gbe ọjẹ wee d'a gbe tsi abẹtẹ, a ka gbe tsi abẹtẹ.
+            O gba tsọn èyí tsọn èyí.
+            O ka wọ inọ abẹtẹ wee, o ka dá ara ro gba dá ẹgualẹ wee Oribiti wee.
+            O ka da ọjẹ we tsi'alẹ, o la, o ka la, o ka la jẹ̀ kuro.
+            O ka dá tsitsi irẹye.
+          </p>
+        </main>
+        <LearningModule @completeModule="onCompleteModule" @reset="resetAllModules" />
+      </div>
     </div>
   </div>
 </template>

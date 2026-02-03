@@ -14,7 +14,7 @@ const verbs = {
     'bà': 'meet',
     'gba-a': '-ing',
     'bí': 'borrow',
-    'forijẹ': 'agree',
+    'forijẹ': 'accept',
     'buru': 'meet in motion',
     'dinma': 'embrace (romantically)',
     'dọ': 'marry',

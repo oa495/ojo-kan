@@ -34,7 +34,7 @@
 [x] - capitalization isn't preserved
 [x] - don't require accents to "pass" 
 [] - doesn't reset after input is right
-[] - not so much a bug but user has to click out of input to know if it's correct
+[x] - not so much a bug but user has to click out of input to know if it's correct
 [x] - recalculate .circle positioning on resize
 
 ## Visual
@@ -49,8 +49,8 @@
 [] - recordings scattered around (to simulate gossip)
 [] - have a reference for the words and translations
 [] - make blobs draggable
-[] - surprise me frequency
-[] - transition route changes
+[x] - surprise me frequency
+[x] - transition route changes
 
 ## Testing flow
 
