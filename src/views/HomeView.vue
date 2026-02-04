@@ -65,7 +65,7 @@ a.start {
     border: 1px dashed white;
     float: right;
     text-align: center;
-    margin-top: 4em;
+    margin-top: 2em;
 }
 
 @media (max-width: 800px) {

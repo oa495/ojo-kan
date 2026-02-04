@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link to="/" class="back-arrow">←</router-link>
+        <router-link aria-label="Back to story" to="/" class="back-arrow">←</router-link>
         <div class="big-circle">
             <div class="circle">
                 <main>

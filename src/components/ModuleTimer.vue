@@ -1,5 +1,5 @@
 <template>
-    <span class="module-timer">
+    <span role="timer" aria-atomic="true" class="module-timer">
         Next Module Activates in: <span class="time">{{ formattedTime }}</span>
     </span>
 </template>

@@ -6,6 +6,7 @@
    <transition name="scale" mode="out-in">
       <router-view></router-view>
    </transition>
+   
   <nav>
     <router-link class="nav-link" to="/story" title="story">ita</router-link>
     <router-link class="nav-link" to="/about" title="question">ùbírọ̀</router-link>
@@ -230,5 +231,17 @@ main p {
   nav {
     border: 1px dashed black;
   }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap; /* added line */
+  border: 0;
 }
 </style>

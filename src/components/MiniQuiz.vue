@@ -1,28 +1,46 @@
 <template>
-    <form v-for="(englishWord, itsekiriWord, index) in wordsToTest">
-        <div v-if="index === 0">
-            <label for="english-word">What's does "{{ itsekiriWord }}" mean?</label>
-            <div class="input-group">
-                <input type="text" id="english-translation" name="english-translation" v-on:mouseleave="validateAnswer($event, itsekiriWord)" v-on:change="validateAnswer($event, englishWord, index)"/>
-                <span v-if="firstAnswer">&#10003;</span>
+    <div ref="rootElement" class="quiz-container">
+        <form v-for="(englishWord, itsekiriWord, index) in wordsToTest">
+            <div v-if="index === 0">
+                <label for="english-word">What's does "{{ itsekiriWord }}" mean?</label>
+                <div class="input-group">
+                    <input :aria-invalid="!validFirstAnswer" type="text" id="english-translation" name="english-translation" v-on:change="validateAnswer($event, englishWord, index)"/>
+                    <div class="error-message" role="alert">
+                        <span aria-label="First answer correct" v-if="validFirstAnswer">&#10003;</span>
+                        <span v-else-if="this.firstAnswer.length" aria-label="First answer incorrect">
+                            &#x2715;
+                        </span>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div v-else>
-            <label for="itsekiri-word">What's the Itsekiri word for "{{ englishWord }}"?</label>
-            <div class="input-group">
-                <input type="text" id="itsekiri-translation" name="itsekiri-translation" v-on:mouseleave="validateAnswer($event, itsekiriWord)" v-on:change="validateAnswer($event, itsekiriWord, index)"/>
-                <span class="check" v-if="secondAnswer">&#10003;</span>
+            <div v-else>
+                <label for="itsekiri-word">What's the Itsekiri word for "{{ englishWord }}"?</label>
+                <div class="input-group">
+                    <input :aria-invalid="!validSecondAnswer" type="text" id="itsekiri-translation" name="itsekiri-translation" v-on:change="validateAnswer($event, itsekiriWord, index)"/>
+                    <div class="error-message" role="alert">
+                        <span aria-label="Second answer correct" class="check" v-if="validSecondAnswer">
+                            &#10003;
+                        </span>
+                        <span v-else-if="this.secondAnswer.length > 0" aria-label="Second answer incorrect">
+                            &#x2715;
+                        </span>
+                    </div>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </template>
 
 <script>
+
+import { ref } from 'vue';
 
 function removeAccents(str) {
   // Normalize to NFD (Canonical Decomposition) to separate base letters and accents
   return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
+
+const rootElement = ref(null);
 
 export default {
     name: 'ModuleTimer',
@@ -33,8 +51,10 @@ export default {
     data() {
         return {
             wordsToTest: [],
-            firstAnswer: false,
-            secondAnswer: false
+            validFirstAnswer: false,
+            validSecondAnswer: false,
+            firstAnswer: '',
+            secondAnswer: ''
         }
     },
     emits: ["passModule"],
@@ -45,25 +65,41 @@ export default {
         this.wordsToTest = Object.fromEntries(
             Object.entries(stepContent).sort(() => Math.random() - 0.5).slice(0, 2)
         );
+        // set focus on first input
+        this.$nextTick(() => {
+            const containerEl = this.$refs.rootElement;
+            if (containerEl) {
+                const firstInput = containerEl.querySelector('#english-translation');
+                if (firstInput) {
+                    firstInput.focus();
+                }
+            }
+        });
     },
     methods: {
         validateAnswer(e, translated, index) {
-            let val = removeAccents(e.target.value.toLowerCase());
+            let origVal = e.target.value;
+            if (origVal.length <= 0) return;
+            let val = removeAccents(origVal.toLowerCase());
             translated = removeAccents(translated.toLowerCase());
             if (val === translated) {
                 if (index == 0) {
-                    this.firstAnswer = true;
+                    this.firstAnswer = val;
+                    this.validFirstAnswer = true;
                 } else {
-                    this.secondAnswer = true;
+                    this.secondAnswer = val;
+                    this.validSecondAnswer = true;
                 }
             } else {
                 if (index == 0) {
-                    this.firstAnswer = false;
+                    this.firstAnswer = val;
+                    this.validFirstAnswer = false;
                 } else {
-                    this.secondAnswer = false;
+                    this.secondAnswer = val;
+                    this.validSecondAnswer = false;
                 }
             }
-            if (this.firstAnswer && this.secondAnswer) {
+            if (this.validFirstAnswer && this.validSecondAnswer) {
                 this.$emit('passModule', true);
             }
         }
@@ -88,5 +124,9 @@ input[type="text"] {
 .input-group {
     display: inline-flex;
     align-items: center;
+}
+
+.error-message {
+    display: inline;
 }
 </style>

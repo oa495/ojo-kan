@@ -11,6 +11,8 @@ export default {
       frequency: '',
       store: learningFrequency(),
       allModulesCompleted: false,
+      isModuleActive: false,
+      announceMessage: ''
     }
   },
   components: {
@@ -113,14 +115,24 @@ export default {
       });
       let store = moduleProgress();
       store.completeModule(moduleNameInStore);
+      this.clearAriaAnnouncements();
+      document.querySelector('.circle main').focus();
 
       if (store.allModulesCompleted()) {
-          console.log('All modules completed!');
-          const circle = document.querySelector('.circle');
-          circle.classList.add('complete');
-          this.allModulesCompleted = true;
-          this.shuffleWords();
+        console.log('All modules completed!');
+        const circle = document.querySelector('.circle');
+        circle.classList.add('complete');
+        this.allModulesCompleted = true;
+        this.shuffleWords();
+        this.announceMessage = 'All modules completed! You have unlocked all the words in the story.';
+      } else {
+          this.announceMessage = 'A module has been completed. New words have been unlocked in the story.';
       }
+    },
+    clearAriaAnnouncements() {
+      setTimeout(() => {
+        this.announceMessage = '';
+      }, 5000);
     },
     resetAllModules() {
         const translated = document.querySelectorAll('.translated');
@@ -128,11 +140,14 @@ export default {
             const originalWord = el.dataset.translation;
             el.textContent = originalWord;
             el.classList.remove('translated');
+            el.setAttribute('disabled', true);
         });
         let store = moduleProgress();
         store.resetAllProgress();
         const circle = document.querySelector('.circle');
         circle.classList.remove('complete');
+        this.announceMessage = 'All modules have been reset. You are now back at the beginning.';
+        this.clearAriaAnnouncements();
     },
     toggleWord(event) {
       let target = event.target;
@@ -154,8 +169,10 @@ export default {
         paragraphs.forEach(paragraph => {
           const originalText = paragraph.textContent;
           const wordsAndSeparators = originalText.split(/(\s+)/);
-          console.log(wordsAndSeparators);
         });
+    },
+    onModuleActivated(isModuleActive) {
+      this.isModuleActive = isModuleActive;
     }
   }
 }
@@ -192,7 +209,10 @@ export default {
     </section>
     <div class="big-circle">
       <div class="circle" @click="toggleWord">
-        <main>
+        <div id="announce" aria-live="polite" class="sr-only">
+          <p>{{announceMessage}}</p>
+        </div>
+        <main :aria-hidden="isModuleActive ? 'true' : 'false'" tabindex="-1">
           <p>
             Mai retin mi. Ọma t'a ka bì. Ọma ọnobirẹn.
             Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ.
@@ -245,7 +265,7 @@ export default {
             O ka dá tsitsi irẹye.
           </p>
         </main>
-        <LearningModule @completeModule="onCompleteModule" @reset="resetAllModules" />
+        <LearningModule @completeModule="onCompleteModule" @reset="resetAllModules" @moduleActive="onModuleActivated" />
       </div>
     </div>
   </div>
@@ -313,6 +333,11 @@ fieldset button {
   color: white;
 }
 
+.translated:focus {
+  outline: 5px auto Highlight;
+  outline: 5px auto -webkit-focus-ring-color;
+}
+
 .circle.complete {
   background-color: black;
 }
@@ -334,5 +359,9 @@ main button {
 
 .word:disabled {
   cursor: none;
+}
+
+main:focus {
+  outline: 1px dashed black;
 }
 </style>

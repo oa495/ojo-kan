@@ -27,9 +27,9 @@
                         </li>
                     </ul>
                     <footer>
-                        <button class="step-button button" :disabled="step <= 1 ? true : false" v-on:click="updateStep(-1)">←</button>
+                        <button aria-label="Previous step" class="step-button button" :disabled="step <= 1 ? true : false" v-on:click="updateStep(-1)">←</button>
                        <button class="step-button button" v-if="isLastStep()" :disabled="!modulePassed ? true : false" @click="completeModule(module, $event)">Complete</button>
-                        <button class="step-button button" :disabled="isLastStep()" v-else
+                        <button aria-label="Next step" class="step-button button" :disabled="isLastStep()" v-else
                             v-on:click="updateStep(1)">→</button>
                     </footer>
                 </div>
@@ -148,7 +148,7 @@ export default {
         ModuleTimer,
         MiniQuiz
     },
-    emits: ["completeModule", "reset"],
+    emits: ["completeModule", "reset", "moduleActive"],
     created() {
         this.handleResize = throttle(() => {
             this.resizeModule();
@@ -282,6 +282,10 @@ export default {
             if (direction === -1) {
                 if (this.step <= 1) return;
                 this.step -= 1;
+                if (this.step == 0) {
+                    // set focus so it's not lost
+
+                }
             } else {
                 if (this.step >= totalSteps) return;
                 this.step += 1;
@@ -292,9 +296,11 @@ export default {
             if (this.activeModule === module) {
                 this.activeModule = null;
                 this.shrinkElement(event.target);
+                this.$emit('moduleActive', false);
             } else {
                 this.activeModule = module;
                 this.growElement(event.target);
+                this.$emit('moduleActive', true);
             }
             this.step = 1;
         },
