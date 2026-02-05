@@ -37,6 +37,7 @@
             </li>
         </ul>
     </section>
+    <span v-if="!scrolled" class="down-arrow">&darr;</span>
     <div class="module-timer-container">
         <ModuleTimer v-if="displayTimer" @activateModule="activateModules" :timeStarted="timeStarted" />
         <button class="button" @click="resetAll">Reset Modules</button>
@@ -141,8 +142,11 @@ export default {
             moduleNameToLongNameMap: moduleNameToLongNameMap,
             frequency: learningFrequency().frequency,
             modulePassed: false,
-            handleResize: null
+            handleResize: null,
         }
+    },
+    props: {
+        scrolled: Boolean
     },
     components: {
         ModuleTimer,
@@ -474,6 +478,24 @@ li.module:has(.module-trigger:disabled) {
     transform: rotate(360deg) translate3d(0.2em, 0, 0.05em) rotate(-360deg);
   }
 }
+
+@keyframes down {
+    0%, 100% { 
+        transform: translateY(-0.2em);
+    }
+
+    50% {
+        transform: translateY(0.2em);
+    }
+}
+
+.down-arrow {
+    font-size: 1.6rem;
+    margin-bottom: 1.5em;
+    animation: down 4s linear infinite;
+    -webkit-animation: down 4s linear infinite;
+}
+
 .module .content {
     font-size: 1.6rem;
     height: 70%;

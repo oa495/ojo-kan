@@ -16,8 +16,9 @@
 [x] - module timer should reset on load
 [x] - info page
 [] - buy a domain
-[] - scroll to top after module completed  **[NEXT UP]**
-[] - replace scrollbar with down arrow? 
+[x] - scroll to top after module completed  **[NEXT UP]**
+[x] - add down arrow? 
+[] - make blobs draggable 
 
 ### Interactions
 
@@ -50,7 +51,6 @@
 
 [] - recordings scattered around (to simulate gossip)
 [] - have a reference for the words and translations
-[] - make blobs draggable
 [x] - surprise me frequency
 [x] - transition route changes
 

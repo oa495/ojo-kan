@@ -98,7 +98,6 @@ export default {
         },
         prepareTimeToWait() {
             const frequency = localStorage.getItem('learningFrequency') || learningFrequency().frequency;
-            debugger;
             let timeToWait = 0;
             if (frequency === 'hourly') {
                 timeToWait = ONE_HOUR_MS;

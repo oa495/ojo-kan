@@ -12,7 +12,8 @@ export default {
       store: learningFrequency(),
       allModulesCompleted: false,
       isModuleActive: false,
-      announceMessage: ''
+      announceMessage: '',
+      scrolled: false
     }
   },
   components: {
@@ -61,6 +62,10 @@ export default {
                     this.onCompleteModule(module, storeToModuleMap[module]);
                 }
             }
+          this.scrolled = true;
+        } else {
+          const storyEl = document.getElementById('story');
+          storyEl.addEventListener('scroll', this.onScrollOnce);
         }
     });
 
@@ -70,6 +75,9 @@ export default {
     } 
   },
   methods: {
+    onScrollOnce() {
+      this.scrolled = true;
+    },
     changeFrequency() {
       if (this.frequency) {
         this.store.setFrequency(this.frequency);
@@ -116,7 +124,9 @@ export default {
       let store = moduleProgress();
       store.completeModule(moduleNameInStore);
       this.clearAriaAnnouncements();
-      document.querySelector('.circle main').focus();
+      const storyEl = document.getElementById('story');
+      storyEl.scrollTo(0, 0);
+      storyEl.focus();
 
       if (store.allModulesCompleted()) {
         console.log('All modules completed!');
@@ -212,7 +222,7 @@ export default {
         <div id="announce" aria-live="polite" class="sr-only">
           <p>{{announceMessage}}</p>
         </div>
-        <main :aria-hidden="isModuleActive ? 'true' : 'false'" tabindex="-1">
+        <main :aria-hidden="isModuleActive ? 'true' : 'false'" id="story">
           <p>
             Mai retin mi. Ọma t'a ka bì. Ọma ọnobirẹn.
             Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ.
@@ -265,7 +275,7 @@ export default {
             O ka dá tsitsi irẹye.
           </p>
         </main>
-        <LearningModule @completeModule="onCompleteModule" @reset="resetAllModules" @moduleActive="onModuleActivated" />
+        <LearningModule :scrolled="scrolled" @completeModule="onCompleteModule" @reset="resetAllModules" @moduleActive="onModuleActivated" />
       </div>
     </div>
   </div>
