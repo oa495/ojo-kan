@@ -73,7 +73,7 @@ function placeModules() {
   });
 
   modules.forEach((module, index) => {
-    module.style.left = `${positions[index].x}%`;
+    module.style.left = `${Math.min(positions[index].x, 80)}%`;
     module.style.top = `${Math.min(positions[index].y, 100)}%`;
   });
 }
