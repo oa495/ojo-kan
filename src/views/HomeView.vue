@@ -80,4 +80,15 @@ a.start {
   }
 }
 
+@media (max-width: 400px) {
+  .container h1 {
+    font-size: 3em;
+  }
+  
+  ul {
+    width: 100%;
+  }
+}
+
+
 </style>

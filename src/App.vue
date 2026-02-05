@@ -6,7 +6,6 @@
    <transition name="scale" mode="out-in">
       <router-view></router-view>
    </transition>
-   
   <nav>
     <router-link class="nav-link" to="/story" title="story">ita</router-link>
     <router-link class="nav-link" to="/about" title="question">ùbírọ̀</router-link>
@@ -197,11 +196,7 @@ main p {
     color: black;
 }
 
-@media (max-width: 1400px) {
-  #app {
-    flex-direction: column;
-  }
-
+@media (max-width: 1200px) {
   .intro, .big-circle {
     position: relative !important;
     margin: 1em auto 1em auto !important;
@@ -232,7 +227,6 @@ main p {
     border: 1px dashed black;
   }
 }
-
 .sr-only {
   position: absolute;
   width: 1px;

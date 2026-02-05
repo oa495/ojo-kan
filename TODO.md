@@ -16,7 +16,7 @@
 [x] - module timer should reset on load
 [x] - info page
 [] - buy a domain
-[] - scroll to top after module completed
+[] - scroll to top after module completed  **[NEXT UP]**
 [] - replace scrollbar with down arrow? 
 
 ### Interactions
