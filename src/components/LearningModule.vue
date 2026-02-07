@@ -23,7 +23,7 @@
                             </table>
                         </li>
                         <li v-if="step === moduleStepsCount[module]">
-                            <MiniQuiz @passModule="passModule" :stepContent="stepContent(module)" />
+                            <MiniQuiz @passModule="passModule" :stepContent="stepContent(module)" @completeModule="completeModule" />
                         </li>
                     </ul>
                     <footer>
@@ -536,6 +536,8 @@ footer {
     font-size: 1.4em;
     max-height: 70%;
     overflow-y: scroll;
+    scrollbar-color: black transparent;
+    scrollbar-width: thin;
 }
 
 .step-button {

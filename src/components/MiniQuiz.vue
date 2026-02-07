@@ -1,10 +1,10 @@
 <template>
     <div ref="rootElement" class="quiz-container">
-        <form v-for="(englishWord, itsekiriWord, index) in wordsToTest">
+        <form v-for="(englishWord, itsekiriWord, index) in wordsToTest" keydown="handleKeydown">
             <div v-if="index === 0">
                 <label for="english-word">What's does "{{ itsekiriWord }}" mean?</label>
                 <div class="input-group">
-                    <input :aria-invalid="!validFirstAnswer" type="text" id="english-translation" name="english-translation" v-on:change="validateAnswer($event, englishWord, index)"/>
+                    <input :aria-invalid="!validFirstAnswer" type="text" id="english-translation" name="english-translation" v-on:keydown="handleKeydown($event)" v-on:change="validateAnswer($event, englishWord, index)"/>
                     <div class="error-message" role="alert">
                         <span aria-label="First answer correct" v-if="validFirstAnswer">&#10003;</span>
                         <span v-else-if="this.firstAnswer.length" aria-label="First answer incorrect">
@@ -16,7 +16,7 @@
             <div v-else>
                 <label for="itsekiri-word">What's the Itsekiri word for "{{ englishWord }}"?</label>
                 <div class="input-group">
-                    <input :aria-invalid="!validSecondAnswer" type="text" id="itsekiri-translation" name="itsekiri-translation" v-on:change="validateAnswer($event, itsekiriWord, index)"/>
+                    <input :aria-invalid="!validSecondAnswer" type="text" id="itsekiri-translation" name="itsekiri-translation" v-on:keydown="handleKeydown($event)" v-on:change="validateAnswer($event, itsekiriWord, index)"/>
                     <div class="error-message" role="alert">
                         <span aria-label="Second answer correct" class="check" v-if="validSecondAnswer">
                             &#10003;
@@ -77,6 +77,15 @@ export default {
         });
     },
     methods: {
+        handleKeydown(e) {
+            switch (e.key) {
+                case 'Enter': 
+                    e.preventDefault();
+                    if (this.validFirstAnswer && this.validSecondAnswer) {
+                        this.$emit('passModule', true);
+                    }                    
+            }
+        },
         validateAnswer(e, translated, index) {
             let origVal = e.target.value;
             if (origVal.length <= 0) return;
