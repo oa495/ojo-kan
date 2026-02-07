@@ -193,7 +193,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="container story">
     <section class="intro">
       <h1>
         Ọj'ọkan
@@ -371,6 +371,10 @@ main button {
 
 .word:disabled {
   cursor: none;
+}
+
+.container.story {
+  padding-bottom: 10rem;
 }
 
 </style>

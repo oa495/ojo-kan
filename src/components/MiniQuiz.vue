@@ -128,5 +128,22 @@ input[type="text"] {
 
 .error-message {
     display: inline;
+    padding-left: 0.5em;
 }
+
+@media (max-width: 500px) {
+    input[type="text"] {
+        padding: 0.2em 0;
+        max-width: 80%;
+        font-size: 1em;
+    }
+    .input-group {
+        padding-top: 0.5em;
+    }
+
+    form div {
+        padding: 0.8em 0;
+    }
+}
+
 </style>

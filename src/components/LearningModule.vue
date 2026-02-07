@@ -402,6 +402,8 @@ table {
     margin: 0;
     padding: 0;
     list-style-type: none;
+    display: flex;
+    align-items: center;
 }
 
 .modules {
@@ -531,8 +533,9 @@ footer {
 
 .step {
     display: grid;
-    height: inherit;
     font-size: 1.4em;
+    max-height: 70%;
+    overflow-y: scroll;
 }
 
 .step-button {
@@ -579,5 +582,12 @@ footer {
     margin: auto;
   }
 }
+
+@media (max-width: 500px) {
+  footer {
+    width: auto;
+  }
+}
+
 
 </style>

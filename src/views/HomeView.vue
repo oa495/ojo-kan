@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container home">
         <h1>Welcome to Oj'okan.</h1>
         <p>Oj'okan means 'one day' in English. It's an interactive narrative written in Itsẹkiri that is unveiled as you learn words from the language.</p>
         <ul>
@@ -22,13 +22,13 @@
 </template>
 
 <style scoped>
-.container {
+.container.home {
     max-width: 80%;
     margin: 0 auto;
     font-size: 1.6em;
 }
 
-.container h1 {
+.container.home h1 {
     font-style: normal;
     font-weight: 300;
     font-size: 4em;
@@ -36,7 +36,7 @@
 
 .container p, h1, ul {
     padding: 0;
-    margin: 0.1em 0;
+    margin: 0.4em 0;
 }
 
 ul {

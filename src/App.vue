@@ -27,12 +27,13 @@
 
 #app {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
+  overflow-x: hidden;
 }
 
 .big-circle {
-  height: 100%;
+  height: 90dvh;
   width: 55%;
   border: 1px solid;
   border-radius: 50%;
@@ -220,7 +221,6 @@ main p {
   }
 
   .big-circle {
-    height: 80%;
     width: 100%;
   }
 
