@@ -121,6 +121,9 @@ export default {
           // change to button tag
           el.dataset.translation = word;
       });
+
+      this.scrolled = true;
+
       let store = moduleProgress();
       store.completeModule(moduleNameInStore);
       this.clearAriaAnnouncements();
@@ -290,8 +293,7 @@ export default {
   margin: 0.2em;
   line-height: 1.6em;
 }
-
-h1 {
+.intro h1 {
   font-size: 3rem;
   line-height: 0.9em;
   font-style: italic;
@@ -371,7 +373,4 @@ main button {
   cursor: none;
 }
 
-main:focus {
-  outline: 1px dashed black;
-}
 </style>

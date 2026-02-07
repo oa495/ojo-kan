@@ -71,7 +71,7 @@ const misc = {
     'ti': 'that',
     'éè': 'not',
     'gha': 'where',
-    'de/derekede': 'but',
+    'de': 'but',
     'tee': 'yet',
     'te': 'yet',
     "t'a": "that they",

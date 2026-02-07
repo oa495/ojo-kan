@@ -28,7 +28,7 @@
 ### REFINEMENT
 [] - add tests
 [x] - test in chrome & safari
-[] - accessibility pass  **[NEXT UP]**
+[x] - accessibility pass  **[NEXT UP]**
 [] - perf pass: minify, clean up css etc
 
 ### Bugs

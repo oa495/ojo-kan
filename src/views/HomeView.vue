@@ -13,7 +13,7 @@
             </li>
             <li>
                 <h2>Stay present</h2>
-                <p>Prioritize thoughtful engagement over speed. The story isn't a puzzle to be 'solved'; Take a beat after a module is completed and scroll through to see what new things you're able to pick up from the tale.</p>
+                <p>Prioritize thoughtful engagement over speed. The story isn't a puzzle to be 'solved'; Take a beat after a module is completed and scroll through.</p>
             </li>
         </ul>
 
@@ -25,11 +25,10 @@
 .container {
     max-width: 80%;
     margin: 0 auto;
-    padding: 2rem;
     font-size: 1.6em;
 }
 
-h1 {
+.container h1 {
     font-style: normal;
     font-weight: 300;
     font-size: 4em;
@@ -37,14 +36,13 @@ h1 {
 
 .container p, h1, ul {
     padding: 0;
-    margin: 0.3em 0;
+    margin: 0.1em 0;
 }
 
 ul {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1em;
-    margin-top: 2em;
 }
 
 ul li {
@@ -68,7 +66,7 @@ a.start {
     margin-top: 2em;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 960px) {
   ul {
     display: flex;
     flex-direction: column;
@@ -77,10 +75,11 @@ a.start {
 
   a.start {
     float: left;
+    margin-bottom: 1em;
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .container h1 {
     font-size: 3em;
   }

@@ -45,7 +45,13 @@
   background-repeat: repeat; 
   background-size: 6rem 6rem;
   background-position: 0 5%; /* Start position */
-  animation: backgroundScroll 30s linear infinite;
+  animation: backgroundScroll 60s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .big-circle {
+    animation: backgroundScroll 120s linear infinite;
+  }
 }
 
 @keyframes backgroundScroll {

@@ -572,13 +572,11 @@ footer {
   }
 
   .module .content {
-    font-size: 1em;
+    font-size: 1.4em;
   }
 
-  table .row {
-    flex-direction: column;
-    padding: 0.4em;
-    border-bottom: 1px solid black;
+  table {
+    margin: auto;
   }
 }
 
