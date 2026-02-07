@@ -80,7 +80,7 @@ a.start {
 }
 
 @media (max-width: 500px) {
-  .container h1 {
+  .container.home h1 {
     font-size: 3em;
   }
   

@@ -102,6 +102,7 @@ a:hover {
 
 a:visited, a:active, a:focus {
   color: black;
+  font-style: normal;
 }
 
 .nav-link {
