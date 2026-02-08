@@ -128,8 +128,7 @@ export default {
               } else {
                 translation = 'before';
               }
-          }
-          else {
+          } else {
             translation = wordsToHighlight[word] || text;
           }
           el.textContent = isUppercase ? translation[0].toUpperCase() + translation.slice(1) + punctuation : translation + punctuation;
@@ -306,16 +305,16 @@ export default {
             Iyo! Iyo ro biri ọwa ro gin do máà re, ain o wà re, o wà lele ba re
             Ti o gba re, omere ro ọnọkẹrẹn  kaka lele, kaka lele ni ẹyin
 
-            O gba to ubo ti ọl- asọ gha, o ka mu asọ gbẹ ọl- asọ
+            O gba to ubo ti ọl- aṣọ gha, o ka mu aṣọ gbẹ ọl- aṣọ.
 
-            O gba to ubo ti ọl- ẹsẹn  gha, o ka mu ẹsẹn gbẹ ọl- ẹsẹn
+            O gba to ubo ti ọl- ẹsẹn  gha, o ka mu ẹsẹn gbẹ ọl- ẹsẹn.
 
-            O gba to ubo ti ọl- ẹwọ gha, o ka mu ẹwọ gbẹ ọl- ẹwọ
+            O gba to ubo ti ọl- ẹwọ gha, o ka mu ẹwọ gbẹ ọl- ẹwọ.
 
-            O gba to ubo ti ọl- origho gha, o ka mu origho gbẹ ọl- origho
-            O gba to ubo ti ọl- ẹju gha, o ka mu ẹju gbẹ ọl- ẹju
+            O gba to ubo ti ọl- origho gha, o ka mu origho gbẹ ọl- origho.
+            O gba to ubo ti ọl- ẹju gha, o ka mu ẹju gbẹ ọl- ẹju.
 
-            Ara ro dede o ka change, ẹwu biri asọ o ka kó'tsi
+            Ara ro dede o ka change, ẹwu biri aṣọ o ka kó'tsi.
             
             O ka dá ẹgualẹ.
           </p>
