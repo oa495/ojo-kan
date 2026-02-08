@@ -8,18 +8,18 @@ const verbs = {
     'bì': 'born',
     'kpe': 'call',
     'gba': 'take',
-    'wa': 'come/will',
+    'wà': 'come/will',
     'fẹ': 'want',
     'tse': 'do',
     'bà': 'meet',
-    'gba-a': '-ing',
+    'gbaa': '-ing',
     'bí': 'borrow',
     'forijẹ': 'accept',
     'buru': 'meet in motion',
-    'dinma': 'embrace (romantically)',
+    'dinma': 'embrace',
     'dọ': 'marry',
     'ró': 'tie',
-    'ni': 'wear', // add accent,
+    'ni': 'wear',
     'dá': 'transform',
     'tó': 'reach',
     'desin': 'know',
@@ -30,18 +30,25 @@ const verbs = {
     'la': 'lick',
     'kuro': 'finish',
     'gbe': 'carry',
-    'mu gbẹẹ': 'give',
+    'mu gbẹ': 'give',
     'da': 'turn/throw',
     'kin': 'greet',
     'wọ': 'enter',
-    'nẹ': 'have'
+    'nẹ': 'have',
+    'kani': 'stay',
+    'lele': 'follow',
+    "kó'tsi": 'return',
+    'sá': 'run',
+    'rè': 'go',
+    'ri': 'see',
+    'din': 'tie'
 }
 
 const pronouns = {
     'èyí': 'this',
-    'aghan': 'they',
-    'a': 'they',
-    'o': 'she/he',
+    'aghan': 'they/them',
+    'a': 'they/them',
+    'o': 'she/he/it',
     'ain': 'she/he says',
     'mai': 'I say',
     'mi': 'me',
@@ -54,14 +61,19 @@ const pronouns = {
     'ma': 'when',
     'ro': 'her/him',
     'wo': 'you',
+    'uwọ': 'you',
+    'rẹ': 'you',
     'owún': 'na him/her'
 };
 
 const adjectives_adverbs = {
     'sẹngua': 'beautiful',
     'ghele':'really',
-    'do': 'very',
-    'san': 'okay'
+    'gẹrẹ': 'very',
+    'osan': 'okay',
+    'gege': 'now',
+    'bọbọ': 'some',
+    'ẹyin': 'back'
 }
 const misc = {
     'ọkan': 'one',
@@ -74,14 +86,13 @@ const misc = {
     'de': 'but',
     'tee': 'yet',
     'te': 'yet',
-    "t'a": "that they",
-    "t'o": "that he/she",
-    'tsi': 'before',
-    'tsii': 'in the way of',
+    'tsi': 'before / in the way of',
     'ni': 'in',
     'biri': 'and',
-    'ubo kì ubo': 'any place',
-    'kí': 'any'
+    'kì': 'any',
+    'gbẹ': 'for',
+    'rẹn': '',
+    'máà': "don't"
 }
 
 const nouns = {
@@ -96,6 +107,7 @@ const nouns = {
     'oko': 'bush',
     'ajá': 'town',
     'obirẹn': 'wife',
+    'aya': 'wife',
     'ẹsẹn': 'leg',
     'ẹwọ': 'hand',
     'origho': 'head',
@@ -105,7 +117,7 @@ const nouns = {
     'isabatu': 'shoe',
     'ọkpa': 'walking stick',
     'ẹkoro': 'cap',
-    'uwẹre': 'there',
+    'uwẹrẹ': 'there',
     'iyẹ': 'mother',
     'ọwa': 'father',
     'ọkọ': 'husband',
@@ -113,7 +125,13 @@ const nouns = {
     'ọjẹ': 'food',
     'abẹtẹ': 'room',
     'irẹye': 'person',
-    'ulí': 'house'
+    'ulí': 'house',
+    'orun': 'nights',
+    'ana': 'in law',
+    'ẹrun': 'properties',
+    'ọl-': 'owner (of)',
+    'alẹ': 'ground',
+    'oribiti': 'Boa'
 }
 
 const allWords = { ...verbs, ...pronouns, ...nouns, ...misc, ...adjectives_adverbs };

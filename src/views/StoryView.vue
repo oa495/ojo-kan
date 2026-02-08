@@ -113,8 +113,25 @@ export default {
           const match = text.match(/^([\p{L}]+)([.,!?;:]*)$/u);
           const word = match ? match[1] : text;
           const punctuation = match ? match[2] : '';
-          console.log(word, punctuation, match)
-          const translation = wordsToHighlight[word] || text;
+          let translation;
+          if (word === 'ni') {
+            // get word right after
+            let nextSib = el.nextElementSibling?.textContent.replace(/([.,!?;:]*)$/u, '');
+            if (nextSib === 'isabatu' || nextSib === 'ẹwu' || nextSib === 'shirt'|| nextSib === 'shoe') {
+              translation = 'wear'
+            }
+            else translation = 'in';
+          } else if (word === 'tsi') {
+            let nextSib = el.nextElementSibling?.textContent.replace(/([.,!?;:]*)$/u, '');
+              if (nextSib === 'abẹtẹ' || nextSib === 'alẹ' || nextSib === 'room' || nextSib === 'ground') {
+                translation = 'in the way of'
+              } else {
+                translation = 'before';
+              }
+          }
+          else {
+            translation = wordsToHighlight[word] || text;
+          }
           el.textContent = isUppercase ? translation[0].toUpperCase() + translation.slice(1) + punctuation : translation + punctuation;
           el.classList.add('translated');
           el.removeAttribute('disabled');
@@ -227,7 +244,7 @@ export default {
         </div>
         <main :aria-hidden="isModuleActive ? 'true' : 'false'" id="story">
           <p>
-            Mai retin mi. Ọma t'a ka bì. Ọma ọnobirẹn.
+            Mai retin mi. Ọma ti ' a ka bì. Ọma ọnobirẹn.
             Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ.
             Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ.
             Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ. 
@@ -236,17 +253,17 @@ export default {
           </p>
           <p>
             Ọmẹtiẹ ọnobirẹn ọkan ti a kpe Ọlikpẹrẹbu.
-            Éè nẹ ajá Itsẹkiri kí ajá Itsẹkiri tee wa gba-a bẹ ọma wee,
+            Éè nẹ ajá Itsẹkiri kì ajá Itsẹkiri tee wà gbaa bẹ ọma wee,
             gin aghan fẹ gba tse obirẹn, ain éè jẹ. 
             Èyí ma bà ain éè jẹ.
             Ubo kì ubo ni ẹye wee dede,
-            ajá Itsẹkiri kí ajá Itsẹkiri dede owún wa gba fẹ ọma wee ain éè jẹ.
-            Nikọ re/e tse ti wo gba gin we jẹ? Ain éè jẹ, ain we fẹ aghan kí aghan.
+            ajá Itsẹkiri kì ajá Itsẹkiri dede owún wà gbaa ri ọma wee ain éè jẹ.
+            Nikọ rẹ tse ti wo gba gin éè jẹ? Ain éè jẹ, ain éè fẹ aghan kì aghan.
           </p> 
           <p>
-            Ọjọ ọkan ke ẹgualẹ ọkan ni inọ oko ti a ka kpe owún Oribiti.
-            Ain ọma bokọ e w ' ẹye ọma ọnobirẹn t'a ka bẹ t'o ka gin éè forijẹ, ain won wa ra tó uwẹre.
-            Oribiti wee ke won gba re ra dá ara ro
+            Ọjọ ọkan ẹgualẹ ọkan ni inọ oko ti a ka kpe owún Oribiti.
+            Ain ọma bokọ ni ẹye wee, ọma ọnobirẹn ti a ka bẹ ti o ka gin éè forijẹ, ain won wà tó uwẹrẹ.
+            Oribiti wee gba rè dá ara ro
 
             O gba tó ubo ti ẹsẹn gha, o ka bí ' ẹsẹn.
             O gba tó ubo ti ẹwọ gha, o ka bí ' ẹwọ.
@@ -258,24 +275,55 @@ export default {
             O ka ni ' isabatu. 
             O ka bí ' ọkpa.
             O ka bí ' ẹkoro.
-            O ka re o gin o wa bà ọmẹtiẹ onobirẹn Ọlikpẹrẹbu wee.
-            Ọma wee de do sẹngua.
-            Oma wee Olikperubu ghele olikperebu.
+            O ka rè o gin o wà bà ọmẹtiẹ ọnobirẹn Ọlikpẹrẹbu wee.
+            Ọma wee de gẹrẹ sẹngua.
+            Ọma wee Olikperubu ghele olikperebu.
 
-            Ọmatiẹ ọnobirẹn Ọlikpẹrẹbu gba ri, o ka sa gbaa buru, o ka dinma ro, o ka kpe iye ro biri ọwa ro, o ka gin èyí ọkọ ti ' èmi fe dọ re.
+            Ọmẹtiẹ ọnobirẹn Ọlikpẹrẹbu gba ri, o ka sá gbaa buru, o ka dinma ro, o ka kpe iyẹ ro biri ọwa ro, o ka gin èyí ọkọ ti ' èmi fẹ dọ.
           </p>
           <p>
             Iyọ! A ka gin èyí ọnọkẹrẹn ti wo fẹ dọ?
-            O ka gin èyí ọnọkẹrẹn t'emi fẹ dọ re oo.
+            O ka gin èyí ọnọkẹrẹn ti ' èmi fẹ dọ oo.
             Wo desin tsi?
-            Ain ọnọkẹrẹn ti o fẹ dọ we re.
-            A ka gin o san oo.
+            Ain ọnọkẹrẹn ti o fẹ dọ.
+            A ka gin osan oo.
             Ẹgualẹ wee gba wọ ' ulí, a ka kin, a ka mu ọjẹ gbẹẹ.
-            O ka gin ain we te jẹrun gin d'a gbe ọjẹ wee d'a gbe tsi abẹtẹ, a ka gbe tsi abẹtẹ.
+            O ka gin ain éè te jẹrun gin di ' a gbe ọjẹ wee di ' a gbe tsi abẹtẹ wee, a ka gbe tsi abẹtẹ wee.
             O gba tsọn èyí tsọn èyí.
             O ka wọ inọ abẹtẹ wee, o ka dá ara ro gba dá ẹgualẹ wee Oribiti wee.
-            O ka da ọjẹ we tsi'alẹ, o la, o ka la, o ka la jẹ̀ kuro.
+            O ka da ọjẹ wee tsi alẹ wee, o la, o ka la, o ka la jẹ̀ kuro.
             O ka dá tsitsi irẹye.
+          </p>
+
+          <p>
+            Aya ro ka gin 'ehen'! ain ọkọ ro jẹ ọjẹ ro kuro
+            O gba kani uwẹrẹ gba to tsitsi orun bọbọ
+            O ka kpe ana ro ghan
+            Ain o fẹ ro li rẹẹn o
+            Ọmẹtiẹ ọnobirẹn wee gege o ka din ẹrun ro,
+            o ka gbe ni origho ain wo wa lele ba re
+
+            Iyo! Iyo ro biri ọwa ro gin do máà re, ain o wà re, o wà lele ba re
+            Ti o gba re, omere ro ọnọkẹrẹn  kaka lele, kaka lele ni ẹyin
+
+            O gba to ubo ti ọl- asọ gha, o ka mu asọ gbẹ ọl- asọ
+
+            O gba to ubo ti ọl- ẹsẹn  gha, o ka mu ẹsẹn gbẹ ọl- ẹsẹn
+
+            O gba to ubo ti ọl- ẹwọ gha, o ka mu ẹwọ gbẹ ọl- ẹwọ
+
+            O gba to ubo ti ọl- origho gha, o ka mu origho gbẹ ọl- origho
+            O gba to ubo ti ọl- ẹju gha, o ka mu ẹju gbẹ ọl- ẹju
+
+            Ara ro dede o ka change, ẹwu biri asọ o ka kó'tsi
+            
+            O ka dá ẹgualẹ.
+          </p>
+
+          <p>
+            O ka kpe, ain Ọlikpẹrẹbu wo ' éè rè ubo kì ubo
+            Ain owún biri uwọ oo
+            Owún biri uwọ rẹn wo ' éè rè ubo kì ubo
           </p>
         </main>
         <LearningModule :scrolled="scrolled" @completeModule="onCompleteModule" @reset="resetAllModules" @moduleActive="onModuleActivated" />
