@@ -343,7 +343,7 @@ export default {
             Owún biri uwọ rẹn, wo ' éè rè ubo kì ubo.
           </p>
           <p>
-            Ọlikpẹrẹbu o sọn.
+            Ọlikpẹrẹbu, o sọn.
             O gin "eyi ẹye ro re oo."
             Ọrọnrọn irẹye wa gbaa bẹ wun.
             O gin wee jẹ.

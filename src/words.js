@@ -105,7 +105,6 @@ const misc = {
     'biri': 'and',
     'kì': 'any',
     'gbẹ': 'for',
-    'rẹn': 'walk',
     'máà': "don't",
     'kuri': 'from'
 }
