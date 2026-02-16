@@ -334,6 +334,7 @@ export default {
             Ara ro dede o dá, ẹwu biri aṣọ o kó'tsi.
             
             O dá ẹgualẹ.
+            Ẹru ka ba Ọlikpẹrẹbu.
           </p>
 
           <p>
@@ -342,20 +343,36 @@ export default {
             Owún biri uwọ rẹn, wo ' éè rè ubo kì ubo.
           </p>
           <p>
-            Ọlikpẹrẹbu o sọn
-            O gin "eyi ẹye ro re oo"
-            Ọrọnrọn irẹye wa gbaa bẹ wun
-            O gin wee jẹ
-            Éè forijẹ
-            Eh! O jẹ gin ọribiti o sin wa dó
-            O kani uwẹrẹ
+            Ọlikpẹrẹbu o sọn.
+            O gin "eyi ẹye ro re oo."
+            Ọrọnrọn irẹye wa gbaa bẹ wun.
+            O gin wee jẹ.
+            Éè forijẹ.
+            Eh! O jẹ gin ọribiti o sin wa dó.
+            Ẹgualẹ wee ka din Ọlikpẹrẹbu gba egin.
+            O kani uwẹrẹ.
           </p>
-
           <p>
-            Omere ro re, o bọ Ọlikpẹrẹbu, o gba bọ Ọlikpẹrẹbu ké, Ọlikpẹrẹbu sa, Ọlikpẹrẹbu sa, Ọlikpẹrẹbu sa.
+            Ira ti o wa, ti ẹgualẹ re ubo bobo,
+            Akpofi wa kuri oko. 
+            O ri Ọlikpẹrẹbu ro gba egin.
+            O nẹ ọ̀mà ti urun burukun ma tsi,
+            ọ̀mà wee ka lù gbangan.
+            Ẹgualẹ wee ka gbo.
+          </p>
+          <p>
+            Akpofi gba obobo kuri egin wee.
+            O mu gbẹ ro.
 
-            Obobo wee ti a mu-ni ọ̀mà we, éè jẹ di ọ̀mà wee do lù.
-            Aghan gba sa kẹkẹkẹkẹ, a tó ubo ti iyẹ ro biri ọwa ro gha, Ọlikpẹrẹbu tsibu.
+            O ka kó obobo wee, o ka kó titi ni ọ̀mà wee.
+            O ka kó titi ni ọ̀mà wee, o ka kó titi ni ọ̀mà wee.
+
+            Obobo wee ti a mu ni ọma wee, éè jẹ di ọma wee do lù.
+
+            Omere ro rè, o bọ Ọlikpẹrẹbu.
+            Ọlikpẹrẹbu sa, Ọlikpẹrẹbu sa, Ọlikpẹrẹbu sa.
+
+            Aghan gba sá kẹkẹkẹkẹ, a tó ubo wee ti iyẹ ro biri ọwa ro gha, Ọlikpẹrẹbu tsibu.
           </p>
         </main>
         <LearningModule :scrolled="scrolled" @completeModule="onCompleteModule" @reset="resetAllModules" @moduleActive="onModuleActivated" />

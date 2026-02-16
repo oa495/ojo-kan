@@ -22,7 +22,8 @@ const verbs = {
     'wọ': 'enter',
     'ri': 'see',
     'din': 'tie',
-    'mu-ni': 'put'
+    'mu-ni': 'put',
+    'gbo': 'hear'
 }
 
 const verbsTwo = {
@@ -153,7 +154,8 @@ const nounsTwo = {
     'ọmẹtiẹ': 'small child',
     'ọl-': 'owner (of)',
     'ubọwe': 'here',
-    'obobo': 'plantain'
+    'obobo': 'plantain',
+    'egin': 'tree'
 }
 const allWords = { ...verbs, ...pronouns, ...nouns, ...misc, ...adjectivesAdverbs, ...verbsTwo, ...nounsTwo };
 export { verbs, pronouns, nouns, misc, adjectivesAdverbs, verbsTwo, nounsTwo, allWords };
