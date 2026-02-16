@@ -50,7 +50,7 @@
 ## Nice to Have
 
 [] - recordings scattered around (to simulate gossip)
-[] - have a reference for the words and translations
+[] - have a reference for the words and  ("about the language")
 [x] - surprise me frequency
 [x] - transition route changes
 

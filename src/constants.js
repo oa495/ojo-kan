@@ -3,7 +3,9 @@ const storeToModuleMap = {
     'module2': 'nouns',
     'module3': 'verbs',
     'module4': 'misc',
-    'module5': 'adjectives_adverbs'
+    'module5': 'adjectives_adverbs',
+    'module6': 'nouns_part_two',
+    'module7': 'verbs_part_two'
 };
 
 
@@ -12,7 +14,9 @@ const moduleToStoreMap = {
     'nouns': 'module2',
     'verbs': 'module3',
     'misc': 'module4',
-    'adjectives_adverbs': 'module5'
+    'adjectives_adverbs': 'module5',
+    'nouns_part_two': 'module6',
+    'verbs_part_two': 'module7'
 };
 
 const moduleNameToLongNameMap = {

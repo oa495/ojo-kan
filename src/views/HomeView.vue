@@ -1,7 +1,7 @@
 <template>
     <div class="container home">
-        <h1>Welcome to Oj'okan.</h1>
-        <p>Oj'okan means 'one day' in English. It's an interactive narrative written in Itsẹkiri that is unveiled as you learn words from the language.</p>
+        <h1>Welcome to Kp'ọjọ kp'ọjọ.</h1>
+        <p>Kp'ọjọ (kpi - ọjọ) means 'every day' in English. It's an interactive narrative written in Itsẹkiri that is unveiled as you learn words from the language.</p>
         <ul>
             <li>
                 <h2>Choose your pace</h2>

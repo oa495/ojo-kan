@@ -47,7 +47,7 @@
 import { moduleProgress } from '@/stores/module-progress'
 import { learningFrequency } from '@/stores/frequency';
 import ModuleTimer from './ModuleTimer.vue';
-import { verbs, pronouns, nouns, misc, adjectives_adverbs } from '../words'
+import { verbs, pronouns, nouns, misc, adjectivesAdverbs, verbsTwo, nounsTwo } from '../words'
 import MiniQuiz from './MiniQuiz.vue';
 import { moduleToStoreMap, moduleNameToLongNameMap } from '@/constants'
 
@@ -134,10 +134,12 @@ export default {
             reset: false,
             moduleStepsCount: {
                 'pronouns': Math.round(Object.keys(pronouns).length / 4) + 1,
+                'nouns_two': Math.round(Object.keys(nounsTwo).length / 4) + 1,
                 'nouns': Math.round(Object.keys(nouns).length / 4) + 1,
                 'verbs': Math.round(Object.keys(verbs).length / 4) + 1,
+                'verbs_two': Math.round(Object.keys(verbsTwo).length / 4) + 1,
                 'misc': Math.round(Object.keys(misc).length / 4) + 1,
-                'adjectives_adverbs': Math.round(Object.keys(adjectives_adverbs).length / 4) + 1
+                'adjectives_adverbs': Math.round(Object.keys(adjectivesAdverbs).length / 4) + 1
             },
             moduleNameToLongNameMap: moduleNameToLongNameMap,
             frequency: learningFrequency().frequency,
@@ -243,7 +245,14 @@ export default {
             else if (module === 'misc') {
                 return partitionProperties(misc, steps - 1);
             } else if (module === 'adjectives_adverbs') {
-                return partitionProperties(adjectives_adverbs, steps - 1);
+                return partitionProperties(adjectivesAdverbs, steps - 1);
+            }
+            else if (module === 'nouns_two') {
+                return partitionProperties(nounsTwo, steps - 1);
+
+            } else if (module === 'verbs_two') {
+                return partitionProperties(verbsTwo, steps - 1);
+
             }
             return content;
         },
@@ -257,7 +266,11 @@ export default {
             } else if (module === 'misc') {
                 return misc;
             } else if (module === 'adjectives_adverbs') {
-                return adjectives_adverbs;
+                return adjectivesAdverbs;
+            } else if (module === 'nouns_two') {
+                return nounsTwo;
+            } else if (module === 'verbs_two') {
+                return verbsTwo;
             }
         },
         resetAll() {

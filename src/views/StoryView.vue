@@ -2,7 +2,7 @@
 import LearningModule from '../components/LearningModule.vue'
 import { moduleProgress } from '@/stores/module-progress'
 import { learningFrequency } from '@/stores/frequency'
-import { verbs, pronouns, nouns, allWords, adjectives_adverbs, misc } from '../words'
+import { verbs, pronouns, nouns, allWords, adjectivesAdverbs, misc, nounsTwo, verbsTwo } from '../words'
 import { storeToModuleMap } from '@/constants'
 
 export default {
@@ -38,8 +38,12 @@ export default {
                               ? 'verbs'
                               : Object.keys(misc).includes(cleanedPart)
                                 ? 'misc'
-                              : Object.keys(adjectives_adverbs).includes(cleanedPart)
+                              : Object.keys(adjectivesAdverbs).includes(cleanedPart)
                                 ? 'adjectives_adverbs'
+                              : Object.keys(nounsTwo).includes(cleanedPart)
+                                ? 'nouns_two'
+                              : Object.keys(verbsTwo).includes(cleanedPart)
+                                ? 'verbs_two'
                               : 'word';
                   // If it is, wrap it in a button with the highlight class
                   return `<button disabled="true" index="${i}" class="${highlightClass} word">${part}</button>`;
@@ -102,7 +106,13 @@ export default {
           wordsToHighlight = misc;
           break;
         case 'adjectives_adverbs':
-          wordsToHighlight = adjectives_adverbs;
+          wordsToHighlight = adjectivesAdverbs;
+          break;
+        case 'nouns_two':
+          wordsToHighlight = nounsTwo;
+          break;
+        case 'verbs_two': 
+          wordsToHighlight = verbsTwo;
           break;
       }
       moduleElements.forEach(el => {
@@ -212,7 +222,8 @@ export default {
   <div class="container story">
     <section class="intro">
       <h1>
-        Ọj'ọkan
+        Kp'ọjọ
+        <span>kp'ọjọ</span>
       </h1>
       <p class="project-description">An Itsẹkiri folktale that unveils itself to the reader as they learn words from the language. <u>Click on "bubble" to get started learning.</u> 
       </p>
@@ -243,86 +254,108 @@ export default {
         </div>
         <main :aria-hidden="isModuleActive ? 'true' : 'false'" id="story">
           <p>
-            Mai retin mi. Ọma ti ' a ka bì. Ọma ọnobirẹn.
-            Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ.
-            Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ.
-            Ọnọkẹrẹn èyí ma bẹ o ka gin éè jẹ. 
+            Mai retin mi. Ọ́má ti ' a bì. Ọ́má ọnobirẹn.
+            Ọnọkẹrẹn èyí ma bẹ o gin éè jẹ.
+            Ọnọkẹrẹn èyí ma bẹ o gin éè jẹ.
+            Ọnọkẹrẹn èyí ma bẹ o gin éè jẹ. 
             Nikọ sin???
             Aghan retin mi di èmi gin gbẹ aghan.
           </p>
           <p>
             Ọmẹtiẹ ọnobirẹn ọkan ti a kpe Ọlikpẹrẹbu.
-            Éè nẹ ajá Itsẹkiri kì ajá Itsẹkiri tee wà gbaa bẹ ọma wee,
+            Éè nẹ ajá Itsẹkiri kì ajá Itsẹkiri tee wà gbaa bẹ ọ́má wee,
             gin aghan fẹ gba tse obirẹn, ain éè jẹ. 
             Èyí ma bà ain éè jẹ.
             Ubo kì ubo ni ẹye wee dede,
-            ajá Itsẹkiri kì ajá Itsẹkiri dede owún wà gbaa ri ọma wee ain éè jẹ.
+            ajá Itsẹkiri kì ajá Itsẹkiri dede owún wà gbaa ri ọ́má wee ain éè jẹ.
             Nikọ rẹ tse ti wo gba gin éè jẹ? Ain éè jẹ, ain éè fẹ aghan kì aghan.
           </p> 
           <p>
-            Ọjọ ọkan ẹgualẹ ọkan ni inọ oko ti a ka kpe owún Oribiti.
-            Ain ọma bokọ ni ẹye wee, ọma ọnobirẹn ti a ka bẹ ti o ka gin éè forijẹ, ain won wà tó uwẹrẹ.
-            Oribiti wee gba rè dá ara ro
+            Ọjọ ọkan ẹgualẹ ọkan ni inọ oko ti a kpe owún Oribiti.
+            O gbo.
+            Ain ọ́má bokọ ni ẹye wee, ọ́má ọnobirẹn ti a bẹ ti o gin éè jẹ? Ain won wà tó uwẹrẹ.
+            Oribiti wee gba rè dá ara ro.
 
-            O gba tó ubo ti ẹsẹn gha, o ka bí ' ẹsẹn.
-            O gba tó ubo ti ẹwọ gha, o ka bí ' ẹwọ.
-            O gba tó ubo ti origho gha, o ka bí ' origho.
-            O gba tó ubo ti ẹju gha, o ka bí ' ẹju.
+            O gba tó ubo ti ẹsẹn gha, o bí ' ẹsẹn.
+            O gba tó ubo ti ẹwọ gha, o bí ' ẹwọ.
+            O gba tó ubo ti origho gha, o bí ' origho.
+            O gba tó ubo ti ẹju gha, o bí ' ẹju.
 
-            O ka ni ' ẹwu.
-            O ka ró ' aṣọ.
-            O ka ni ' isabatu. 
-            O ka bí ' ọkpa.
-            O ka bí ' ẹkoro.
-            O ka rè o gin o wà bà ọmẹtiẹ ọnobirẹn Ọlikpẹrẹbu wee.
-            Ọma wee de gẹrẹ sẹngua.
-            Ọma wee Olikperubu ghele olikperebu.
+            O ni ' ẹwu.
+            O ró ' aṣọ.
+            O ni ' isabatu. 
+            O bí ' ọkpa.
+            O bí ' ẹkoro.
+            O rè, o gin o wà bà ọmẹtiẹ ọnobirẹn Ọlikpẹrẹbu wee.
+          </p>
 
-            Ọmẹtiẹ ọnobirẹn Ọlikpẹrẹbu gba ri, o ka sá gbaa buru, o ka dinma ro, o ka kpe iyẹ ro biri ọwa ro, o ka gin èyí ọkọ ti ' èmi fẹ dọ.
+          <p>
+            Ọ́má wee de gẹrẹ sẹngua.
+            Ọ́má wee Olikperubu ghele olikperebu.
+
+            Ọmẹtiẹ ọnobirẹn Ọlikpẹrẹbu gba ri, o sá gbaa buru, o dinma ro.
+            O kpe iyẹ ro biri ọwa ro, o gin èyí ọkọ ti ' èmi fẹ dọ.
           </p>
           <p>
-            Iyọ! A ka gin èyí ọnọkẹrẹn ti wo fẹ dọ?
-            O ka gin èyí ọnọkẹrẹn ti ' èmi fẹ dọ oo.
+            Iyọ! A gin "èyí ọnọkẹrẹn ti wo fẹ dọ?"
+            O gin èyí ọnọkẹrẹn ti ' èmi fẹ dọ oo.
             Wo desin tsi?
             Ain ọnọkẹrẹn ti o fẹ dọ.
-            A ka gin osan oo.
-            Ẹgualẹ wee gba wọ ' ulí, a ka kin, a ka mu ọjẹ gbẹẹ.
-            O ka gin ain éè te jẹrun gin di ' a gbe ọjẹ wee di ' a gbe tsi abẹtẹ wee, a ka gbe tsi abẹtẹ wee.
+            A gin osan oo.
+            Ẹgualẹ wee gba wọ ' ulí, a kin, a mu ọjẹ gbẹẹ.
+            O gin éè te jẹrun, gin di ' a gbe ọjẹ wee, di ' a gbe-tsi abẹtẹ wee.
+            A gbe-tsi abẹtẹ wee.
             O gba tsọn èyí tsọn èyí.
-            O ka wọ inọ abẹtẹ wee, o ka dá ara ro gba dá ẹgualẹ wee Oribiti wee.
-            O ka da ọjẹ wee tsi alẹ wee, o la, o ka la, o ka la jẹ̀ kuro.
-            O ka dá tsitsi irẹye.
+            O wọ inọ abẹtẹ wee, o dá ara ro gba dá ẹgualẹ wee Oribiti wee.
+            O da ọjẹ wee tsi alẹ wee, o la, o la, o la jẹ̀ kuro.
+            O dá tsitsi irẹye.
           </p>
 
           <p>
-            Aya ro ka gin 'ehen'! ain ọkọ ro jẹ ọjẹ ro kuro
+            Aya ro gin 'ehen'! ain ọkọ ro jẹ ọjẹ ro kuro
             O gba kani uwẹrẹ gba to tsitsi orun bọbọ
-            O ka kpe ana ro ghan
+            O kpe ana ro ghan
             Ain o fẹ ro li rẹẹn o
-            Ọmẹtiẹ ọnobirẹn wee gege o ka din ẹrun ro,
-            o ka gbe ni origho ain wo wa lele ba re
+            Ọmẹtiẹ ọnobirẹn wee gege o din ẹrun ro,
+            o gbe ni origho ain wo wa lele ba re
 
             Iyo! Iyo ro biri ọwa ro gin do máà re, ain o wà re, o wà lele ba re
-            Ti o gba re, omere ro ọnọkẹrẹn  kaka lele, kaka lele ni ẹyin
+            Ti o gba re, omere ro ọnọkẹrẹn kaka lele, kaka lele ni ẹyin
 
-            O gba to ubo ti ọl- aṣọ gha, o ka mu aṣọ gbẹ ọl- aṣọ.
+            O gba to ubo ti ọl- aṣọ gha, o mu aṣọ gbẹ ọl- aṣọ.
 
-            O gba to ubo ti ọl- ẹsẹn  gha, o ka mu ẹsẹn gbẹ ọl- ẹsẹn.
+            O gba to ubo ti ọl- ẹsẹn  gha, o mu ẹsẹn gbẹ ọl- ẹsẹn.
 
-            O gba to ubo ti ọl- ẹwọ gha, o ka mu ẹwọ gbẹ ọl- ẹwọ.
+            O gba to ubo ti ọl- ẹwọ gha, o mu ẹwọ gbẹ ọl- ẹwọ.
 
-            O gba to ubo ti ọl- origho gha, o ka mu origho gbẹ ọl- origho.
-            O gba to ubo ti ọl- ẹju gha, o ka mu ẹju gbẹ ọl- ẹju.
+            O gba to ubo ti ọl- origho gha, o mu origho gbẹ ọl- origho.
+            O gba to ubo ti ọl- ẹju gha, o mu ẹju gbẹ ọl- ẹju.
 
-            Ara ro dede o ka change, ẹwu biri aṣọ o ka kó'tsi.
+            Ara ro dede o dá, ẹwu biri aṣọ o kó'tsi.
             
-            O ka dá ẹgualẹ.
+            O dá ẹgualẹ.
           </p>
 
           <p>
-            O ka kpe, ain Ọlikpẹrẹbu wo ' éè rè ubo kì ubo
+            O kpe, ain Ọlikpẹrẹbu wo ' éè rè ubo kì ubo
             Ain owún biri uwọ oo
-            Owún biri uwọ rẹn wo ' éè rè ubo kì ubo
+            Owún biri uwọ rẹn, wo ' éè rè ubo kì ubo.
+          </p>
+          <p>
+            Ọlikpẹrẹbu o sọn
+            O gin "eyi ẹye ro re oo"
+            Ọrọnrọn irẹye wa gbaa bẹ wun
+            O gin wee jẹ
+            Éè forijẹ
+            Eh! O jẹ gin ọribiti o sin wa dó
+            O kani uwẹrẹ
+          </p>
+
+          <p>
+            Omere ro re, o bọ Ọlikpẹrẹbu, o gba bọ Ọlikpẹrẹbu ké, Ọlikpẹrẹbu sa, Ọlikpẹrẹbu sa, Ọlikpẹrẹbu sa.
+
+            Obobo wee ti a mu-ni ọ̀mà we, éè jẹ di ọ̀mà wee do lù.
+            Aghan gba sa kẹkẹkẹkẹ, a tó ubo ti iyẹ ro biri ọwa ro gha, Ọlikpẹrẹbu tsibu.
           </p>
         </main>
         <LearningModule :scrolled="scrolled" @completeModule="onCompleteModule" @reset="resetAllModules" @moduleActive="onModuleActivated" />
@@ -347,6 +380,12 @@ export default {
   text-align: left;
   margin: 1rem;
   padding-bottom: 0.2em;
+}
+
+.intro h1 span {
+  display: block;
+  margin-left: 1em;
+  margin-top: 0.1em;
 }
 
 .project-description {
@@ -413,7 +452,7 @@ main button {
 
 .word {
   display: inline-block; /* Essential for transform to work */
-  transition: transform 0.5s ease; 
+  transition: all 0.5s ease; 
 }
 
 .word:disabled {
@@ -423,5 +462,12 @@ main button {
 .container.story {
   padding-bottom: 10rem;
 }
+
+@media (max-width: 500px) {
+  .intro h1 {
+    text-align: center;
+  }
+}
+
 
 </style>
