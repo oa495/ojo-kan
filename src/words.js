@@ -21,10 +21,10 @@ const verbs = {
     'wọ': 'enter',
     'ri': 'see',
     'din': 'tie',
-    'mu-ni': 'put',
-    'gbo': 'hear'
+    'mu___ni': 'put',
+    'gbo': 'hear',
+    'kaka': 'go dey'
 }
-
 
 const verbsTwo = {
     'bẹ': 'beg',
@@ -41,7 +41,7 @@ const verbsTwo = {
     'nẹ': 'have',
     'bí': 'borrow',
     'bọ': 'loosen',
-    'mu gbẹ': 'give',
+    'mu___gbẹ': 'give',
     'jẹrun': 'eat',
     'la': 'lick',
     'kani': 'stay',
@@ -109,7 +109,7 @@ const misc = {
     'gbẹ': 'for',
     'máà': "don't",
     'kuri': 'from',
-    'Ẹru-ka-ba': 'became afraid'
+    'ẹru-ka-ba': 'became afraid'
 }
 
 const nouns = {

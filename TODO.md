@@ -1,7 +1,7 @@
 
-[] - Get the folk tale text and translation
+[x] - Get the folk tale text and translation
 [x] - creative module names
-[] - words without an easy translation? how to handle
+[x] - words without an easy translation? how to handle
 [] - FINAL STATE:  **[NEXT UP]**
     - rearrange + animate words after whole module because they won't always make sense translated directly to english
     [x] flip background to black
@@ -18,7 +18,6 @@
 [] - buy a domain
 [x] - scroll to top after module completed  **[NEXT UP]**
 [x] - add down arrow? 
-[] - make blobs draggable 
 
 ### Interactions
 
@@ -53,6 +52,7 @@
 [] - have a reference for the words and  ("about the language")
 [x] - surprise me frequency
 [x] - transition route changes
+[] - make blobs draggable 
 
 ## Testing flow
 
