@@ -91,6 +91,18 @@ export default {
             if (origVal.length <= 0) return;
             let val = removeAccents(origVal.toLowerCase());
             translated = removeAccents(translated.toLowerCase());
+            if (translated.includes('/')){
+                let allAnswers = translated.split('/');
+                if (allAnswers.includes(val)) {
+                    if (index == 0) {
+                        this.firstAnswer = val;
+                        this.validFirstAnswer = true;
+                    } else {
+                        this.secondAnswer = val;
+                        this.validSecondAnswer = true;
+                    }
+                }
+            }
             if (val === translated) {
                 if (index == 0) {
                     this.firstAnswer = val;

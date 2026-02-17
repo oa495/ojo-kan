@@ -5,6 +5,156 @@ import { learningFrequency } from '@/stores/frequency'
 import { verbs, pronouns, nouns, allWords, adjectivesAdverbs, misc, nounsTwo, verbsTwo } from '../words'
 import { storeToModuleMap } from '@/constants'
 
+function handleTranslation(word, translation, el) {
+  const translationToUse = {
+    "1": {
+        "6": "me",
+        "12": "my",
+        "18": "me"
+    },
+    "3": {
+      "24": "it",
+      "28": "it",
+      "50": "she",
+      "58": "it",
+      "80": "its",
+      "82": "it",
+      "96": "it",
+      "104": "it",
+      "118": "it",
+      "126": "it",
+      "140": "it",
+      "148": "it",
+      "162": "it",
+      "170": "it",
+      "178": "it",
+      "186": "it",
+      "194": "it",
+      "202": "it",
+      "210": "it",
+      "214": "it",
+      "218": "it",
+    },
+    "4": {
+      "30": "she", 
+      "38": "she", 
+      "42": "him", 
+      "44" : "she", 
+      "50": "her", 
+      "56": "her", 
+      "58": "she", 
+    },
+    "5": {
+      "24": "she",
+      "54": "she",
+      "60": "she",
+      "98": "he",
+      "142": "he",
+      "154": "he",
+      "164": "he",
+      "170": "his",
+      "184": "it",
+      "198": "it",
+      "202": "it",
+      "206": "it",
+      "214": "it",
+    },
+    "6": {
+      "4": "his",
+      "10": "she says",
+      "14": "her",
+      "20": "his",
+      "24": "he",
+      "42": "he",
+      "48": "his",
+      "52": "he says",
+      "54": "he",
+      "64": "his",
+      "72": "she",
+      "78": "her",
+      "80": "she",
+      "88": "she says",
+      "90": "she",
+      "104": "her",
+      "110": "her",
+      "120": "she says",
+      "122": "she",
+      "128": "she",
+      "140": "her",
+      "158": "he",
+      "170": "she",
+      "172": "she",
+      "174": "she",
+      "176": "she",
+    },
+    "7": {
+      "4": "she",
+      "12": "her",
+      "28": "it",
+      "44": "it",
+      "56": "it",
+      "72": "it",
+      "84": "it",
+      "100": "it",
+      "112": "it",
+      "128": "it",
+      "140": "it",
+      "156": "it",
+      "170": "its",
+      "174": "it",
+      "184": "it",
+      "190": "it",
+    },
+    "8": {
+      "6": "it",
+      "10": "it says",
+      "28": "it says",
+      "30": "na me",
+    },
+    "9": {
+      "4" : "she",
+      "8" : "she",
+      "16": "life",
+      "18" : "her",
+      "30": "come",
+      "36" : "she",
+      "50" : "she",
+      "60": "come",
+      "58" : "she",
+      "74" : "her",
+      "80": "she",
+    },
+    "10": {
+      "6": "it",
+      "28": "he",
+      "40": "it",
+    },
+    "11": {
+      "14": "he",
+      "20": "her",
+      "22": "she",
+      "32": "she",
+      "46": "she",
+      "60": "she",
+      "104": "her",
+      "108": "he",
+      "146": "her",
+      "152": "her",
+    }
+  }
+  const parent = el.parentElement;
+  if (parent.tagName === 'P') {  
+    let index = parent.dataset.index;
+    if (index === '2' || index === '10') return 'come';
+    if (translation === 'brother/sister') return 'brother';
+    if (index === '3' || index === '6' && word === 'wà') return 'will'
+    let childIndex = el.dataset.index;
+
+    let chosenTranslation = translationToUse[index][childIndex];
+    if (chosenTranslation) return chosenTranslation;
+  }
+  return translation;
+}
 export default {
   data() {
     return {
@@ -46,7 +196,7 @@ export default {
                                 ? 'verbs_two'
                               : 'word';
                   // If it is, wrap it in a button with the highlight class
-                  return `<button disabled="true" index="${i}" class="${highlightClass} word">${part}</button>`;
+                  return `<button disabled="true" data-index="${i}" class="${highlightClass} word">${part}</button>`;
               }
               // Otherwise, return the part as is (including spaces and punctuation)
               return part;
@@ -134,12 +284,17 @@ export default {
           } else if (word === 'tsi') {
             let nextSib = el.nextElementSibling?.textContent.replace(/([.,!?;:]*)$/u, '');
               if (nextSib === 'abẹtẹ' || nextSib === 'alẹ' || nextSib === 'room' || nextSib === 'ground') {
-                translation = 'in the way of'
+                translation = 'towards'
               } else {
                 translation = 'before';
               }
-          } else {
+          }
+          else {
             translation = wordsToHighlight[word] || text;
+            if (translation.includes('/')) {
+              // there's multiple meanings to choose from e.g he/she/it
+              translation = handleTranslation(word, translation, el);
+            }
           }
           el.textContent = isUppercase ? translation[0].toUpperCase() + translation.slice(1) + punctuation : translation + punctuation;
           el.classList.add('translated');
@@ -253,27 +408,23 @@ export default {
           <p>{{announceMessage}}</p>
         </div>
         <main :aria-hidden="isModuleActive ? 'true' : 'false'" id="story">
-          <p>
-            Mai retin mi. Ọ́má ti ' a bì. Ọ́má ọnobirẹn.
-            Ọnọkẹrẹn èyí ma bẹ o gin éè jẹ.
-            Ọnọkẹrẹn èyí ma bẹ o gin éè jẹ.
-            Ọnọkẹrẹn èyí ma bẹ o gin éè jẹ. 
-            Nikọ sin???
+          <p data-index="1">
+            Mai retin mi. Ọ́má ghaan mi.
             Aghan retin mi di èmi gin gbẹ aghan.
           </p>
-          <p>
-            Ọmẹtiẹ ọnobirẹn ọkan ti a kpe Ọlikpẹrẹbu.
-            Éè nẹ ajá Itsẹkiri kì ajá Itsẹkiri tee wà gbaa bẹ ọ́má wee,
+          <p data-index="2">
+            Ọnobirẹn ọkan ti a kpe Ọlikpẹrẹbu.
+            Éè nẹ ajá Itsẹkiri kì ajá Itsẹkiri tee wà gbaa bẹ ọnobirẹn wee,
             gin aghan fẹ gba tse obirẹn, ain éè jẹ. 
             Èyí ma bà ain éè jẹ.
             Ubo kì ubo ni ẹye wee dede,
-            ajá Itsẹkiri kì ajá Itsẹkiri dede owún wà gbaa ri ọ́má wee ain éè jẹ.
+            ajá Itsẹkiri kì ajá Itsẹkiri dede owún wà gbaa ri ọnobirẹn wee ain éè jẹ.
             Nikọ rẹ tse ti wo gba gin éè jẹ? Ain éè jẹ, ain éè fẹ aghan kì aghan.
           </p> 
-          <p>
-            Ọjọ ọkan ẹgualẹ ọkan ni inọ oko ti a kpe owún Oribiti.
+          <p data-index="3">
+            Ọjọ ọkan ẹgualẹ ọkan ni inọ oko ti a kpe Oribiti.
             O gbo.
-            Ain ọ́má bokọ ni ẹye wee, ọ́má ọnobirẹn ti a bẹ ti o gin éè jẹ? Ain won wà tó uwẹrẹ.
+            Ain ọnobirẹn bokọ ni ẹye wee, ọnobirẹn ti a bẹ ti o gin éè jẹ? Ain mo wà tó uwẹrẹ.
             Oribiti wee gba rè dá ara ro.
 
             O gba tó ubo ti ẹsẹn gha, o bí ' ẹsẹn.
@@ -286,19 +437,19 @@ export default {
             O ni ' isabatu. 
             O bí ' ọkpa.
             O bí ' ẹkoro.
-            O rè, o gin o wà bà ọmẹtiẹ ọnobirẹn Ọlikpẹrẹbu wee.
+            O rè, o gin o wà bà ọnobirẹn Ọlikpẹrẹbu wee.
           </p>
 
-          <p>
-            Ọ́má wee de gẹrẹ sẹngua.
-            Ọ́má wee Olikperubu ghele olikperebu.
+          <p data-index="4">
+            Ọnobirẹn wee de gẹrẹ sẹngua.
+            ọnobirẹn wee Ọlikpẹrẹbu ghele olikperebu.
 
-            Ọmẹtiẹ ọnobirẹn Ọlikpẹrẹbu gba ri, o sá gbaa buru, o dinma ro.
+            Ọnobirẹn Ọlikpẹrẹbu gba ri, o sá gbaa buru, o dinma ro.
             O kpe iyẹ ro biri ọwa ro, o gin èyí ọkọ ti ' èmi fẹ dọ.
           </p>
-          <p>
-            Iyọ! A gin "èyí ọnọkẹrẹn ti wo fẹ dọ?"
-            O gin èyí ọnọkẹrẹn ti ' èmi fẹ dọ oo.
+          <p data-index="5">
+            Iyọ! A gin " èyí ọnọkẹrẹn ti wo fẹ dọ? "
+            O gin " èyí ọnọkẹrẹn ti ' èmi fẹ dọ oo. "
             Wo desin tsi?
             Ain ọnọkẹrẹn ti o fẹ dọ.
             A gin osan oo.
@@ -311,16 +462,22 @@ export default {
             O dá tsitsi irẹye.
           </p>
 
-          <p>
-            Aya ro gin 'ehen'! ain ọkọ ro jẹ ọjẹ ro kuro
-            O gba kani uwẹrẹ gba to tsitsi orun bọbọ
-            O kpe ana ro ghan
-            Ain o fẹ ro li rẹẹn o
-            Ọmẹtiẹ ọnobirẹn wee gege o din ẹrun ro,
-            o gbe ni origho ain wo wa lele ba re
+          <p data-index="6">
+            Aya ro gin 'ehen'! Ain ọkọ ro jẹ ọjẹ ro kuro.
+            O gba kani uwẹrẹ gba tó tsitsi orun bọbọ,
+            O kpe ana ro ghaan,
+            ain o fẹ rè ulí rẹẹn o.
+            Ọnobirẹn wee gege o din ẹrun ro,
+            o gbe ni origho, ain o wà lele gba rè.
 
-            Iyo! Iyo ro biri ọwa ro gin do máà re, ain o wà re, o wà lele ba re
-            Ti o gba re, omere ro ọnọkẹrẹn kaka lele, kaka lele ni ẹyin
+            Iyo! Iyẹ ro biri ọwa ro gin do máà rè, ain o wà re, o wà lele gba rè.
+
+            Omere ro Akpofi ri ẹgualẹ wee ni abẹtẹ wee tsi. 
+            O gin Ọlikpẹrẹbu.
+            Ọlikpẹrẹbu éè retin, o gin o wà lele ba rè.
+        </p>
+        <p data-index="7">
+            Ti o gbaa rè, omere ro ọnọkẹrẹn kaka lele, kaka lele ni ẹyin.
 
             O gba to ubo ti ọl- aṣọ gha, o mu aṣọ gbẹ ọl- aṣọ.
 
@@ -331,43 +488,43 @@ export default {
             O gba to ubo ti ọl- origho gha, o mu origho gbẹ ọl- origho.
             O gba to ubo ti ọl- ẹju gha, o mu ẹju gbẹ ọl- ẹju.
 
-            Ara ro dede o dá, ẹwu biri aṣọ o kó'tsi.
+            Ara ro dede o dá, ẹwu biri aṣọ o kó tsi.
             
             O dá ẹgualẹ.
-            Ẹru ka ba Ọlikpẹrẹbu.
           </p>
 
-          <p>
-            O kpe, ain Ọlikpẹrẹbu wo ' éè rè ubo kì ubo
-            Ain owún biri uwọ oo
-            Owún biri uwọ rẹn, wo ' éè rè ubo kì ubo.
+          <p data-index="8">
+            Ẹru-ka-ba Ọlikpẹrẹbu.
+            O kpe, ain Ọlikpẹrẹbu wo ' éè rè ubo kì ubo,
+            ain owún biri uwọ oo.
+            Wo ' éè rè ubo kì ubo.
           </p>
-          <p>
+          <p data-index="9">
             Ọlikpẹrẹbu, o sọn.
-            O gin "eyi ẹye ro re oo."
-            Ọrọnrọn irẹye wa gbaa bẹ wun.
+            O gin " èyí ẹye ro re oo. "
+            Ọrọnrọn irẹye wà gbaa bẹ.
             O gin wee jẹ.
             Éè forijẹ.
-            Eh! O jẹ gin ọribiti o sin wa dó.
-            Ẹgualẹ wee ka din Ọlikpẹrẹbu gba egin.
+            Eh! O jẹ gin ọribiti o wà dọ.
+            Ẹgualẹ wee ka din ẹsẹn ro gba egin.
             O kani uwẹrẹ.
           </p>
-          <p>
-            Ira ti o wa, ti ẹgualẹ re ubo bobo,
-            Akpofi wa kuri oko. 
-            O ri Ọlikpẹrẹbu ro gba egin.
+          <p data-index="10">
+            Ira ti o wà, ti ẹgualẹ rè ubo bọbọ,
+            Akpofi wà kuri oko. 
+            O ri Ọlikpẹrẹbu din gba egin.
             O nẹ ọ̀mà ti urun burukun ma tsi,
-            ọ̀mà wee ka lù gbangan.
+            ọ̀mà wee ka lù <i>gbangan</i>.
             Ẹgualẹ wee ka gbo.
           </p>
-          <p>
+          <p data-index="11">
             Akpofi gba obobo kuri egin wee.
             O mu gbẹ ro.
 
             O ka kó obobo wee, o ka kó titi ni ọ̀mà wee.
             O ka kó titi ni ọ̀mà wee, o ka kó titi ni ọ̀mà wee.
 
-            Obobo wee ti a mu ni ọma wee, éè jẹ di ọma wee do lù.
+            Obobo wee ti a mu-ni ọ̀mà wee, éè jẹ di ọ̀mà wee do lù.
 
             Omere ro rè, o bọ Ọlikpẹrẹbu.
             Ọlikpẹrẹbu sa, Ọlikpẹrẹbu sa, Ọlikpẹrẹbu sa.
@@ -436,7 +593,7 @@ fieldset button {
   margin-top: 1rem;
 }
 
-.pronouns, .verbs, .nouns, .misc, .adjectives_adverbs {
+.pronouns, .verbs, .nouns, .misc, .adjectives_adverbs, .nouns_two, .verbs_two {
   transition: all 0.3s ease-in-out;
 }
 

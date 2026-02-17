@@ -4,7 +4,6 @@ const verbs = {
     'jẹ': 'accept',
     'forijẹ': 'accept',
     'di': 'let',
-    'bì': 'born',
     'gba': 'take',
     'wà': 'come/will',
     'fẹ': 'want',
@@ -17,7 +16,7 @@ const verbs = {
     'tsitsi': 'resemble',
     'jẹ̀': 'eat',
     'gbe': 'carry',
-    'da': 'turn/throw',
+    'da': 'turn',
     'kin': 'greet',
     'wọ': 'enter',
     'ri': 'see',
@@ -26,13 +25,14 @@ const verbs = {
     'gbo': 'hear'
 }
 
+
 const verbsTwo = {
     'bẹ': 'beg',
     'buru': 'meet in motion',
     'dinma': 'embrace',
     'tsọn': 'look',
     'lele': 'follow',
-    "kó'tsi": 'return',
+    "kó-tsi": 'return',
     'sá': 'run',
     'rè': 'go',
     'kuro': 'finish',
@@ -52,17 +52,20 @@ const verbsTwo = {
     'sọkun': 'cry',
     'lù': 'ring',
     'sa': 'ran',
+    'kó': 'stuck',
+    "titi": 'push',
     'tsibu': 'fell'
 }
 
 const pronouns = {
     'èyí': 'this',
-    'aghan': 'they/them',
-    'a': 'they/them',
+    'aghan': 'they',
+    'ghaan': 'them',
+    'a': 'they',
     'o': 'she/he/it',
-    'ain': 'she/he says',
+    'ain': 'she/he/it says',
     'mai': 'I say',
-    'mi': 'me',
+    'mi': 'me/my',
     'èmi': 'me',
     'mo': 'I',
     'bokọ': 'what',
@@ -70,11 +73,11 @@ const pronouns = {
     'dede': 'all',
     'wee': 'the',
     'ma': 'when',
-    'ro': 'her/him',
+    'ro': 'her/his/him/it/its',
     'wo': 'you',
     'uwọ': 'you',
     'rẹ': 'you',
-    'owún': 'na him/her'
+    'owún': 'na me/him/her'
 };
 
 const adjectivesAdverbs = {
@@ -86,27 +89,27 @@ const adjectivesAdverbs = {
     'bọbọ': 'some',
     'ẹyin': 'back',
     'ọrọnrọn': 'better',
-    'kẹkẹkẹkẹ': 'consistently'
+    'kẹkẹkẹkẹ': 'consistently',
+    'burukun': 'bad'
 }
 const misc = {
     'ọkan': 'one',
     'inọ': 'inside',
     'wee': 'the',
-    'sin': 'is it',
     'ti': 'that',
     'éè': 'not',
     'gha': 'where',
     'de': 'but',
     'tee': 'yet',
     'te': 'yet',
-    'tsi': 'before',
-    'tsi-ale': 'towards ground',
+    'tsi': 'before/towards',
     'ni': 'in',
     'biri': 'and',
     'kì': 'any',
     'gbẹ': 'for',
     'máà': "don't",
-    'kuri': 'from'
+    'kuri': 'from',
+    'Ẹru-ka-ba': 'became afraid'
 }
 
 const nouns = {
@@ -120,7 +123,8 @@ const nouns = {
     'aya': 'wife',
     'ẹsẹn': 'leg',
     'ẹwọ': 'hand',
-    'omere': 'brother',
+    'ira': 'time',
+    'omere': 'brother/sister',
     'ẹju': 'eye',
     'aṣọ': 'cloth',
     'isabatu': 'shoe',
@@ -129,7 +133,7 @@ const nouns = {
     'ọwa': 'father',
     'ọkọ': 'husband',
     'ọjẹ': 'food',
-    'ulí': 'house',
+    'ulí': 'home',
     'ana': 'in law',
     'alẹ': 'ground',
     'oribiti': 'Boa',
@@ -150,7 +154,6 @@ const nounsTwo = {
     'ẹwu': 'shirt',
     'ara': 'body',
     'ẹrun': 'properties',
-    'ọmẹtiẹ': 'small child',
     'ọl-': 'owner (of)',
     'ubọwe': 'here',
     'obobo': 'plantain',
