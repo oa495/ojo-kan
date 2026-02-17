@@ -58,16 +58,16 @@ function handleTranslation(word, translation, el) {
       "24": "she",
       "54": "she says",
       "62": "she",
-      "100": "he",
-      "144": "he",
-      "156": "he",
-      "166": "he",
-      "172": "his",
-      "186": "it",
-      "200": "it",
-      "204": "it",
-      "208": "it",
-      "216": "it",
+      "98": "he",
+      "142": "he",
+      "154": "he",
+      "164": "he",
+      "170": "his",
+      "184": "it",
+      "198": "it",
+      "202": "it",
+      "206": "it",
+      "214": "it",
     },
     "6": {
       "4": "his",
@@ -102,18 +102,18 @@ function handleTranslation(word, translation, el) {
       "12": "her",
       "28": "it",
       "44": "it",
-      "56": "it",
-      "72": "it",
-      "84": "it",
-      "100": "it",
-      "112": "it",
-      "128": "it",
-      "140": "it",
-      "156": "it",
-      "170": "its",
-      "174": "it",
-      "184": "it",
-      "190": "it",
+      "54": "it",
+      "70": "it",
+      "80": "it",
+      "96": "it",
+      "106": "it",
+      "122": "it",
+      "134": "it",
+      "150": "it",
+      "162": "its",
+      "166": "it",
+      "176": "it",
+      "180": "it",
     },
     "8": {
       "6": "it",
@@ -141,15 +141,17 @@ function handleTranslation(word, translation, el) {
     },
     "11": {
       "14": "he",
-      "20": "her",
-      "22": "she",
-      "32": "she",
-      "46": "she",
-      "60": "she",
-      "104": "her",
-      "108": "he",
-      "146": "her",
-      "152": "her",
+      "18": "her",
+      "20": "she",
+      "28": "she",
+      "40": "she",
+
+      "52": "she",
+      "56": "she",
+      "94": "her",
+      "98": "he",
+      "142": "her",
+      "136": "her",
     }
   }
   const parent = el.parentElement;
@@ -530,8 +532,8 @@ export default {
             Akpofi gba obobo kuri egin wee.
             O mu___gbẹ ro.
 
-            O ka kó obobo wee, o ka kó titi ni ọ̀mà wee.
-            O ka kó titi ni ọ̀mà wee, o ka kó titi ni ọ̀mà wee.
+            O kó obobo wee, o kó titi ni ọ̀mà wee.
+            O kó titi ni ọ̀mà wee, o kó titi ni ọ̀mà wee.
 
             Obobo wee ti a mu___ni ọ̀mà wee, éè jẹ di ọ̀mà wee do lù.
 
