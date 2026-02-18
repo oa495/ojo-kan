@@ -138,6 +138,7 @@ main {
   scrollbar-color: black transparent;
   scrollbar-width: thin;
   margin: 6rem;
+  margin-bottom: 2rem;
 }
 
 ::-webkit-scrollbar {
