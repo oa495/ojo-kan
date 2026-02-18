@@ -2,7 +2,7 @@
 import LearningModule from '../components/LearningModule.vue'
 import { moduleProgress } from '@/stores/module-progress'
 import { learningFrequency } from '@/stores/frequency'
-import { verbs, pronouns, nouns, allWords, adjectivesAdverbs, misc, nounsTwo, verbsTwo } from '../words'
+import { verbs, pronouns, nouns, miscTwo, allWords, adjectivesAdverbs, misc, nounsTwo, verbsTwo, verbsThree } from '../words'
 import { storeToModuleMap } from '@/constants'
 
 function handleTranslation(word, translation, el) {
@@ -19,7 +19,6 @@ function handleTranslation(word, translation, el) {
       "106": "she says",
       "130": "she says",
       "136": "she says",
-
     },
     "3": {
       "24": "it",
@@ -145,7 +144,6 @@ function handleTranslation(word, translation, el) {
       "20": "she",
       "28": "she",
       "40": "she",
-
       "52": "she",
       "56": "she",
       "94": "her",
@@ -213,6 +211,10 @@ export default {
                                     ? 'nouns_two'
                                     : Object.keys(verbsTwo).includes(cleanedPart)
                                       ? 'verbs_two'
+                                      : Object.keys(verbsThree).includes(cleanedPart)
+                                        ? 'verbs_three'
+                                        : Object.keys(miscTwo).includes(cleanedPart)
+                                          ? 'misc_two'
                                       : 'word';
                         const out = `<button disabled="true" data-index="${globalIndex}" class="${highlightClass} word">${part}</button>`;
                         globalIndex++;
@@ -294,6 +296,12 @@ export default {
         case 'verbs_two': 
           wordsToHighlight = verbsTwo;
           break;
+        case 'verbs_three': 
+          wordsToHighlight = verbsThree;
+          break;
+        case 'misc_two':
+          wordsToHighlight = miscTwo;
+          break;
       }
       moduleElements.forEach(el => {
           const isUppercase = el.textContent[0] === el.textContent[0].toUpperCase();
@@ -310,7 +318,9 @@ export default {
             if (nextSib === 'isabatu' || nextSib === 'ẹwu' || nextSib === 'shirt'|| nextSib === 'shoe') {
               translation = 'wear'
             }
-            else translation = 'in';
+            else if (nextSib === 'origho') {
+              translation = 'on';
+            } else translation = 'in';
           } else if (word === 'tsi') {
             let nextSib = el.nextElementSibling?.textContent.replace(/([.,!?;:]*)$/u, '');
               if (nextSib === 'abẹtẹ' || nextSib === 'alẹ' || nextSib === 'room' || nextSib === 'ground') {
@@ -318,6 +328,12 @@ export default {
               } else {
                 translation = 'before';
               }
+          } else if (word === 'jẹ') {
+              let nextSib = el.nextElementSibling?.textContent.replace(/([.,!?;:]*)$/u, '');
+              if (nextSib === 'di' || nextSib == 'let') {
+                translation = 'allow';
+              }
+              else translation = 'accept';
           } else {
             translation = wordsToHighlight[word] || text;
             if (translation.includes('/')) {
@@ -678,6 +694,7 @@ legend {
 
 label {
   margin-left: .5rem;
+  display: inline-block;
 }
 
 
@@ -685,7 +702,10 @@ fieldset button {
   margin-top: 1rem;
 }
 
-.pronouns, .verbs, .nouns, .misc, .adjectives_adverbs, .nouns_two, .verbs_two {
+.pronouns, .verbs,
+.nouns, .misc, .misc_two
+.adjectives_adverbs, .nouns_two,
+.verbs_two, .verbs_three {
   transition: all 0.3s ease-in-out;
 }
 

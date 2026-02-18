@@ -102,8 +102,7 @@ export default {
                         this.validSecondAnswer = true;
                     }
                 }
-            }
-            if (val === translated) {
+            } else if (val === translated) {
                 if (index == 0) {
                     this.firstAnswer = val;
                     this.validFirstAnswer = true;

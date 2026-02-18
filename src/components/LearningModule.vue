@@ -47,7 +47,7 @@
 import { moduleProgress } from '@/stores/module-progress'
 import { learningFrequency } from '@/stores/frequency';
 import ModuleTimer from './ModuleTimer.vue';
-import { verbs, pronouns, nouns, misc, adjectivesAdverbs, verbsTwo, nounsTwo } from '../words'
+import { verbs, pronouns, nouns, misc, adjectivesAdverbs, verbsTwo, nounsTwo, miscTwo, verbsThree } from '../words'
 import MiniQuiz from './MiniQuiz.vue';
 import { moduleToStoreMap, moduleNameToLongNameMap } from '@/constants'
 
@@ -138,7 +138,9 @@ export default {
                 'nouns': Math.round(Object.keys(nouns).length / 4) + 1,
                 'verbs': Math.round(Object.keys(verbs).length / 4) + 1,
                 'verbs_two': Math.round(Object.keys(verbsTwo).length / 4) + 1,
+                'verbs_three': Math.round(Object.keys(verbsThree).length / 4) + 1,
                 'misc': Math.round(Object.keys(misc).length / 4) + 1,
+                'misc_two': Math.round(Object.keys(miscTwo).length / 4) + 1,
                 'adjectives_adverbs': Math.round(Object.keys(adjectivesAdverbs).length / 4) + 1
             },
             moduleNameToLongNameMap: moduleNameToLongNameMap,
@@ -249,10 +251,12 @@ export default {
             }
             else if (module === 'nouns_two') {
                 return partitionProperties(nounsTwo, steps - 1);
-
             } else if (module === 'verbs_two') {
                 return partitionProperties(verbsTwo, steps - 1);
-
+            } else if (module === 'verbs_three') {
+                return partitionProperties(verbsThree, steps - 1);
+            } else if (module === 'misc_two') {
+                return partitionProperties(miscTwo, steps - 1);
             }
             return content;
         },
@@ -271,6 +275,10 @@ export default {
                 return nounsTwo;
             } else if (module === 'verbs_two') {
                 return verbsTwo;
+            } else if (module === 'verbs_three') {
+                return verbsThree;
+            } else if (module === 'misc_two') {
+                return miscTwo;
             }
         },
         resetAll() {
@@ -576,6 +584,8 @@ footer {
 
 .word {
     padding: 0 1em;
+    max-width: 60%;
+    text-align: left;
 }
 
 .word.itsekiri {

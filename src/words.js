@@ -1,60 +1,59 @@
 const verbs = {
     'retin': 'listen',
     'gin': 'say',
-    'jẹ': 'accept',
-    'forijẹ': 'accept',
+    'jẹ': 'accept/allow',
     'di': 'let',
     'gba': 'take',
     'wà': 'come/will',
-    'fẹ': 'want',
-    'tse': 'do',
     'bà': 'meet',
-    'gbaa': '-ing',   
-    'dọ': 'marry',
-    'ni': 'wear',
     'dá': 'transform',
     'tsitsi': 'resemble',
-    'jẹ̀': 'eat',
     'gbe': 'carry',
-    'da': 'turn',
     'kin': 'greet',
-    'wọ': 'enter',
     'ri': 'see',
     'din': 'tie',
     'mu___ni': 'put',
     'gbo': 'hear',
-    'kaka': 'go dey'
+    'bẹ': 'beg',
+    'buru': 'meet in motion',
+    'tsọn': 'look',
+    'forijẹ': 'accept',
 }
 
 const verbsTwo = {
-    'bẹ': 'beg',
-    'buru': 'meet in motion',
-    'dinma': 'embrace',
-    'tsọn': 'look',
     'lele': 'follow',
     "kó-tsi": 'return',
-    'sá': 'run',
     'rè': 'go',
-    'kuro': 'finish',
     'desin': 'know',
-    'tó': 'reach',
-    'nẹ': 'have',
-    'bí': 'borrow',
-    'bọ': 'loosen',
     'mu___gbẹ': 'give',
-    'jẹrun': 'eat',
-    'la': 'lick',
     'kani': 'stay',
     'ró': 'tie',
     'kpe': 'call',
     'gbe-tsi': 'carry into',
-    'sọn': 'cried',
-    'sọkun': 'cry',
     'lù': 'ring',
     'sa': 'ran',
     'kó': 'stuck',
     "titi": 'push',
     'tsibu': 'fell'
+}
+
+const verbsThree = {
+    'tó': 'reach',
+    'nẹ': 'have',
+    'bí': 'borrow',
+    'da': 'turn',
+    'fẹ': 'want',
+    'tse': 'do',
+    'wọ': 'enter',
+    'sọn': 'cried',
+    'kuro': 'finish',
+    'gbaa': '-ing',   
+    'dọ': 'marry',
+    'jẹ̀': 'eat',
+    'sá': 'run',
+    'ni': 'wear',
+    'dinma': 'embrace',
+    'kaka': 'go dey'
 }
 
 const pronouns = {
@@ -63,12 +62,11 @@ const pronouns = {
     'ghaan': 'them',
     'a': 'they',
     'o': 'she/he/it',
-    'ain': 'she/he/it says',
+    'ain': 'she says/he says/it says',
     'mai': 'I say',
     'mi': 'me/my',
     'èmi': 'me',
     'mo': 'I',
-    'bokọ': 'what',
     'nikọ': 'what',
     'dede': 'all',
     'wee': 'the',
@@ -77,7 +75,7 @@ const pronouns = {
     'wo': 'you',
     'uwọ': 'you',
     'rẹ': 'you',
-    'owún': 'na me/him/her'
+    'owún': 'na me/na him/na her'
 };
 
 const adjectivesAdverbs = {
@@ -92,24 +90,41 @@ const adjectivesAdverbs = {
     'kẹkẹkẹkẹ': 'consistently',
     'burukun': 'bad'
 }
+
 const misc = {
     'ọkan': 'one',
     'inọ': 'inside',
     'wee': 'the',
+    'la': 'lick',
     'ti': 'that',
     'éè': 'not',
-    'gha': 'where',
     'de': 'but',
     'tee': 'yet',
     'te': 'yet',
-    'tsi': 'before/towards',
-    'ni': 'in',
-    'biri': 'and',
+    'ni': 'in/on',
     'kì': 'any',
     'gbẹ': 'for',
     'máà': "don't",
     'kuri': 'from',
-    'ẹru-ka-ba': 'became afraid'
+}
+
+const miscTwo = {
+    'tsi': 'before/towards',
+    'ẹru-ka-ba': 'became afraid',
+    'gha': 'dey',
+    'biri': 'and',
+    'ulí': 'home',
+    'omere': 'brother/sister',
+    'ẹsẹn': 'leg',
+    'urun': 'thing',
+    'ira': 'time',
+    'ẹkoro': 'cap',
+    'ẹrun': 'properties',
+    'ọl-': 'owner (of)',
+    'ubọwe': 'here',
+    'bokọ': 'what',
+    'bọ': 'loosen',
+    'jẹrun': 'eat',
 }
 
 const nouns = {
@@ -120,10 +135,7 @@ const nouns = {
     'ẹgualẹ': 'snake',
     'obirẹn': 'wife',
     'aya': 'wife',
-    'ẹsẹn': 'leg',
     'ẹwọ': 'hand',
-    'ira': 'time',
-    'omere': 'brother/sister',
     'aṣọ': 'cloth',
     'isabatu': 'shoe',
     'ọkpa': 'walking stick',
@@ -131,10 +143,11 @@ const nouns = {
     'ọwa': 'father',
     'ọkọ': 'husband',
     'ọjẹ': 'food',
-    'ulí': 'home',
     'ana': 'in law',
     'alẹ': 'ground',
-    'urun': 'thing'
+    'oribiti': 'Boa',
+    'ara': 'body',
+    'obobo': 'plantain',
 }
 
 const nounsTwo = {
@@ -144,20 +157,13 @@ const nounsTwo = {
     'uwẹrẹ': 'there',
     'irẹye': 'person',
     'abẹtẹ': 'room',
-    'ẹkoro': 'cap',
     'ọ̀mà': 'bell',
     'ajá': 'town',
     'oko': 'bush',
     'ẹwu': 'shirt',
-    'oribiti': 'Boa',
-    'ara': 'body',
-    'ẹrun': 'properties',
-    'ọl-': 'owner (of)',
-    'ubọwe': 'here',
-    'obobo': 'plantain',
     'egin': 'tree',
     'ẹju': 'eye',
     'ọjọ': 'day',
 }
-const allWords = { ...verbs, ...pronouns, ...nouns, ...misc, ...adjectivesAdverbs, ...verbsTwo, ...nounsTwo };
-export { verbs, pronouns, nouns, misc, adjectivesAdverbs, verbsTwo, nounsTwo, allWords };
+const allWords = { ...verbs, ...pronouns, ...nouns, ...misc, ...adjectivesAdverbs, ...verbsTwo, ...nounsTwo, ...verbsThree, ...miscTwo};
+export { verbs, pronouns, nouns, misc, adjectivesAdverbs, verbsTwo, nounsTwo, verbsThree, allWords, miscTwo };
