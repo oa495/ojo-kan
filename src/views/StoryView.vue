@@ -182,40 +182,58 @@ export default {
     LearningModule
   },
   mounted() {
-      this.$nextTick(() => {
-        let paragraphs = document.querySelectorAll('main p');
-        paragraphs.forEach(paragraph => {
-            const originalText = paragraph.textContent;
-            const wordsAndSeparators = originalText.split(/(\s+)/);
-            const newHTML = wordsAndSeparators.map((part, i) => {
-              // Check if the part (trimmed and lowercased) is in our object
-              const cleanedPart = part.trim().toLowerCase().replace(/[.,!?;:"]/g, '');
-              const translation = allWords[cleanedPart];
-              if (translation) {
-                  const highlightClass = Object.keys(pronouns).includes(cleanedPart)
-                      ? 'pronouns'
-                      : Object.keys(nouns).includes(cleanedPart)
-                          ? 'nouns'
-                          : Object.keys(verbs).includes(cleanedPart)
+       this.$nextTick(() => {
+            let paragraphs = document.querySelectorAll('main p');
+            paragraphs.forEach(paragraph => {
+                // Preserve inline elements like <i> and <sup> by walking child nodes
+                let globalIndex = 0;
+                const parts = Array.from(paragraph.childNodes).flatMap(node => {
+                  if (node.nodeType === Node.TEXT_NODE) {
+                    // split text nodes into words + separators
+                    return node.textContent.split(/(\s+)/).map(part => {
+                      // keep empty parts (can happen) but still increment index
+                      if (part === '') {
+                        globalIndex++;
+                        return part;
+                      }
+                      const cleanedPart = part.trim().toLowerCase().replace(/[.,!?;:"]/g, '');
+                      const translation = allWords[cleanedPart];
+                      if (translation && part.trim() !== '') {
+                        const highlightClass = Object.keys(pronouns).includes(cleanedPart)
+                          ? 'pronouns'
+                          : Object.keys(nouns).includes(cleanedPart)
+                            ? 'nouns'
+                            : Object.keys(verbs).includes(cleanedPart)
                               ? 'verbs'
                               : Object.keys(misc).includes(cleanedPart)
                                 ? 'misc'
-                              : Object.keys(adjectivesAdverbs).includes(cleanedPart)
-                                ? 'adjectives_adverbs'
-                              : Object.keys(nounsTwo).includes(cleanedPart)
-                                ? 'nouns_two'
-                              : Object.keys(verbsTwo).includes(cleanedPart)
-                                ? 'verbs_two'
-                              : 'word';
-                  // If it is, wrap it in a button with the highlight class
-                  return `<button disabled="true" data-index="${i}" class="${highlightClass} word">${part}</button>`;
-              }
-              // Otherwise, return the part as is (including spaces and punctuation)
-              return part;
-            }).join('');
-
-            paragraph.innerHTML = newHTML;
-        });
+                                : Object.keys(adjectivesAdverbs).includes(cleanedPart)
+                                  ? 'adjectives_adverbs'
+                                  : Object.keys(nounsTwo).includes(cleanedPart)
+                                    ? 'nouns_two'
+                                    : Object.keys(verbsTwo).includes(cleanedPart)
+                                      ? 'verbs_two'
+                                      : 'word';
+                        const out = `<button disabled="true" data-index="${globalIndex}" class="${highlightClass} word">${part}</button>`;
+                        globalIndex++;
+                        return out;
+                      }
+                      globalIndex++;
+                      return part;
+                    });
+                  } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    // preserve element exactly (e.g. <i>, <sup>) and count as one item
+                    const out = node.outerHTML;
+                    globalIndex++;
+                    return out;
+                  }
+                  // ignore other node types but don't change indexing logic
+                  globalIndex++;
+                  return '';
+                });
+      
+                paragraph.innerHTML = parts.join('');
+            });
         const progress = localStorage.getItem('moduleProgress');
         const store = moduleProgress();
 
@@ -420,21 +438,21 @@ export default {
         </div>
         <main :aria-hidden="isModuleActive ? 'true' : 'false'" id="story">
           <p data-index="1">
-            Mai retin mi. Ọ́má ghaan mi.
-            Aghan retin mi di èmi gin gbẹ aghan.
+            Mai retin mi. Ọ́má ghaan<sup><a id="ref1" href="#fn1">[1]</a></sup> mi.
+            Aghan retin mi di èmi<sup><a id="ref2" href="#fn2">[2]</a></sup> gin gbẹ aghan.
           </p>
           <p data-index="2">
             Ọnobirẹn ọkan ti a kpe Ọlikpẹrẹbu.
-            Éè nẹ ajá Itsẹkiri kì ajá Itsẹkiri tee wà gbaa bẹ ọnobirẹn wee,
-            gin aghan fẹ gba tse obirẹn, ain éè jẹ. 
+            Éè nẹ ajá Itsẹkiri kì ajá Itsẹkiri<sup><a id="ref3" href="#fn3">[3]</a></sup> tee wà gbaa bẹ ọnobirẹn wee,
+            gin aghan fẹ gba tse obirẹn<sup><a id="ref4" href="#fn4">[4]</a></sup>, ain éè jẹ. 
             Èyí ma bà ain éè jẹ.
             Ubo kì ubo ni ẹye wee dede,
-            ajá Itsẹkiri kì ajá Itsẹkiri dede wà gbaa ri ọnobirẹn wee ain éè jẹ.
+            ajá Itsẹkiri kì ajá Itsẹkiri dede wà<sup><a id="ref5" href="#fn5">[5]</a></sup> gbaa<sup><a id="ref6" href="#fn6">[6]</a></sup> ri ọnobirẹn wee ain éè jẹ.
             Nikọ rẹ tse ti wo gba gin éè jẹ? Ain éè jẹ, ain éè fẹ aghan kì aghan.
           </p> 
           <p data-index="3">
             Ọjọ ọkan ẹgualẹ ọkan ni inọ oko ti a kpe Oribiti.
-            O gbo.
+            O<sup><a id="ref7" href="fn7">[7]</a></sup> gbo.
             Ain ọnobirẹn bokọ ni ẹye wee, ọnobirẹn ti a bẹ ti o gin éè jẹ? Ain mo wà tó uwẹrẹ.
             Oribiti wee gba rè dá ara ro.
 
@@ -453,7 +471,7 @@ export default {
 
           <p data-index="4">
             Ọnobirẹn wee de gẹrẹ sẹngua.
-            ọnobirẹn wee Ọlikpẹrẹbu ghele olikperebu.
+            Ọnobirẹn wee Ọlikpẹrẹbu ghele olikperebu<sup><a id="ref8" href="#fn8">[8]</a></sup>.
 
             Ọnobirẹn Ọlikpẹrẹbu gbaa ri, o sá gbaa buru, o dinma ro.
             O kpe iyẹ ro biri ọwa ro, o gin èyí ọkọ ti ' èmi fẹ dọ.
@@ -464,7 +482,7 @@ export default {
             Wo desin tsi?
             Ain èyí ọnọkẹrẹn ti o fẹ dọ.
             A gin osan oo.
-            Ẹgualẹ wee gba wọ ' ulí, a kin, a mu___gbẹ ọjẹ.
+            Ẹgualẹ wee gba wọ ' ulí, a kin, a mu___gbẹ<sup><a id="ref9" href="#fn9">[9]</a></sup> ọjẹ.
             O gin éè te jẹrun, gin di ' a gbe ọjẹ wee, di ' a gbe-tsi abẹtẹ wee.
             A gbe-tsi abẹtẹ wee.
             O gba tsọn èyí tsọn èyí.
@@ -490,7 +508,7 @@ export default {
         <p data-index="7">
             Ti o gbaa rè, omere ro ọnọkẹrẹn kaka lele, kaka lele ni ẹyin.
 
-            O gbaa tó ubo ti ọl- aṣọ gha, o mu___gbẹ aṣọ ọl- aṣọ.
+            O gbaa tó ubo ti ọl- aṣọ<sup><a id="ref10" href="fn10">[10]</a></sup> gha, o mu___gbẹ aṣọ ọl- aṣọ.
 
             O gbaa tó ubo ti ọl- ẹsẹn  gha, o mu___gbẹ ẹsẹn ọl- ẹsẹn.
 
@@ -535,13 +553,75 @@ export default {
             O kó obobo wee, o kó titi ni ọ̀mà wee.
             O kó titi ni ọ̀mà wee, o kó titi ni ọ̀mà wee.
 
-            Obobo wee ti a mu___ni ọ̀mà wee, éè jẹ di ọ̀mà wee do lù.
+            Obobo wee ti a mu___ni<sup><a id="ref11" href="fn11">[11]</a></sup> ọ̀mà wee, éè jẹ di ọ̀mà wee do lù.
 
             Omere ro rè, o bọ Ọlikpẹrẹbu.
             Ọlikpẹrẹbu sa, Ọlikpẹrẹbu sa, Ọlikpẹrẹbu sa.
 
-            Aghan gba sá kẹkẹkẹkẹ, a tó ubo wee ti iyẹ ro biri ọwa ro gha, Ọlikpẹrẹbu tsibu.
+            Aghan gba sá kẹkẹkẹkẹ, a tó ubo wee ti iyẹ ro biri ọwa ro gha<sup><a id="ref12" href="fn12">[12]</a></sup>, Ọlikpẹrẹbu tsibu.
           </p>
+        <div class="footnotes" v-if="allModulesCompleted">
+          <hr>
+          <ol>
+              <li id="fn1">
+                When 'ghaan' is used, the preceding word becomes plural. 
+                <a href="#ref1" title="Return to text">&#8617;</a> 
+              </li>
+              <li id="fn2">
+                Whenever two vowels meet, the first vowel is ignored and the words join and are said together.
+                `di èmi` becomes `dèmi`, `ti a kpe` becomes `ta kpe.` This pattern was not adhered to on this site 
+                because I wanted to preserve the full words for learning purposes.
+                  <a href="#ref2" title="Return to text">&#8617;</a> 
+              </li>
+              <li id="fn3">
+                When `kì` is used as in `ajá Itsẹkiri kì ajá Itsẹkiri`, it turns the meaning of the reduplication into 'any.'
+                So `ajá Itsẹkiri kì ajá Itsẹkiri` becomes 'any/every Itsẹkiri town.'
+                <a href="#ref3" title="Return to text">&#8617;</a> 
+              </li>
+              <li id="fn4">
+                'obirẹn' and 'aya' both mean wife but 'obirẹn' is used as a representation 
+                of the role, not to address a married woman.
+                <a href="#ref4" title="Return to text">&#8617;</a> 
+              </li>
+              <li id="fn5">
+                Some words like `wà` have the same spelling, different meanings based on context.
+                <a href="#ref5" title="Return to text">&#8617;</a> 
+              </li>
+              <li id="fn6">
+                When you see or hear `gbaa` it means the preceding action is present continuous.
+                <a href="#ref6" title="Return to text">&#8617;</a> 
+              </li>
+              <li id="fn7">
+                Itsẹkiri does not have gendered pronouns. Meaning is gleaned through to context.
+                <a href="#ref7" title="Return to text">&#8617;</a> 
+              </li>
+              <li id="fn8">
+                In this story, 'Ọlikpẹrẹbu' is the akpuja (nickname) of the main character, it translates roughly to 
+                "a woman who has it all."
+                <a href="#ref8" title="Return to text">&#8617;</a> 
+              </li>
+              <li id="fn9">
+                The word for 'give,' mu___gbẹ is meant to be broken up with the thing being given in the middle 
+                when written correctly. e.g `mu ọjẹ gbẹ` or `mu ẹsẹn gbẹ`
+                <a href="#ref9" title="Return to text">&#8617;</a> 
+              </li>
+              <li id="fn10">
+                To indicate 'owner of something' like 'owner of cloth', the word for owner
+                `ọl` combines with the item `aṣọ`. So it should be written as `ọlaṣọ.` Another
+                example is `ọlẹsẹn` (owner of leg). 
+                <a href="#ref10" title="Return to text">&#8617;</a> 
+              </li>
+              <li id="fn11">
+                `mu___ni` follows the same pattern as `mu___gbẹ` e.g `mu aṣọ ni`
+                <a href="#ref11" title="Return to text">&#8617;</a> 
+              </li>
+              <li id="fn12">
+                `gha` is best translated into Pidgin English. Meaning the location of a thing, where something is.
+                `bokọ wo gha?` is like "where are you?"
+                <a href="#ref12" title="Return to text">&#8617;</a> 
+              </li>
+          </ol>
+        </div>
         </main>
         <LearningModule :scrolled="scrolled" @completeModule="onCompleteModule" @reset="resetAllModules" @moduleActive="onModuleActivated" />
       </div>
@@ -621,14 +701,36 @@ fieldset button {
   outline: 5px auto -webkit-focus-ring-color;
 }
 
+.circle sup {
+  display: none;
+}
+
 .circle.complete {
   background-color: black;
+}
+
+.circle.complete sup {
+  display: inline-block;
 }
 
 .circle.complete p {
   position: relative; 
   color: white;
   font-size: 1.8rem;
+}
+
+hr {
+  color: white;
+}
+
+.footnotes li {
+  font-size: 1rem !important;
+  color: white;
+}
+
+.footnotes a, .footnotes a:visited,.footnotes a:active, .footnotes a:focus {
+  color: white;
+  text-decoration: none;
 }
 
 main button {

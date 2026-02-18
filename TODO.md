@@ -49,7 +49,7 @@
 ## Nice to Have
 
 [] - recordings scattered around (to simulate gossip)
-[] - have a reference for the words and  ("about the language")
+[x] - have a reference for the words and  ("about the language") (footnotes)
 [x] - surprise me frequency
 [x] - transition route changes
 [] - make blobs draggable 
