@@ -118,14 +118,12 @@ const nouns = {
     'ọnọkẹrẹn': 'man',
     'ẹye': 'world/life',
     'ẹgualẹ': 'snake',
-    'ọjọ': 'day',
     'obirẹn': 'wife',
     'aya': 'wife',
     'ẹsẹn': 'leg',
     'ẹwọ': 'hand',
     'ira': 'time',
     'omere': 'brother/sister',
-    'ẹju': 'eye',
     'aṣọ': 'cloth',
     'isabatu': 'shoe',
     'ọkpa': 'walking stick',
@@ -136,7 +134,6 @@ const nouns = {
     'ulí': 'home',
     'ana': 'in law',
     'alẹ': 'ground',
-    'oribiti': 'Boa',
     'urun': 'thing'
 }
 
@@ -152,12 +149,15 @@ const nounsTwo = {
     'ajá': 'town',
     'oko': 'bush',
     'ẹwu': 'shirt',
+    'oribiti': 'Boa',
     'ara': 'body',
     'ẹrun': 'properties',
     'ọl-': 'owner (of)',
     'ubọwe': 'here',
     'obobo': 'plantain',
-    'egin': 'tree'
+    'egin': 'tree',
+    'ẹju': 'eye',
+    'ọjọ': 'day',
 }
 const allWords = { ...verbs, ...pronouns, ...nouns, ...misc, ...adjectivesAdverbs, ...verbsTwo, ...nounsTwo };
 export { verbs, pronouns, nouns, misc, adjectivesAdverbs, verbsTwo, nounsTwo, allWords };

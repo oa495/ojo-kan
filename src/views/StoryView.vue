@@ -365,6 +365,7 @@ export default {
             el.classList.remove('translated');
             el.setAttribute('disabled', true);
         });
+        this.allModulesCompleted = false;
         let store = moduleProgress();
         store.resetAllProgress();
         const circle = document.querySelector('.circle');
@@ -499,7 +500,7 @@ export default {
             Ọnobirẹn wee gege o din ẹrun ro,
             o gbe ni origho, ain o wà lele bà rè.
 
-            Iyo! Iyẹ ro biri ọwa ro gin máà rè, ain o wà rè, o wà lele bà rè.
+            Iyọ! Iyẹ ro biri ọwa ro gin máà rè, ain o wà rè, o wà lele bà rè.
 
             Omere ro Akpofi ri ẹgualẹ wee ni abẹtẹ wee tsi. 
             O gin Ọlikpẹrẹbu.

@@ -26,7 +26,11 @@
 
                     <p>Finding this story was the same process. I looked up and down the internet to no avail until I found a video of <a href="https://www.facebook.com/watch/?v=1380552859621461">an Itsẹkiri grandmother on Facebook telling the story of Ọlikpẹrẹbu.</a>Then my Itsẹkiri teacher painstakingly took me through the audio recording to transcribe and translate it. I am endlessly thankful to them both.</p>
 
-                <a class="signature"href="https://omayeli.com/" target="_blank">- Ọmayẹli</a>
+                    <p> As a last note, when cultural artifacts like this story are represented through 
+                        computation (like this site), there is bound to be some loss. Recently in a class, I posed the question "How much can a machine hold?" And my answer is: "not enough." There is no translation that does not require some flattening. The same is true in this case. There is the obvious loss of the rises and falls of speech -- where a speaker speaks really fast to represent a character moving quickly, where their voice gets really morose or animated. For example the word 'consistently' did not evoke as much for me as did 'kẹkẹkẹkẹ' but I chose to give it a match anyway. I chose not to translate the word "Iyọ!" for that reason. "Ah!" or "Oh no!" did not quite rise to the occasion. There are words that just can't be translated into English. There are words that are better translated into Nigerian Pidgin. As much as this website tries to capture it, language remains dynamic and multiplicitous. 
+                    </p>
+
+                <a class="signature" href="https://omayeli.com/" target="_blank">- Ọmayẹli</a>
                 </main>
             </div>
         </div>
