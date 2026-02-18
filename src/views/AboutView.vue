@@ -32,6 +32,10 @@
 
                 <a class="signature" href="https://omayeli.com/" target="_blank">- Ọmayẹ-ulí (Oh-mah-yeh-li)</a>
                 </main>
+                <footer>
+                    <p>Site made by me <a href="https://omayeli.com/" target="_blank">(Yeli)</a> with some design support <a target="_blank" href="https://www.nathalyn.com/">by Nathalyn.</a></p>
+                    <p>Snake icon was made by <a target="_blank" href="https://thenounproject.com/creator/verena.gutentag">Verena Gutentag.</a></p>
+                </footer>
             </div>
         </div>
     </div>
@@ -44,6 +48,15 @@
     text-align: right;
     float: right;
     width: fit-content;
+}
+
+footer > p {
+    margin: 0.5em;
+}
+
+footer {
+    margin: 2em;
+    max-width: 70%;
 }
 
 .back-arrow {
