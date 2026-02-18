@@ -8,65 +8,65 @@ import { storeToModuleMap } from '@/constants'
 function handleTranslation(word, translation, el) {
   const translationToUse = {
     "1": {
-        "6": "me",
-        "12": "my",
-        "18": "me"
+      "6": "me",
+      "14": "my",
+      "20": "me"
     },
     "2": {
-      "52": "she says",
-      "64": "she says",
-      "78": "world",
-      "106": "she says",
-      "130": "she says",
-      "136": "she says",
+      "56": "she says",
+      "68": "she says",
+      "82": "world",
+      "114": "she says",
+      "138": "she says",
+      "144": "she says",
     },
     "3": {
       "24": "it",
-      "28": "it says",
-      "36": "world",
-      "50": "she",
-      "58": "it said",
-      "80": "its",
-      "82": "it",
-      "96": "it",
-      "104": "it",
-      "118": "it",
-      "126": "it",
-      "140": "it",
-      "148": "it",
-      "162": "it",
-      "170": "it",
-      "178": "it",
-      "186": "it",
-      "194": "it",
-      "202": "it",
-      "210": "it",
-      "214": "it",
-      "218": "it",
+      "30": "it says",
+      "38": "world",
+      "52": "she",
+      "60": "it said",
+      "82": "its",
+      "84": "it",
+      "98": "it",
+      "106": "it",
+      "120": "it",
+      "128": "it",
+      "142": "it",
+      "150": "it",
+      "164": "it",
+      "172": "it",
+      "180": "it",
+      "188": "it",
+      "196": "it",
+      "204": "it",
+      "212": "it",
+      "216": "it",
+      "220": "it",
     },
     "4": {
-      "30": "she", 
-      "38": "she", 
-      "42": "him", 
-      "44" : "she", 
-      "50": "her", 
-      "56": "her", 
-      "58": "she", 
+      "32": "she",
+      "40": "she",
+      "44": "him",
+      "46": "she",
+      "52": "her",
+      "58": "her",
+      "60": "she",
     },
     "5": {
       "24": "she",
       "54": "she says",
       "62": "she",
-      "98": "he",
-      "142": "he",
-      "154": "he",
-      "164": "he",
-      "170": "his",
-      "184": "it",
-      "198": "it",
-      "202": "it",
-      "206": "it",
-      "214": "it",
+      "100": "he",
+      "144": "he",
+      "156": "he",
+      "166": "he",
+      "172": "his",
+      "186": "it",
+      "200": "it",
+      "204": "it",
+      "208": "it",
+      "216": "it",
     },
     "6": {
       "4": "his",
@@ -100,19 +100,19 @@ function handleTranslation(word, translation, el) {
       "4": "she",
       "12": "her",
       "28": "it",
-      "44": "it",
-      "54": "it",
-      "70": "it",
-      "80": "it",
-      "96": "it",
-      "106": "it",
-      "122": "it",
-      "134": "it",
-      "150": "it",
-      "162": "its",
-      "166": "it",
-      "176": "it",
-      "180": "it",
+      "46": "it",
+      "56": "it",
+      "72": "it",
+      "82": "it",
+      "98": "it",
+      "108": "it",
+      "124": "it",
+      "136": "it",
+      "152": "it",
+      "164": "its",
+      "168": "it",
+      "178": "it",
+      "182": "it",
     },
     "8": {
       "6": "it",
@@ -121,16 +121,16 @@ function handleTranslation(word, translation, el) {
       "32": "na me",
     },
     "9": {
-      "4" : "she",
-      "8" : "she",
+      "4": "she",
+      "8": "she",
       "16": "life",
-      "18" : "her",
+      "18": "her",
       "30": "come",
-      "36" : "she",
-      "50" : "she",
+      "36": "she",
+      "50": "she",
       "60": "come",
-      "58" : "she",
-      "74" : "her",
+      "58": "she",
+      "74": "her",
       "80": "she",
     },
     "10": {
@@ -146,14 +146,14 @@ function handleTranslation(word, translation, el) {
       "40": "she",
       "52": "she",
       "56": "she",
-      "94": "her",
-      "98": "he",
-      "142": "her",
-      "136": "her",
+      "96": "her",
+      "100": "he",
+      "138": "her",
+      "144": "her",
     }
   }
   const parent = el.parentElement;
-  if (parent.tagName === 'P') {  
+  if (parent.tagName === 'P') {
     let index = parent.dataset.index;
     if ((index === '2' || index === '10') && word === 'wà') return 'come';
     if (translation === 'brother/sister') return 'brother';
@@ -180,85 +180,85 @@ export default {
     LearningModule
   },
   mounted() {
-       this.$nextTick(() => {
-            let paragraphs = document.querySelectorAll('main p');
-            paragraphs.forEach(paragraph => {
-                // Preserve inline elements like <i> and <sup> by walking child nodes
-                let globalIndex = 0;
-                const parts = Array.from(paragraph.childNodes).flatMap(node => {
-                  if (node.nodeType === Node.TEXT_NODE) {
-                    // split text nodes into words + separators
-                    return node.textContent.split(/(\s+)/).map(part => {
-                      // keep empty parts (can happen) but still increment index
-                      if (part === '') {
-                        globalIndex++;
-                        return part;
-                      }
-                      const cleanedPart = part.trim().toLowerCase().replace(/[.,!?;:"]/g, '');
-                      const translation = allWords[cleanedPart];
-                      if (translation && part.trim() !== '') {
-                        const highlightClass = Object.keys(pronouns).includes(cleanedPart)
-                          ? 'pronouns'
-                          : Object.keys(nouns).includes(cleanedPart)
-                            ? 'nouns'
-                            : Object.keys(verbs).includes(cleanedPart)
-                              ? 'verbs'
-                              : Object.keys(misc).includes(cleanedPart)
-                                ? 'misc'
-                                : Object.keys(adjectivesAdverbs).includes(cleanedPart)
-                                  ? 'adjectives_adverbs'
-                                  : Object.keys(nounsTwo).includes(cleanedPart)
-                                    ? 'nouns_two'
-                                    : Object.keys(verbsTwo).includes(cleanedPart)
-                                      ? 'verbs_two'
-                                      : Object.keys(verbsThree).includes(cleanedPart)
-                                        ? 'verbs_three'
-                                        : Object.keys(miscTwo).includes(cleanedPart)
-                                          ? 'misc_two'
-                                      : 'word';
-                        const out = `<button disabled="true" data-index="${globalIndex}" class="${highlightClass} word">${part}</button>`;
-                        globalIndex++;
-                        return out;
-                      }
-                      globalIndex++;
-                      return part;
-                    });
-                  } else if (node.nodeType === Node.ELEMENT_NODE) {
-                    // preserve element exactly (e.g. <i>, <sup>) and count as one item
-                    const out = node.outerHTML;
-                    globalIndex++;
-                    return out;
-                  }
-                  // ignore other node types but don't change indexing logic
-                  globalIndex++;
-                  return '';
-                });
-      
-                paragraph.innerHTML = parts.join('');
+    this.$nextTick(() => {
+      let paragraphs = document.querySelectorAll('main p');
+      paragraphs.forEach(paragraph => {
+        // Preserve inline elements like <i> and <sup> by walking child nodes
+        let globalIndex = 0;
+        const parts = Array.from(paragraph.childNodes).flatMap(node => {
+          if (node.nodeType === Node.TEXT_NODE) {
+            // split text nodes into words + separators
+            return node.textContent.split(/(\s+)/).map(part => {
+              // keep empty parts (can happen) but still increment index
+              if (part === '') {
+                globalIndex++;
+                return part;
+              }
+              const cleanedPart = part.trim().toLowerCase().replace(/[.,!?;:"]/g, '');
+              const translation = allWords[cleanedPart];
+              if (translation && part.trim() !== '') {
+                const highlightClass = Object.keys(pronouns).includes(cleanedPart)
+                  ? 'pronouns'
+                  : Object.keys(nouns).includes(cleanedPart)
+                    ? 'nouns'
+                    : Object.keys(verbs).includes(cleanedPart)
+                      ? 'verbs'
+                      : Object.keys(misc).includes(cleanedPart)
+                        ? 'misc'
+                        : Object.keys(adjectivesAdverbs).includes(cleanedPart)
+                          ? 'adjectives_adverbs'
+                          : Object.keys(nounsTwo).includes(cleanedPart)
+                            ? 'nouns_two'
+                            : Object.keys(verbsTwo).includes(cleanedPart)
+                              ? 'verbs_two'
+                              : Object.keys(verbsThree).includes(cleanedPart)
+                                ? 'verbs_three'
+                                : Object.keys(miscTwo).includes(cleanedPart)
+                                  ? 'misc_two'
+                                  : 'word';
+                const out = `<button disabled="true" data-index="${globalIndex}" class="${highlightClass} word">${part}</button>`;
+                globalIndex++;
+                return out;
+              }
+              globalIndex++;
+              return part;
             });
-        const progress = localStorage.getItem('moduleProgress');
-        const store = moduleProgress();
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            // preserve element exactly (e.g. <i>, <sup>) and count as one item
+            const out = node.outerHTML;
+            globalIndex++;
+            return out;
+          }
+          // ignore other node types but don't change indexing logic
+          globalIndex++;
+          return '';
+        });
 
-        let parsedProgress;
-        if (progress) {
-            parsedProgress = JSON.parse(progress);
-            for (let module in parsedProgress) {
-                if (parsedProgress[module] === true) {
-                    store.completeModule(module);
-                    this.onCompleteModule(module, storeToModuleMap[module]);
-                }
-            }
-          this.scrolled = true;
-        } else {
-          const storyEl = document.getElementById('story');
-          storyEl.addEventListener('scroll', this.onScrollOnce);
+        paragraph.innerHTML = parts.join('');
+      });
+      const progress = localStorage.getItem('moduleProgress');
+      const store = moduleProgress();
+
+      let parsedProgress;
+      if (progress) {
+        parsedProgress = JSON.parse(progress);
+        for (let module in parsedProgress) {
+          if (parsedProgress[module] === true) {
+            store.completeModule(module);
+            this.onCompleteModule(module, storeToModuleMap[module]);
+          }
         }
+        this.scrolled = true;
+      } else {
+        const storyEl = document.getElementById('story');
+        storyEl.addEventListener('scroll', this.onScrollOnce);
+      }
     });
 
     if (localStorage.getItem('learningFrequency')) {
-        this.frequency = localStorage.getItem('learningFrequency');
-        this.store.setFrequency(this.frequency);
-    } 
+      this.frequency = localStorage.getItem('learningFrequency');
+      this.store.setFrequency(this.frequency);
+    }
   },
   methods: {
     onScrollOnce() {
@@ -293,10 +293,10 @@ export default {
         case 'nouns_two':
           wordsToHighlight = nounsTwo;
           break;
-        case 'verbs_two': 
+        case 'verbs_two':
           wordsToHighlight = verbsTwo;
           break;
-        case 'verbs_three': 
+        case 'verbs_three':
           wordsToHighlight = verbsThree;
           break;
         case 'misc_two':
@@ -304,48 +304,48 @@ export default {
           break;
       }
       moduleElements.forEach(el => {
-          const isUppercase = el.textContent[0] === el.textContent[0].toUpperCase();
-          const text = el.textContent.trim().toLowerCase();
-          // split word from punctuation safely
-          // This line is already present and handles the word/punctuation split
-          const match = text.match(/^([\p{L}]+(?:-[\p{L}]+)*)([.,!?;:]*)$/u);
-          const word = match ? match[1] : text;
-          const punctuation = match ? match[2] : '';
-          let translation;
-          if (word === 'ni') {
-            // get word right after
-            let nextSib = el.nextElementSibling?.textContent.replace(/([.,!?;:]*)$/u, '');
-            if (nextSib === 'isabatu' || nextSib === 'ẹwu' || nextSib === 'shirt'|| nextSib === 'shoe') {
-              translation = 'wear'
-            }
-            else if (nextSib === 'origho') {
-              translation = 'on';
-            } else translation = 'in';
-          } else if (word === 'tsi') {
-            let nextSib = el.nextElementSibling?.textContent.replace(/([.,!?;:]*)$/u, '');
-              if (nextSib === 'abẹtẹ' || nextSib === 'alẹ' || nextSib === 'room' || nextSib === 'ground') {
-                translation = 'towards'
-              } else {
-                translation = 'before';
-              }
-          } else if (word === 'jẹ') {
-              let nextSib = el.nextElementSibling?.textContent.replace(/([.,!?;:]*)$/u, '');
-              if (nextSib === 'di' || nextSib == 'let') {
-                translation = 'allow';
-              }
-              else translation = 'accept';
-          } else {
-            translation = wordsToHighlight[word] || text;
-            if (translation.includes('/')) {
-              // there's multiple meanings to choose from e.g he/she/it
-              translation = handleTranslation(word, translation, el);
-            }
+        const isUppercase = el.textContent[0] === el.textContent[0].toUpperCase();
+        const text = el.textContent.trim().toLowerCase();
+        // split word from punctuation safely
+        // This line is already present and handles the word/punctuation split
+        const match = text.match(/^([\p{L}]+(?:-[\p{L}]+)*)([.,!?;:]*)$/u);
+        const word = match ? match[1] : text;
+        const punctuation = match ? match[2] : '';
+        let translation;
+        if (word === 'ni') {
+          // get word right after
+          let nextSib = el.nextElementSibling?.textContent.replace(/([.,!?;:]*)$/u, '');
+          if (nextSib === 'isabatu' || nextSib === 'ẹwu' || nextSib === 'shirt' || nextSib === 'shoe') {
+            translation = 'wear'
           }
-          el.textContent = isUppercase ? translation[0].toUpperCase() + translation.slice(1) + punctuation : translation + punctuation;
-          el.classList.add('translated');
-          el.removeAttribute('disabled');
-          // change to button tag
-          el.dataset.translation = word;
+          else if (nextSib === 'origho') {
+            translation = 'on';
+          } else translation = 'in';
+        } else if (word === 'tsi') {
+          let nextSib = el.nextElementSibling?.textContent.replace(/([.,!?;:]*)$/u, '');
+          if (nextSib === 'abẹtẹ' || nextSib === 'alẹ' || nextSib === 'room' || nextSib === 'ground') {
+            translation = 'towards'
+          } else {
+            translation = 'before';
+          }
+        } else if (word === 'jẹ') {
+          let nextSib = el.nextElementSibling?.textContent.replace(/([.,!?;:]*)$/u, '');
+          if (nextSib === 'di' || nextSib == 'let') {
+            translation = 'allow';
+          }
+          else translation = 'accept';
+        } else {
+          translation = wordsToHighlight[word] || text;
+          if (translation.includes('/')) {
+            // there's multiple meanings to choose from e.g he/she/it
+            translation = handleTranslation(word, translation, el);
+          }
+        }
+        el.textContent = isUppercase ? translation[0].toUpperCase() + translation.slice(1) + punctuation : translation + punctuation;
+        el.classList.add('translated');
+        el.removeAttribute('disabled');
+        // change to button tag
+        el.dataset.translation = word;
       });
 
       this.scrolled = true;
@@ -365,7 +365,7 @@ export default {
         this.shuffleWords();
         this.announceMessage = 'All modules completed! You have unlocked all the words in the story.';
       } else {
-          this.announceMessage = 'A module has been completed. New words have been unlocked in the story.';
+        this.announceMessage = 'A module has been completed. New words have been unlocked in the story.';
       }
     },
     clearAriaAnnouncements() {
@@ -374,20 +374,20 @@ export default {
       }, 5000);
     },
     resetAllModules() {
-        const translated = document.querySelectorAll('.translated');
-        translated.forEach(el => {
-            const originalWord = el.dataset.translation;
-            el.textContent = originalWord;
-            el.classList.remove('translated');
-            el.setAttribute('disabled', true);
-        });
-        this.allModulesCompleted = false;
-        let store = moduleProgress();
-        store.resetAllProgress();
-        const circle = document.querySelector('.circle');
-        circle.classList.remove('complete');
-        this.announceMessage = 'All modules have been reset. You are now back at the beginning.';
-        this.clearAriaAnnouncements();
+      const translated = document.querySelectorAll('.translated');
+      translated.forEach(el => {
+        const originalWord = el.dataset.translation;
+        el.textContent = originalWord;
+        el.classList.remove('translated');
+        el.setAttribute('disabled', true);
+      });
+      this.allModulesCompleted = false;
+      let store = moduleProgress();
+      store.resetAllProgress();
+      const circle = document.querySelector('.circle');
+      circle.classList.remove('complete');
+      this.announceMessage = 'All modules have been reset. You are now back at the beginning.';
+      this.clearAriaAnnouncements();
     },
     toggleWord(event) {
       let target = event.target;
@@ -406,10 +406,10 @@ export default {
     },
     shuffleWords() {
       let paragraphs = document.querySelectorAll('main p');
-        paragraphs.forEach(paragraph => {
-          const originalText = paragraph.textContent;
-          const wordsAndSeparators = originalText.split(/(\s+)/);
-        });
+      paragraphs.forEach(paragraph => {
+        const originalText = paragraph.textContent;
+        const wordsAndSeparators = originalText.split(/(\s+)/);
+      });
     },
     onModuleActivated(isModuleActive) {
       this.isModuleActive = isModuleActive;
@@ -426,16 +426,19 @@ export default {
         Kp'ọjọ
         <span>kp'ọjọ</span>
       </h1>
-      <p class="project-description">An Itsẹkiri folktale that unveils itself to the reader as they learn words from the language. <u>Click on "bubble" to get started learning.</u> 
+      <p class="project-description">An Itsẹkiri folktale that unveils itself to the reader as they learn words from the
+        language. <u>Click on "bubble" to get started learning.</u>
       </p>
       <fieldset class="frequency-selection">
         <legend>Choose a frequency for the tale to unfold:</legend>
         <div>
-          <input type="radio" v-model="frequency" id="own-pace" name="frequency" value="own-pace" @change="changeFrequency" />
+          <input type="radio" v-model="frequency" id="own-pace" name="frequency" value="own-pace"
+            @change="changeFrequency" />
           <label for="own-pace">Own pace</label>
         </div>
         <div>
-          <input type="radio" v-model="frequency" id="hour" name="frequency" value="hourly" checked="" @change="changeFrequency"/>
+          <input type="radio" v-model="frequency" id="hour" name="frequency" value="hourly" checked=""
+            @change="changeFrequency" />
           <label for="hour">Hourly</label>
         </div>
         <div>
@@ -443,7 +446,8 @@ export default {
           <label for="day">Daily</label>
         </div>
         <div>
-          <input type="radio" v-model="frequency" id="surprise-me" name="frequency" value="surprise-me" @change="changeFrequency" />
+          <input type="radio" v-model="frequency" id="surprise-me" name="frequency" value="surprise-me"
+            @change="changeFrequency" />
           <label for="surprise-me">Surprise me!</label>
         </div>
       </fieldset>
@@ -451,7 +455,7 @@ export default {
     <div class="big-circle">
       <div class="circle" @click="toggleWord">
         <div id="announce" aria-live="polite" class="sr-only">
-          <p>{{announceMessage}}</p>
+          <p>{{ announceMessage }}</p>
         </div>
         <main :aria-hidden="isModuleActive ? 'true' : 'false'" id="story">
           <p data-index="1">
@@ -460,16 +464,18 @@ export default {
           </p>
           <p data-index="2">
             Ọnobirẹn ọkan ti a kpe Ọlikpẹrẹbu.
-            Éè nẹ ajá Itsẹkiri kì ajá Itsẹkiri<sup><a class="footnote-link" id="ref3" href="#fn3">[3]</a></sup> tee wà gbaa bẹ ọnobirẹn wee,
-            gin aghan fẹ gba tse obirẹn<sup><a class="footnote-link" id="ref4" href="#fn4">[4]</a></sup>, ain éè jẹ. 
+            Éè nẹ ajá Itsẹkiri kì ajá Itsẹkiri<sup><a class="footnote-link" id="ref3" href="#fn3">[3]</a></sup> tee wà
+            gbaa bẹ ọnobirẹn wee,
+            gin aghan fẹ gba tse obirẹn<sup><a class="footnote-link" id="ref4" href="#fn4">[4]</a></sup>, ain éè jẹ.
             Èyí ma bà ain éè jẹ.
             Ubo kì ubo ni ẹye wee dede,
-            ajá Itsẹkiri kì ajá Itsẹkiri dede wà<sup><a class="footnote-link" id="ref5" href="#fn5">[5]</a></sup> gbaa<sup><a class="footnote-link" id="ref6" href="#fn6">[6]</a></sup> ri ọnobirẹn wee ain éè jẹ.
+            ajá Itsẹkiri kì ajá Itsẹkiri dede wà<sup><a class="footnote-link" id="ref5" href="#fn5">[5]</a></sup>
+            gbaa<sup><a class="footnote-link" id="ref6" href="#fn6">[6]</a></sup> ri ọnobirẹn wee ain éè jẹ.
             Nikọ rẹ tse ti wo gba gin éè jẹ? Ain éè jẹ, ain éè fẹ aghan kì aghan.
-          </p> 
+          </p>
           <p data-index="3">
             Ọjọ ọkan ẹgualẹ ọkan ni inọ oko ti a kpe Oribiti.
-            O<sup><a class="footnote-link" id="ref7" href="fn7">[7]</a></sup> gbo.
+            O<sup><a class="footnote-link" id="ref7" href="#fn7">[7]</a></sup> gbo.
             Ain ọnobirẹn bokọ ni ẹye wee, ọnobirẹn ti a bẹ ti o gin éè jẹ? Ain mo wà tó uwẹrẹ.
             Oribiti wee gba rè dá ara ro.
 
@@ -480,7 +486,7 @@ export default {
 
             O ni ' ẹwu.
             O ró ' aṣọ.
-            O ni ' isabatu. 
+            O ni ' isabatu.
             O bí ' ọkpa.
             O bí ' ẹkoro.
             O rè, o gin o wà bà ọnobirẹn Ọlikpẹrẹbu wee.
@@ -499,7 +505,8 @@ export default {
             Wo desin tsi?
             Ain èyí ọnọkẹrẹn ti o fẹ dọ.
             A gin osan oo.
-            Ẹgualẹ wee gba wọ ' ulí, a kin, a mu___gbẹ<sup><a class="footnote-link" id="ref9" href="#fn9">[9]</a></sup> ọjẹ.
+            Ẹgualẹ wee gba wọ ' ulí, a kin, a mu___gbẹ<sup><a class="footnote-link" id="ref9" href="#fn9">[9]</a></sup>
+            ọjẹ.
             O gin éè te jẹrun, gin di ' a gbe ọjẹ wee, di ' a gbe-tsi abẹtẹ wee.
             A gbe-tsi abẹtẹ wee.
             O gba tsọn èyí tsọn èyí.
@@ -518,16 +525,17 @@ export default {
 
             Iyọ! Iyẹ ro biri ọwa ro gin máà rè, ain o wà rè, o wà lele bà rè.
 
-            Omere ro Akpofi ri ẹgualẹ wee ni abẹtẹ wee tsi. 
+            Omere ro Akpofi ri ẹgualẹ wee ni abẹtẹ wee tsi.
             O gin Ọlikpẹrẹbu.
             Ọlikpẹrẹbu éè retin, o gin o wà lele bà rè.
-        </p>
-        <p data-index="7">
+          </p>
+          <p data-index="7">
             Ti o gbaa rè, omere ro ọnọkẹrẹn kaka lele, kaka lele ni ẹyin.
 
-            O gbaa tó ubo ti ọl- aṣọ<sup><a class="footnote-link" id="ref10" href="fn10">[10]</a></sup> gha, o mu___gbẹ aṣọ ọl- aṣọ.
+            O gbaa tó ubo ti ọl- aṣọ<sup><a class="footnote-link" id="ref10" href="#fn10">[10]</a></sup> gha, o mu___gbẹ
+            aṣọ ọl- aṣọ.
 
-            O gbaa tó ubo ti ọl- ẹsẹn  gha, o mu___gbẹ ẹsẹn ọl- ẹsẹn.
+            O gbaa tó ubo ti ọl- ẹsẹn gha, o mu___gbẹ ẹsẹn ọl- ẹsẹn.
 
             O gbaa tó ubo ti ọl- ẹwọ gha, o mu___gbẹ ẹwọ ọl- ẹwọ.
 
@@ -535,7 +543,7 @@ export default {
             O gbaa tó ubo ti ọl- ẹju gha, o mu___gbẹ ẹju ọl- ẹju.
 
             Ara ro dede o dá, ẹwu biri aṣọ o kó-tsi.
-            
+
             O dá ẹgualẹ.
           </p>
 
@@ -557,7 +565,7 @@ export default {
           </p>
           <p data-index="10">
             Ira ti o wà, ti ẹgualẹ rè ubo bọbọ,
-            Akpofi wà kuri oko. 
+            Akpofi wà kuri oko.
             O ri Ọlikpẹrẹbu din gba egin.
             O nẹ ọ̀mà ti urun burukun ma tsi,
             ọ̀mà wee ka lù <i>gbangan</i>.
@@ -570,77 +578,81 @@ export default {
             O kó obobo wee, o kó titi ni ọ̀mà wee.
             O kó titi ni ọ̀mà wee, o kó titi ni ọ̀mà wee.
 
-            Obobo wee ti a mu___ni<sup><a class="footnote-link" id="ref11" href="fn11">[11]</a></sup> ọ̀mà wee, éè jẹ di ọ̀mà wee do lù.
+            Obobo wee ti a mu___ni<sup><a class="footnote-link" id="ref11" href="#fn11">[11]</a></sup> ọ̀mà wee, éè jẹ
+            di ọ̀mà wee do lù.
 
             Omere ro rè, o bọ Ọlikpẹrẹbu.
             Ọlikpẹrẹbu sa, Ọlikpẹrẹbu sa, Ọlikpẹrẹbu sa.
 
-            Aghan gba sá kẹkẹkẹkẹ, a tó ubo wee ti iyẹ ro biri ọwa ro gha<sup><a class="footnote-link" id="ref12" href="fn12">[12]</a></sup>, Ọlikpẹrẹbu tsibu.
+            Aghan gba sá kẹkẹkẹkẹ, a tó ubo wee ti iyẹ ro biri ọwa ro gha<sup><a class="footnote-link" id="ref12"
+                href="#fn12">[12]</a></sup>, Ọlikpẹrẹbu tsibu.
           </p>
-        <div class="footnotes" v-if="allModulesCompleted">
-          <hr>
-          <ol>
+          <div class="footnotes" v-if="allModulesCompleted">
+            <hr>
+            <ol>
               <li id="fn1">
-                When 'ghaan' is used, the preceding word becomes plural. 
-                <a class="footnote-link" href="#ref1" title="Return to text">&#8617;</a> 
+                When 'ghaan' is used, the preceding word becomes plural.
+                <a class="footnote-link" href="#ref1" title="Return to text">&#8617;</a>
               </li>
               <li id="fn2">
                 Whenever two vowels meet, the first vowel is ignored and the words join and are said together.
-                `di èmi` becomes `dèmi`, `ti a kpe` becomes `ta kpe.` This pattern was not adhered to on this site 
+                `di èmi` becomes `dèmi`, `ti a kpe` becomes `ta kpe.` This pattern was not adhered to on this site
                 because I wanted to preserve the full words for learning purposes.
-                  <a class="footnote-link" href="#ref2" title="Return to text">&#8617;</a> 
+                <a class="footnote-link" href="#ref2" title="Return to text">&#8617;</a>
               </li>
               <li id="fn3">
-                When `kì` is used as in `ajá Itsẹkiri kì ajá Itsẹkiri`, it turns the meaning of the reduplication into 'any.'
+                When `kì` is used as in `ajá Itsẹkiri kì ajá Itsẹkiri`, it turns the meaning of the reduplication into
+                'any.'
                 So `ajá Itsẹkiri kì ajá Itsẹkiri` becomes 'any/every Itsẹkiri town.'
-                <a class="footnote-link" href="#ref3" title="Return to text">&#8617;</a> 
+                <a class="footnote-link" href="#ref3" title="Return to text">&#8617;</a>
               </li>
               <li id="fn4">
-                'obirẹn' and 'aya' both mean wife but 'obirẹn' is used as a representation 
+                'obirẹn' and 'aya' both mean wife but 'obirẹn' is used as a representation
                 of the role, not to address a married woman.
-                <a class="footnote-link" href="#ref4" title="Return to text">&#8617;</a> 
+                <a class="footnote-link" href="#ref4" title="Return to text">&#8617;</a>
               </li>
               <li id="fn5">
                 Some words like `wà` have the same spelling, different meanings based on context.
-                <a class="footnote-link" href="#ref5" title="Return to text">&#8617;</a> 
+                <a class="footnote-link" href="#ref5" title="Return to text">&#8617;</a>
               </li>
               <li id="fn6">
                 When you see or hear `gbaa` it means the preceding action is present continuous.
-                <a class="footnote-link" href="#ref6" title="Return to text">&#8617;</a> 
+                <a class="footnote-link" href="#ref6" title="Return to text">&#8617;</a>
               </li>
               <li id="fn7">
                 Itsẹkiri does not have gendered pronouns. Meaning is gleaned through context.
-                <a class="footnote-link" href="#ref7" title="Return to text">&#8617;</a> 
+                <a class="footnote-link" href="#ref7" title="Return to text">&#8617;</a>
               </li>
               <li id="fn8">
-                In this story, 'Ọlikpẹrẹbu' is the akpuja (nickname) of the main character, it translates roughly to 
+                In this story, 'Ọlikpẹrẹbu' is the akpuja (nickname) of the main character, it translates roughly to
                 "a woman who has it all."
-                <a class="footnote-link" href="#ref8" title="Return to text">&#8617;</a> 
+                <a class="footnote-link" href="#ref8" title="Return to text">&#8617;</a>
               </li>
               <li id="fn9">
-                The word for 'give,' mu___gbẹ is meant to be broken up with the thing being given in the middle 
+                The word for 'give,' mu___gbẹ is meant to be broken up with the thing being given in the middle
                 when written correctly. e.g `mu ọjẹ gbẹ` or `mu ẹsẹn gbẹ`
-                <a class="footnote-link" href="#ref9" title="Return to text">&#8617;</a> 
+                <a class="footnote-link" href="#ref9" title="Return to text">&#8617;</a>
               </li>
               <li id="fn10">
                 To indicate 'owner of something' like 'owner of cloth', the word for owner
                 `ọl` combines with the item `aṣọ`. So it should be written as `ọlaṣọ.` Another
-                example is `ọlẹsẹn` (owner of leg). 
-                <a class="footnote-link" href="#ref10" title="Return to text">&#8617;</a> 
+                example is `ọlẹsẹn` (owner of leg).
+                <a class="footnote-link" href="#ref10" title="Return to text">&#8617;</a>
               </li>
               <li id="fn11">
                 `mu___ni` follows the same pattern as `mu___gbẹ` e.g `mu aṣọ ni`
-                <a class="footnote-link" href="#ref11" title="Return to text">&#8617;</a> 
+                <a class="footnote-link" href="#ref11" title="Return to text">&#8617;</a>
               </li>
               <li id="fn12">
                 `gha` is best translated into Pidgin English. Meaning the location of a thing, where something is.
                 `bokọ wo gha?` is like "where are you?"
-                <a class="footnote-link" href="#ref12" title="Return to text">&#8617;</a> 
+                <a class="footnote-link" href="#ref12" title="Return to text">&#8617;</a>
               </li>
-          </ol>
-        </div>
+            </ol>
+          </div>
         </main>
-        <LearningModule :scrolled="scrolled" @completeModule="onCompleteModule" @reset="resetAllModules" @moduleActive="onModuleActivated" />
+        <LearningModule :scrolled="scrolled" @completeModule="onCompleteModule" @reset="resetAllModules"
+          @moduleActive="onModuleActivated" />
       </div>
     </div>
   </div>
@@ -655,6 +667,7 @@ export default {
   margin: 0.2em;
   line-height: 1.6em;
 }
+
 .intro h1 {
   font-size: 3rem;
   line-height: 0.9em;
@@ -702,10 +715,14 @@ fieldset button {
   margin-top: 1rem;
 }
 
-.pronouns, .verbs,
-.nouns, .misc, .misc_two
-.adjectives_adverbs, .nouns_two,
-.verbs_two, .verbs_three {
+.pronouns,
+.verbs,
+.nouns,
+.misc,
+.misc_two .adjectives_adverbs,
+.nouns_two,
+.verbs_two,
+.verbs_three {
   transition: all 0.3s ease-in-out;
 }
 
@@ -735,7 +752,7 @@ fieldset button {
 }
 
 .circle.complete p {
-  position: relative; 
+  position: relative;
   color: white;
   font-size: 1.8rem;
 }
@@ -749,7 +766,10 @@ hr {
   color: white;
 }
 
-.footnote-link, .footnote-link:visited, .footnote-link:active, .footnote-link:focus {
+.footnote-link,
+.footnote-link:visited,
+.footnote-link:active,
+.footnote-link:focus {
   color: white;
   text-decoration: none;
 }
@@ -759,8 +779,9 @@ main button {
 }
 
 .word {
-  display: inline-block; /* Essential for transform to work */
-  transition: all 0.5s ease; 
+  display: inline-block;
+  /* Essential for transform to work */
+  transition: all 0.5s ease;
 }
 
 .word:disabled {
@@ -776,6 +797,4 @@ main button {
     text-align: center;
   }
 }
-
-
 </style>
