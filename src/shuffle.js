@@ -247,27 +247,6 @@ function parseParagraph(html) {
   return tokens
 }
 
-// ─── READ CURRENT DOM STATE ────────────────────────────────────────────────
-function readDOMState() {
-  const rows = Array.from(document.querySelectorAll('.para-row'))
-  return rows.map((row) => {
-    const words = row.querySelectorAll('.word')
-    if (words.length > 0) {
-      // Already wrapped — parse tokens from DOM
-      return Array.from(words).map((w) => {
-        try {
-          return JSON.parse(w.dataset.token || '{"type":"text","value":""}')
-        } catch {
-          return { type: 'text', value: w.textContent }
-        }
-      })
-    } else {
-      // Plain text row — parse it
-      return parseParagraph(row.outerHTML)
-    }
-  })
-}
-
 // ─── BUILD word element ────────────────────────────────────────────────────
 function buildWordEl(token) {
   const span = document.createElement('span')
@@ -582,17 +561,10 @@ async function goToSlide(index) {
 // ─── FULL SLIDE TRANSITION ─────────────────────────────────────────────────
 let currentSlide = 0
 let isAnimating = false
-
 let display
 
 function init() {
   display = document.getElementById('story')
-
-  // ─── INIT ──────────────────────────────────────────────────────────────────
-  // The first slide is already in the HTML — just read its state as the baseline.
-  // No renderSlide call, no animation on load.
-  // currentTokenArrays = readDOMState()
-  // currentIndex = 0
 }
 
 export { init, slides, goToSlide }
