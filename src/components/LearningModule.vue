@@ -11,11 +11,12 @@
                         {{ step }} / {{ moduleStepsCount[module] }}
                     </span>
                     <ul class="steps">
-                        <li class="step" v-for="(partitionedStepContent, partitionedStepContentIndex) in partitionedStepContent(module)" :key="partitionedStepContentIndex"
-                        v-show="step === partitionedStepContentIndex + 1"
-                        >
+                        <li class="step"
+                            v-for="(partitionedStepContent, partitionedStepContentIndex) in partitionedStepContent(module)"
+                            :key="partitionedStepContentIndex" v-show="step === partitionedStepContentIndex + 1">
                             <table>
-                                <tr class="row" v-for="(translation, itsekiriWord) in partitionedStepContent" :key="itsekiriWord">
+                                <tr class="row" v-for="(translation, itsekiriWord) in partitionedStepContent"
+                                    :key="itsekiriWord">
                                     <td> <span class="word itsekiri">{{ itsekiriWord }}</span></td>
                                     <td>&rarr;</td>
                                     <td class="word"><span>{{ translation }}</span></td>
@@ -23,17 +24,20 @@
                             </table>
                         </li>
                         <li v-if="step === moduleStepsCount[module]">
-                            <MiniQuiz @passModule="passModule" :stepContent="stepContent(module)" @completeModule="completeModule" />
+                            <MiniQuiz @passModule="passModule" :stepContent="stepContent(module)"
+                                @completeModule="completeModule" />
                         </li>
                     </ul>
                     <footer>
-                        <button aria-label="Previous step" class="step-button button" :disabled="step <= 1 ? true : false" v-on:click="updateStep(-1)">←</button>
-                       <button class="step-button button" v-if="isLastStep()" :disabled="!modulePassed ? true : false" @click="completeModule(module, $event)">Complete</button>
+                        <button aria-label="Previous step" class="step-button button"
+                            :disabled="step <= 1 ? true : false" v-on:click="updateStep(-1)">←</button>
+                        <button class="step-button button" v-if="isLastStep()" :disabled="!modulePassed ? true : false"
+                            @click="completeModule(module, $event)">Complete</button>
                         <button aria-label="Next step" class="step-button button" :disabled="isLastStep()" v-else
                             v-on:click="updateStep(1)">→</button>
                     </footer>
                 </div>
-     
+
             </li>
         </ul>
     </section>
@@ -52,73 +56,73 @@ import MiniQuiz from './MiniQuiz.vue';
 import { moduleToStoreMap, moduleNameToLongNameMap } from '@/constants'
 
 function generateRandomPositionsOutsideCircle({ count }) {
-  const positions = [];
-  const radius = 65; // percentage; 0 is center of circle, 50 is on circumference, 55 is slightly outside
+    const positions = [];
+    const radius = 65; // percentage; 0 is center of circle, 50 is on circumference, 55 is slightly outside
 
-  for (let i = 0; i < count; i++) {
-    const baseAngle = (i / count) * Math.PI * 2;
-    const angle = baseAngle + Math.random() * (1.2 / count) * Math.PI;
+    for (let i = 0; i < count; i++) {
+        const baseAngle = (i / count) * Math.PI * 2;
+        const angle = baseAngle + Math.random() * (1.2 / count) * Math.PI;
 
-    const x = 50 + Math.cos(angle) * radius;
-    const y = 50 + Math.sin(angle) * radius;
-    positions.push({ x, y });
-  }
-  return shuffleArray(positions);
+        const x = 50 + Math.cos(angle) * radius;
+        const y = 50 + Math.sin(angle) * radius;
+        positions.push({ x, y });
+    }
+    return shuffleArray(positions);
 }
 
 function placeModules() {
-  const modules = document.querySelectorAll("li.module");
+    const modules = document.querySelectorAll("li.module");
 
-  const positions = generateRandomPositionsOutsideCircle({
-    count: modules.length
-  });
+    const positions = generateRandomPositionsOutsideCircle({
+        count: modules.length
+    });
 
-  modules.forEach((module, index) => {
-    module.style.left = `${Math.min(positions[index].x, 80)}%`;
-    module.style.top = `${Math.min(positions[index].y, 100)}%`;
-  });
+    modules.forEach((module, index) => {
+        module.style.left = `${Math.min(positions[index].x, 80)}%`;
+        module.style.top = `${Math.min(positions[index].y, 100)}%`;
+    });
 }
 
 function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 }
 
 
 function partitionProperties(obj, partsCount) {
-  // 1. Convert the object's properties into an array of [key, value] entries
-  const entries = Object.entries(obj); //
-  const totalEntries = entries.length;
-  const parts = [];
+    // 1. Convert the object's properties into an array of [key, value] entries
+    const entries = Object.entries(obj); //
+    const totalEntries = entries.length;
+    const parts = [];
 
-  // 2. Iterate and use slice to divide the entries into N chunks
-  for (let i = 1, start = 0; i <= partsCount; ++i) {
-    // Calculate the end index for each slice
-    // Using bitwise OR 0 ( | 0) is a fast way to get an integer part (floor)
-    const end = (i / partsCount * totalEntries) | 0;
+    // 2. Iterate and use slice to divide the entries into N chunks
+    for (let i = 1, start = 0; i <= partsCount; ++i) {
+        // Calculate the end index for each slice
+        // Using bitwise OR 0 ( | 0) is a fast way to get an integer part (floor)
+        const end = (i / partsCount * totalEntries) | 0;
 
-    // 3. Slice the array of entries and convert each chunk back to an object
-    const chunk = entries.slice(start, end);
-    parts.push(Object.fromEntries(chunk)); //
+        // 3. Slice the array of entries and convert each chunk back to an object
+        const chunk = entries.slice(start, end);
+        parts.push(Object.fromEntries(chunk)); //
 
-    start = end;
-  }
+        start = end;
+    }
 
-  return parts;
+    return parts;
 }
 
 function throttle(func, limit) {
-  let inThrottle
-  return function(...args) {
-    if (!inThrottle) {
-      func.apply(this, args)
-      inThrottle = true
-      setTimeout(() => inThrottle = false, limit)
+    let inThrottle
+    return function (...args) {
+        if (!inThrottle) {
+            func.apply(this, args)
+            inThrottle = true
+            setTimeout(() => inThrottle = false, limit)
+        }
     }
-  }
 }
 
 
@@ -177,7 +181,7 @@ export default {
     },
     computed: {
         isModuleActive() {
-             return (module) => {
+            return (module) => {
                 if (this.reset) {
                     return true;
                 }
@@ -218,7 +222,7 @@ export default {
                     }
                     else if (module === this.activeModule) { // activeModule is not null so only "activate" the active module
                         return true;
-                    } 
+                    }
                     return false;
                 }
                 return false;
@@ -232,7 +236,7 @@ export default {
         resizeModule() {
             const activeModule = document.querySelector('.module.active');
             if (!activeModule) return;
-            const targetElement = document.querySelector('.modules');            
+            const targetElement = document.querySelector('.modules');
             this.growToEl(targetElement, activeModule);
         },
         partitionedStepContent(module) {
@@ -240,7 +244,7 @@ export default {
             if (module === 'pronouns') {
                 return partitionProperties(pronouns, steps - 1);
             } else if (module === 'nouns') {
-               return partitionProperties(nouns, steps - 1);
+                return partitionProperties(nouns, steps - 1);
             } else if (module === 'verbs') {
                 return partitionProperties(verbs, steps - 1);
             }
@@ -264,7 +268,7 @@ export default {
             if (module === 'pronouns') {
                 return pronouns;
             } else if (module === 'nouns') {
-               return nouns;
+                return nouns;
             } else if (module === 'verbs') {
                 return verbs;
             } else if (module === 'misc') {
@@ -353,10 +357,10 @@ export default {
             // This provides precise, floating-point values for the total rendered width and height
             const targetElement = document.querySelector('.modules');
             const elementToGrow = liElement;
-            
+
             this.growToEl(targetElement, elementToGrow);
         },
-        growToEl(targetElement, elementToGrow) {           
+        growToEl(targetElement, elementToGrow) {
             const targetDimensions = targetElement.getBoundingClientRect();
             const targetWidth = targetDimensions.width;
             const targetHeight = targetDimensions.height;
@@ -364,7 +368,7 @@ export default {
             // Apply the retrieved dimensions to the element to grow
             // We must append 'px' to the numeric values when setting the style properties
             elementToGrow.style.width = `${targetWidth}px`;
-            elementToGrow.style.height = `${targetHeight}px`;   
+            elementToGrow.style.height = `${targetHeight}px`;
         },
         passModule() {
             this.modulePassed = true;
@@ -387,7 +391,7 @@ export default {
             store.completeModule(moduleStoreName);
             console.log(`${module} completed!`);
             localStorage.setItem('moduleProgress', JSON.stringify(store.moduleProgress));
-            
+
             this.activeModule = null;
             this.shouldModuleBeActive = false;
             this.modulePassed = false;
@@ -398,7 +402,7 @@ export default {
                 this.timeStarted = new Date().getTime();
                 localStorage.setItem('timerOn', true);
             }
-           
+
             this.$emit('completeModule', moduleStoreName, module);
             this.shrinkElement(event.target);
         },
@@ -428,9 +432,9 @@ table {
 }
 
 .modules {
-  position: absolute;
-  height: 100%;
-  width: 100%;
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }
 
 .modules .module {
@@ -493,17 +497,19 @@ li.module:has(.module-trigger:disabled) {
 }
 
 @keyframes float {
-  from {
-    transform: rotate(0deg) translate3d(0.2em, 0, 0.05em) rotate(0deg);
-  }
+    from {
+        transform: rotate(0deg) translate3d(0.2em, 0, 0.05em) rotate(0deg);
+    }
 
-  to {
-    transform: rotate(360deg) translate3d(0.2em, 0, 0.05em) rotate(-360deg);
-  }
+    to {
+        transform: rotate(360deg) translate3d(0.2em, 0, 0.05em) rotate(-360deg);
+    }
 }
 
 @keyframes down {
-    0%, 100% { 
+
+    0%,
+    100% {
         transform: translateY(-0.2em);
     }
 
@@ -557,7 +563,7 @@ footer {
     font-size: 1.4em;
     max-height: 70%;
     overflow-y: scroll;
-    scrollbar-color: black transparent;
+    scrollbar-color: transparent transparent;
     scrollbar-width: thin;
 }
 
@@ -593,26 +599,24 @@ footer {
 }
 
 @media (max-width: 800px) {
-  .modules .module {
-    min-width: 6em;
-    min-height: 6em;
-    font-size: 0.8em;
-  }
+    .modules .module {
+        min-width: 6em;
+        min-height: 6em;
+        font-size: 0.8em;
+    }
 
-  .module .content {
-    font-size: 1.4em;
-  }
+    .module .content {
+        font-size: 1.4em;
+    }
 
-  table {
-    margin: auto;
-  }
+    table {
+        margin: auto;
+    }
 }
 
 @media (max-width: 500px) {
-  footer {
-    width: auto;
-  }
+    footer {
+        width: auto;
+    }
 }
-
-
 </style>

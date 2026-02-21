@@ -142,7 +142,7 @@ main {
   max-height: 75%;
   scrollbar-color: black transparent;
   scrollbar-width: thin;
-  margin: 2rem 6rem 2rem 6rem;
+  margin: 4rem 6rem 2rem 6rem;
 }
 
 ::-webkit-scrollbar {

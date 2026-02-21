@@ -409,7 +409,19 @@ export default {
       const translated = document.querySelectorAll(".translated");
       translated.forEach((el) => {
         const originalWord = el.dataset.translation;
-        el.textContent = originalWord;
+        const word = el.textContent;
+
+        // check if current word had punctuation and maintain it
+        // check if the current word was capitalized and maintain it
+        const match = word.match(/^([\p{L}\s]+?)([.,!?;:?]*)$/u);
+        const wordWithoutPunctuation = match ? match[1] : word;
+        const punctuation = match ? match[2] : "";
+
+        const isUppercase = wordWithoutPunctuation[0] === wordWithoutPunctuation[0].toUpperCase();
+        el.textContent = isUppercase
+          ? originalWord[0].toUpperCase() + originalWord.slice(1) + punctuation
+          : originalWord + punctuation;
+
         el.classList.remove("translated");
         el.setAttribute("disabled", true);
       });
@@ -455,6 +467,12 @@ export default {
       this.$nextTick(() => {
         goToSlide(this.slidesIndex);
       });
+    },
+    completeAll() {
+      console.log("Completing all modules...");
+      for (let module in storeToModuleMap) {
+        this.onCompleteModule(module, storeToModuleMap[module]);
+      }
     },
   },
 };
@@ -544,11 +562,12 @@ export default {
             </p>
 
             <p data-index="6">
-              Aya ro gin 'ehen'! Ain ọkọ ro jẹ̀ ọjẹ ro kuro. O gbaa kani uwẹrẹ gba tó tsitsi
-              orun bọbọ. O kpe ana ro ghaan, ain o fẹ rè ulí rẹẹn o. Ọnobirẹn wee gege o
-              din ẹrun ro, o gbe ni origho, ain o wà lele bà rè. Iyọ! Iyẹ ro biri ọwa ro
-              gin máà rè, ain o wà rè, o wà lele bà rè. Omere ro Akpofi ri ẹgualẹ wee ni
-              abẹtẹ wee tsi. O gin Ọlikpẹrẹbu. Ọlikpẹrẹbu éè retin, o gin o wà lele bà rè.
+              Aya ro gin 'ehen'! Ain ọkọ ro jẹ̀ ọjẹ ro kuro. O gbaa kani uwẹrẹ gba tó
+              tsitsi orun bọbọ. O kpe ana ro ghaan, ain o fẹ rè ulí rẹẹn o. Ọnobirẹn wee
+              gege o din ẹrun ro, o gbe ni origho, ain o wà lele bà rè. Iyọ! Iyẹ ro biri
+              ọwa ro gin máà rè, ain o wà rè, o wà lele bà rè. Omere ro Akpofi ri ẹgualẹ
+              wee ni abẹtẹ wee tsi. O gin Ọlikpẹrẹbu. Ọlikpẹrẹbu éè retin, o gin o wà lele
+              bà rè.
             </p>
             <p data-index="7">
               Ti o gbaa rè, omere ro ọnọkẹrẹn kaka lele, kaka lele ni ẹyin. O gbaa tó ubo
@@ -666,6 +685,9 @@ export default {
           @moduleActive="onModuleActivated" />
       </div>
     </div>
+    <button v-on:click="completeAll" :style="{ opacity: '0' }">
+      complete all
+    </button>
   </div>
 </template>
 
