@@ -653,11 +653,11 @@ export default {
           </div>
         </main>
         <div v-if="allModulesCompleted" class="controls">
-          <button class="arrow" aria-label="Previous slide" :aria-hidden="slidesIndex === 0"
+          <button class="arrow" aria-label="Go to previous slide" :aria-hidden="slidesIndex === 0"
             :class="slidesIndex === 0 ? 'arrow-disabled' : ''" v-on:click="goPrev">
             ←
           </button>
-          <button class="arrow" aria-label="Next slide" :aria-hidden="slidesIndex === numberSlides - 1"
+          <button class="arrow" aria-label="Go to next slide" :aria-hidden="slidesIndex === numberSlides - 1"
             :class="slidesIndex === numberSlides - 1 ? 'arrow-disabled' : ''" v-on:click="goNext">
             →
           </button>

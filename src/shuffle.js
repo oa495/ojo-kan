@@ -267,6 +267,7 @@ function readDOMState() {
     }
   })
 }
+
 // ─── BUILD word element ────────────────────────────────────────────────────
 function buildWordEl(token) {
   const span = document.createElement('span')
@@ -288,12 +289,53 @@ function morphWord(wordEl, targetToken, startDelay) {
     setTimeout(() => {
       const srcToken = JSON.parse(wordEl.dataset.token || '{"type":"text","value":""}')
 
-      // Fade out current content
-      wordEl.style.transition = `opacity ${MORPH_DURATION / 2}ms ease`
-      wordEl.style.opacity = '0'
+      // Get current position
+      const startRect = wordEl.getBoundingClientRect()
+
+      // Temporarily update content to measure target width/position
+      const originalContent = wordEl.innerHTML
+      const originalToken = wordEl.dataset.token
+
+      if (targetToken.type === 'html') {
+        wordEl.innerHTML = targetToken.value
+      } else {
+        wordEl.textContent = targetToken.value
+      }
+
+      const endRect = wordEl.getBoundingClientRect()
+
+      // Restore original content
+      wordEl.innerHTML = originalContent
+      wordEl.dataset.token = originalToken
+
+      // Calculate horizontal distance only (ignore vertical)
+      const deltaX = endRect.left - startRect.left
+
+      // Set up animation - only translate X
+      wordEl.style.transition = `transform ${MORPH_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1), opacity ${MORPH_DURATION}ms ease`
+      wordEl.style.transform = `translateX(${deltaX}px)`
+
+      // If the words are different, fade through change
+      if (!tokensEqual(srcToken, targetToken)) {
+        wordEl.style.opacity = '0.3'
+
+        setTimeout(() => {
+          // Update content at midpoint
+          if (targetToken.type === 'html') {
+            wordEl.innerHTML = targetToken.value
+          } else {
+            wordEl.textContent = targetToken.value
+          }
+          wordEl.dataset.token = JSON.stringify(targetToken)
+          wordEl.style.opacity = '1'
+        }, MORPH_DURATION / 2)
+      }
 
       setTimeout(() => {
-        // Update content at midpoint
+        wordEl.style.transition = ''
+        wordEl.style.transform = ''
+
+        // Final content update
         if (targetToken.type === 'html') {
           wordEl.innerHTML = targetToken.value
         } else {
@@ -301,14 +343,8 @@ function morphWord(wordEl, targetToken, startDelay) {
         }
         wordEl.dataset.token = JSON.stringify(targetToken)
 
-        // Fade in new content
-        wordEl.style.opacity = '1'
-
-        setTimeout(() => {
-          wordEl.style.transition = ''
-          resolve()
-        }, MORPH_DURATION / 2)
-      }, MORPH_DURATION / 2)
+        resolve()
+      }, MORPH_DURATION)
     }, startDelay)
   })
 }
