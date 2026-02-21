@@ -11,15 +11,20 @@
                         {{ step }} / {{ moduleStepsCount[module] }}
                     </span>
                     <ul class="steps">
-                        <li class="step"
-                            v-for="(partitionedStepContent, partitionedStepContentIndex) in partitionedStepContent(module)"
-                            :key="partitionedStepContentIndex" v-show="step === partitionedStepContentIndex + 1">
+                        <li class="step" v-for="(
+partitionedStepContent, partitionedStepContentIndex
+              ) in partitionedStepContent(module)" :key="partitionedStepContentIndex"
+                            v-show="step === partitionedStepContentIndex + 1">
                             <table>
                                 <tr class="row" v-for="(translation, itsekiriWord) in partitionedStepContent"
                                     :key="itsekiriWord">
-                                    <td> <span class="word itsekiri">{{ itsekiriWord }}</span></td>
+                                    <td>
+                                        <span class="word itsekiri">{{ itsekiriWord }}</span>
+                                    </td>
                                     <td>&rarr;</td>
-                                    <td class="word"><span>{{ translation }}</span></td>
+                                    <td class="word">
+                                        <span>{{ translation }}</span>
+                                    </td>
                                 </tr>
                             </table>
                         </li>
@@ -30,14 +35,19 @@
                     </ul>
                     <footer>
                         <button aria-label="Previous step" class="step-button button"
-                            :disabled="step <= 1 ? true : false" v-on:click="updateStep(-1)">←</button>
+                            :disabled="step <= 1 ? true : false" v-on:click="updateStep(-1)">
+                            ←
+                        </button>
                         <button class="step-button button" v-if="isLastStep()" :disabled="!modulePassed ? true : false"
-                            @click="completeModule(module, $event)">Complete</button>
+                            @click="completeModule(module, $event)">
+                            Complete
+                        </button>
                         <button aria-label="Next step" class="step-button button" :disabled="isLastStep()" v-else
-                            v-on:click="updateStep(1)">→</button>
+                            v-on:click="updateStep(1)">
+                            →
+                        </button>
                     </footer>
                 </div>
-
             </li>
         </ul>
     </section>
@@ -48,12 +58,22 @@
     </div>
 </template>
 <script>
-import { moduleProgress } from '@/stores/module-progress'
-import { learningFrequency } from '@/stores/frequency';
-import ModuleTimer from './ModuleTimer.vue';
-import { verbs, pronouns, nouns, misc, adjectivesAdverbs, verbsTwo, nounsTwo, miscTwo, verbsThree } from '../words'
-import MiniQuiz from './MiniQuiz.vue';
-import { moduleToStoreMap, moduleNameToLongNameMap } from '@/constants'
+import { moduleProgress } from "@/stores/module-progress";
+import { learningFrequency } from "@/stores/frequency";
+import ModuleTimer from "./ModuleTimer.vue";
+import {
+    verbs,
+    pronouns,
+    nouns,
+    misc,
+    adjectivesAdverbs,
+    verbsTwo,
+    nounsTwo,
+    miscTwo,
+    verbsThree,
+} from "../words";
+import MiniQuiz from "./MiniQuiz.vue";
+import { moduleToStoreMap, moduleNameToLongNameMap } from "@/constants";
 
 function generateRandomPositionsOutsideCircle({ count }) {
     const positions = [];
@@ -74,7 +94,7 @@ function placeModules() {
     const modules = document.querySelectorAll("li.module");
 
     const positions = generateRandomPositionsOutsideCircle({
-        count: modules.length
+        count: modules.length,
     });
 
     modules.forEach((module, index) => {
@@ -91,7 +111,6 @@ function shuffleArray(array) {
     return array;
 }
 
-
 function partitionProperties(obj, partsCount) {
     // 1. Convert the object's properties into an array of [key, value] entries
     const entries = Object.entries(obj); //
@@ -102,7 +121,7 @@ function partitionProperties(obj, partsCount) {
     for (let i = 1, start = 0; i <= partsCount; ++i) {
         // Calculate the end index for each slice
         // Using bitwise OR 0 ( | 0) is a fast way to get an integer part (floor)
-        const end = (i / partsCount * totalEntries) | 0;
+        const end = ((i / partsCount) * totalEntries) | 0;
 
         // 3. Slice the array of entries and convert each chunk back to an object
         const chunk = entries.slice(start, end);
@@ -115,19 +134,18 @@ function partitionProperties(obj, partsCount) {
 }
 
 function throttle(func, limit) {
-    let inThrottle
+    let inThrottle;
     return function (...args) {
         if (!inThrottle) {
-            func.apply(this, args)
-            inThrottle = true
-            setTimeout(() => inThrottle = false, limit)
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => (inThrottle = false), limit);
         }
-    }
+    };
 }
 
-
 export default {
-    name: 'LearningModule',
+    name: "LearningModule",
     data() {
         return {
             step: 0,
@@ -137,28 +155,28 @@ export default {
             timeStarted: null,
             reset: false,
             moduleStepsCount: {
-                'pronouns': Math.round(Object.keys(pronouns).length / 4) + 1,
-                'nouns_two': Math.round(Object.keys(nounsTwo).length / 4) + 1,
-                'nouns': Math.round(Object.keys(nouns).length / 4) + 1,
-                'verbs': Math.round(Object.keys(verbs).length / 4) + 1,
-                'verbs_two': Math.round(Object.keys(verbsTwo).length / 4) + 1,
-                'verbs_three': Math.round(Object.keys(verbsThree).length / 4) + 1,
-                'misc': Math.round(Object.keys(misc).length / 4) + 1,
-                'misc_two': Math.round(Object.keys(miscTwo).length / 4) + 1,
-                'adjectives_adverbs': Math.round(Object.keys(adjectivesAdverbs).length / 4) + 1
+                pronouns: Math.round(Object.keys(pronouns).length / 4) + 1,
+                nouns_two: Math.round(Object.keys(nounsTwo).length / 4) + 1,
+                nouns: Math.round(Object.keys(nouns).length / 4) + 1,
+                verbs: Math.round(Object.keys(verbs).length / 4) + 1,
+                verbs_two: Math.round(Object.keys(verbsTwo).length / 4) + 1,
+                verbs_three: Math.round(Object.keys(verbsThree).length / 4) + 1,
+                misc: Math.round(Object.keys(misc).length / 4) + 1,
+                misc_two: Math.round(Object.keys(miscTwo).length / 4) + 1,
+                adjectives_adverbs: Math.round(Object.keys(adjectivesAdverbs).length / 4) + 1,
             },
             moduleNameToLongNameMap: moduleNameToLongNameMap,
             frequency: learningFrequency().frequency,
             modulePassed: false,
             handleResize: null,
-        }
+        };
     },
     props: {
-        scrolled: Boolean
+        scrolled: Boolean,
     },
     components: {
         ModuleTimer,
-        MiniQuiz
+        MiniQuiz,
     },
     emits: ["completeModule", "reset", "moduleActive"],
     created() {
@@ -173,9 +191,9 @@ export default {
     mounted() {
         placeModules();
         // set time started if timer is on
-        const timerState = localStorage.getItem('timerOn');
-        if (timerState && timerState === 'true') {
-            const timeStarted = localStorage.getItem('lastModuleFinishedTimestamp');
+        const timerState = localStorage.getItem("timerOn");
+        if (timerState && timerState === "true") {
+            const timeStarted = localStorage.getItem("lastModuleFinishedTimestamp");
             if (timeStarted) this.timeStarted = parseInt(timeStarted);
         }
     },
@@ -186,13 +204,13 @@ export default {
                     return true;
                 }
                 /*
-                    The possible cases:
-                    - Flow has just started, all modules active
-                    - flow has started and a module has been selected, others are inactive
-                    - A module has been completed so all modules are inactive, timer is on
-                    - timer is off check module progress
-                    - reload, timer is on
-                */
+                            The possible cases:
+                            - Flow has just started, all modules active
+                            - flow has started and a module has been selected, others are inactive
+                            - A module has been completed so all modules are inactive, timer is on
+                            - timer is off check module progress
+                            - reload, timer is on
+                        */
                 // if timer is on then no modules should be active
                 if (this.displayTimer) return false;
 
@@ -201,32 +219,32 @@ export default {
                     // if timer is on then no modules should be active
                     // if timer is off then it's time to reactivate
                     // check localstorage, some modules may be completed
-                    const progress = localStorage.getItem('moduleProgress');
+                    const progress = localStorage.getItem("moduleProgress");
                     if (progress) {
                         const parsedProgress = JSON.parse(progress);
                         return !parsedProgress[moduleToStoreMap[module]];
                     }
                 } else {
-                    // either we are just starting or the timer just went off or 
+                    // either we are just starting or the timer just went off or
                     // we have started and haven't finished a module
                     // no module has been started yet or we're resetting
                     if (this.activeModule === null) {
                         // module has been finished before
-                        const progress = localStorage.getItem('moduleProgress');
+                        const progress = localStorage.getItem("moduleProgress");
                         if (progress) {
                             const parsedProgress = JSON.parse(progress);
                             return !parsedProgress[moduleToStoreMap[module]];
                         }
                         // no progress captured, all modules can be active
                         return true;
-                    }
-                    else if (module === this.activeModule) { // activeModule is not null so only "activate" the active module
+                    } else if (module === this.activeModule) {
+                        // activeModule is not null so only "activate" the active module
                         return true;
                     }
                     return false;
                 }
                 return false;
-            }
+            };
         },
         displayTimer() {
             return this.timeStarted;
@@ -234,54 +252,52 @@ export default {
     },
     methods: {
         resizeModule() {
-            const activeModule = document.querySelector('.module.active');
+            const activeModule = document.querySelector(".module.active");
             if (!activeModule) return;
-            const targetElement = document.querySelector('.modules');
+            const targetElement = document.querySelector(".modules");
             this.growToEl(targetElement, activeModule);
         },
         partitionedStepContent(module) {
             const steps = this.moduleStepsCount[module];
-            if (module === 'pronouns') {
+            if (module === "pronouns") {
                 return partitionProperties(pronouns, steps - 1);
-            } else if (module === 'nouns') {
+            } else if (module === "nouns") {
                 return partitionProperties(nouns, steps - 1);
-            } else if (module === 'verbs') {
+            } else if (module === "verbs") {
                 return partitionProperties(verbs, steps - 1);
-            }
-            else if (module === 'misc') {
+            } else if (module === "misc") {
                 return partitionProperties(misc, steps - 1);
-            } else if (module === 'adjectives_adverbs') {
+            } else if (module === "adjectives_adverbs") {
                 return partitionProperties(adjectivesAdverbs, steps - 1);
-            }
-            else if (module === 'nouns_two') {
+            } else if (module === "nouns_two") {
                 return partitionProperties(nounsTwo, steps - 1);
-            } else if (module === 'verbs_two') {
+            } else if (module === "verbs_two") {
                 return partitionProperties(verbsTwo, steps - 1);
-            } else if (module === 'verbs_three') {
+            } else if (module === "verbs_three") {
                 return partitionProperties(verbsThree, steps - 1);
-            } else if (module === 'misc_two') {
+            } else if (module === "misc_two") {
                 return partitionProperties(miscTwo, steps - 1);
             }
             return content;
         },
         stepContent(module) {
-            if (module === 'pronouns') {
+            if (module === "pronouns") {
                 return pronouns;
-            } else if (module === 'nouns') {
+            } else if (module === "nouns") {
                 return nouns;
-            } else if (module === 'verbs') {
+            } else if (module === "verbs") {
                 return verbs;
-            } else if (module === 'misc') {
+            } else if (module === "misc") {
                 return misc;
-            } else if (module === 'adjectives_adverbs') {
+            } else if (module === "adjectives_adverbs") {
                 return adjectivesAdverbs;
-            } else if (module === 'nouns_two') {
+            } else if (module === "nouns_two") {
                 return nounsTwo;
-            } else if (module === 'verbs_two') {
+            } else if (module === "verbs_two") {
                 return verbsTwo;
-            } else if (module === 'verbs_three') {
+            } else if (module === "verbs_three") {
                 return verbsThree;
-            } else if (module === 'misc_two') {
+            } else if (module === "misc_two") {
                 return miscTwo;
             }
         },
@@ -295,14 +311,14 @@ export default {
             this.modulePassed = false;
             let store = moduleProgress();
             store.resetAllProgress();
-            this.$emit('reset', true);
+            this.$emit("reset", true);
             this.reset = true;
         },
         activateModules() {
             this.reset = false;
             this.timeStarted = null;
             this.shouldModuleBeActive = true;
-            localStorage.removeItem('timerOn');
+            localStorage.removeItem("timerOn");
         },
         updateStep(direction) {
             let activeModule = this.activeModule;
@@ -313,7 +329,6 @@ export default {
                 this.step -= 1;
                 if (this.step == 0) {
                     // set focus so it's not lost
-
                 }
             } else {
                 if (this.step >= totalSteps) return;
@@ -325,11 +340,11 @@ export default {
             if (this.activeModule === module) {
                 this.activeModule = null;
                 this.shrinkElement(event.target);
-                this.$emit('moduleActive', false);
+                this.$emit("moduleActive", false);
             } else {
                 this.activeModule = module;
                 this.growElement(event.target);
-                this.$emit('moduleActive', true);
+                this.$emit("moduleActive", true);
             }
             this.step = 1;
         },
@@ -337,25 +352,25 @@ export default {
             // Get element
             const element = el;
             // Find the closest li ancestor
-            const liElement = element.closest('li.module');
-            liElement.classList.remove('active');
-            liElement.classList.add('inactive');
+            const liElement = element.closest("li.module");
+            liElement.classList.remove("active");
+            liElement.classList.add("inactive");
 
             // Reset styles
-            liElement.style.width = '';
-            liElement.style.height = '';
+            liElement.style.width = "";
+            liElement.style.height = "";
         },
         growElement(el) {
             // Get element
             const element = el;
             // Find the closest li ancestor
-            const liElement = element.closest('li.module');
-            liElement.classList.remove('inactive');
-            liElement.classList.add('active');
+            const liElement = element.closest("li.module");
+            liElement.classList.remove("inactive");
+            liElement.classList.add("active");
 
             // Get the computed dimensions of the target element using getBoundingClientRect()
             // This provides precise, floating-point values for the total rendered width and height
-            const targetElement = document.querySelector('.modules');
+            const targetElement = document.querySelector(".modules");
             const elementToGrow = liElement;
 
             this.growToEl(targetElement, elementToGrow);
@@ -375,7 +390,7 @@ export default {
         },
         completeModule(module, event) {
             // get progress from localstorage and update store (which does not persist on reload)
-            const progress = localStorage.getItem('moduleProgress');
+            const progress = localStorage.getItem("moduleProgress");
             const store = moduleProgress();
 
             let parsedProgress;
@@ -390,7 +405,7 @@ export default {
             let moduleStoreName = moduleToStoreMap[module];
             store.completeModule(moduleStoreName);
             console.log(`${module} completed!`);
-            localStorage.setItem('moduleProgress', JSON.stringify(store.moduleProgress));
+            localStorage.setItem("moduleProgress", JSON.stringify(store.moduleProgress));
 
             this.activeModule = null;
             this.shouldModuleBeActive = false;
@@ -400,20 +415,19 @@ export default {
             // if all modules completed
             if (!store.allModulesCompleted()) {
                 this.timeStarted = new Date().getTime();
-                localStorage.setItem('timerOn', true);
+                localStorage.setItem("timerOn", true);
             }
 
-            this.$emit('completeModule', moduleStoreName, module);
+            this.$emit("completeModule", moduleStoreName, module);
             this.shrinkElement(event.target);
         },
         isLastStep() {
             let activeModule = this.activeModule;
             let totalSteps = this.moduleStepsCount[activeModule];
             return this.step === totalSteps;
-        }
+        },
     },
-}
-
+};
 </script>
 <style scoped>
 table {
@@ -451,7 +465,8 @@ table {
 }
 
 li.module {
-    transition: width 0.3s ease-in-out, height 0.3s ease-in-out, left 0.3s ease-in-out, top 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out, left 0.3s ease-in-out,
+        top 0.3s ease-in-out;
     z-index: 99;
 }
 
@@ -469,8 +484,8 @@ li.module {
 }
 
 li.module.inactive {
-    animation: float calc(var(--vue-timing)*4) linear infinite;
-    -webkit-animation: float calc(var(--vue-timing)*4) linear infinite;
+    animation: float calc(var(--vue-timing) * 4) linear infinite;
+    -webkit-animation: float calc(var(--vue-timing) * 4) linear infinite;
 }
 
 li.module:has(.module-trigger:disabled) {
@@ -585,7 +600,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: .2em;
+    padding: 0.2em;
 }
 
 .word {

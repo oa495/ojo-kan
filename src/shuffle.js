@@ -130,7 +130,7 @@ const slides = [
     `<p>
         His wife said ehen! She said her husband had finished eating his food.
         (Now) He was staying there reaching some nights. (Then) he called his inlaws,
-        he said he wants to go home. The woman now tied her propertie, she carried
+        he said he wants to go home. The woman now tied her properties, she carried
         it on her head, she said will follow him and go. Ah! Her mother and
         her father told her "don't go", she said she will go, she will follow him and go.
         Her brother Akpofi saw the snake in the room before. He told Ọlikpẹrẹbu.

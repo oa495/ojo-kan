@@ -92,7 +92,6 @@ function handleTranslation(word, translation, el) {
       48: "his",
       52: "he says",
       54: "he",
-      64: "his",
       72: "she",
       78: "her",
       80: "she",
@@ -108,7 +107,6 @@ function handleTranslation(word, translation, el) {
       168: "she",
       170: "she",
       172: "she",
-      174: "she",
     },
     7: {
       4: "she",
@@ -159,7 +157,6 @@ function handleTranslation(word, translation, el) {
       28: "she",
       40: "she",
       52: "she",
-      56: "she",
       96: "her",
       100: "he",
       138: "her",
@@ -563,15 +560,16 @@ export default {
 
             <p data-index="6">
               Aya ro gin 'ehen'! Ain ọkọ ro jẹ̀ ọjẹ ro kuro. O gbaa kani uwẹrẹ gba tó
-              tsitsi orun bọbọ. O kpe ana ro ghaan, ain o fẹ rè ulí rẹẹn o. Ọnobirẹn wee
-              gege o din ẹrun ro, o gbe ni origho, ain o wà lele bà rè. Iyọ! Iyẹ ro biri
+              tsitsi orun bọbọ. O kpe ana ro ghaan, ain o fẹ rè ulí <sup><a class="footnote-link" id="ref10"
+                  href="#fn10">[10]</a></sup>.
+              Ọnobirẹn wee gege o din ẹrun ro, o gbe ni origho, ain o wà lele bà rè. Iyọ! Iyẹ ro biri
               ọwa ro gin máà rè, ain o wà rè, o wà lele bà rè. Omere ro Akpofi ri ẹgualẹ
               wee ni abẹtẹ wee tsi. O gin Ọlikpẹrẹbu. Ọlikpẹrẹbu éè retin, o gin o wà lele
               bà rè.
             </p>
             <p data-index="7">
               Ti o gbaa rè, omere ro ọnọkẹrẹn kaka lele, kaka lele ni ẹyin. O gbaa tó ubo
-              ti ọl- aṣọ<sup><a class="footnote-link" id="ref10" href="#fn10">[10]</a></sup>
+              ti ọl- aṣọ<sup><a class="footnote-link" id="ref11" href="#fn11">[11]</a></sup>
               gha, o mu___gbẹ aṣọ ọl- aṣọ. O gbaa tó ubo ti ọl- ẹsẹn gha, o mu___gbẹ ẹsẹn
               ọl- ẹsẹn. O gbaa tó ubo ti ọl- ẹwọ gha, o mu___gbẹ ẹwọ ọl- ẹwọ. O gbaa tó
               ubo ti ọl- origho gha, o mu___gbẹ origho gbẹ ọl- origho. O gbaa tó ubo ti
@@ -591,15 +589,15 @@ export default {
             <p data-index="10">
               Ira ti o wà, ti ẹgualẹ rè ubo bọbọ, Akpofi wà kuri oko. O ri Ọlikpẹrẹbu din
               gba egin. O nẹ ọ̀mà ti urun burukun ma tsi, ọ̀mà wee ka lù <i>gbangan</i>.
-              Ẹgualẹ wee ka gbo.
+              Ẹgualẹ wee ka<sup><a class="footnote-link" id="ref12" href="#fn14">[12]</a></sup> gbo.
             </p>
             <p data-index="11">
               Akpofi gba obobo kuri egin wee. O mu___gbẹ ro. O kó obobo wee, o kó titi ni
               ọ̀mà wee. O kó titi ni ọ̀mà wee, o kó titi ni ọ̀mà wee. Obobo wee ti a
-              mu___ni<sup><a class="footnote-link" id="ref11" href="#fn11">[11]</a></sup>
+              mu___ni<sup><a class="footnote-link" id="ref12" href="#fn13">[13]</a></sup>
               ọ̀mà wee, éè jẹ di ọ̀mà wee do lù. Omere ro rè, o bọ Ọlikpẹrẹbu. Ọlikpẹrẹbu
               sa, Ọlikpẹrẹbu sa, Ọlikpẹrẹbu sa. Aghan gba sá kẹkẹkẹkẹ, a tó ubo wee ti iyẹ
-              ro biri ọwa ro gha<sup><a class="footnote-link" id="ref12" href="#fn12">[12]</a></sup>, Ọlikpẹrẹbu tsibu.
+              ro biri ọwa ro gha<sup><a class="footnote-link" id="ref13" href="#fn14">[14]</a></sup>, Ọlikpẹrẹbu tsibu.
             </p>
             <div class="footnotes" v-if="allModulesCompleted">
               <hr />
@@ -653,19 +651,33 @@ export default {
                   <a class="footnote-link" href="#ref9" title="Return to text">&#8617;</a>
                 </li>
                 <li id="fn10">
-                  To indicate 'owner of something' like 'owner of cloth', the word for
-                  owner `ọl` combines with the item `aṣọ`. So it should be written as
-                  `ọlaṣọ.` Another example is `ọlẹsẹn` (owner of leg).
+                  Rẹẹn is being sure of something. Something has happened or is sure to happen.
+                  e.g `Mo fẹ jẹrun rẹẹn` means `I want to eat (definitely)`,
+                  `Mo jẹrun rẹẹn` means 'I have eaten (already)'
+                  It's a pretty common word but doesn't translate super well to English.
                   <a class="footnote-link" href="#ref10" title="Return to text">&#8617;</a>
                 </li>
                 <li id="fn11">
-                  `mu___ni` follows the same pattern as `mu___gbẹ` e.g `mu aṣọ ni`
+                  To indicate 'owner of something' like 'owner of cloth', the word for
+                  owner `ọl` combines with the item `aṣọ`. So it should be written as
+                  `ọlaṣọ.` Another example is `ọlẹsẹn` (owner of leg).
                   <a class="footnote-link" href="#ref11" title="Return to text">&#8617;</a>
                 </li>
                 <li id="fn12">
+                  `ka` means like 'was able to'. It's used in front of a lot of verbs but
+                  doesn't always translate well into English. It also can be optional in
+                  some sentences. In this context, `Ẹgualẹ wee ka gbo` it means
+                  `the snake would not be able to hear.`
+                  <a class="footnote-link" href="#ref12" title="Return to text">&#8617;</a>
+                </li>
+                <li id="fn13">
+                  `mu___ni` follows the same pattern as `mu___gbẹ` e.g `mu aṣọ ni`
+                  <a class="footnote-link" href="#ref13" title="Return to text">&#8617;</a>
+                </li>
+                <li id="fn14">
                   `gha` is best translated into Pidgin English. Meaning the location of a
                   thing, where something is. `bokọ wo gha?` is like "where are you?"
-                  <a class="footnote-link" href="#ref12" title="Return to text">&#8617;</a>
+                  <a class="footnote-link" href="#ref14" title="Return to text">&#8617;</a>
                 </li>
               </ol>
             </div>
