@@ -3,9 +3,9 @@
 </script>
 
 <template>
-   <transition name="scale" mode="out-in">
-      <router-view></router-view>
-   </transition>
+  <transition name="scale" mode="out-in">
+    <router-view></router-view>
+  </transition>
   <nav>
     <router-link class="nav-link" to="/story" title="story">ita</router-link>
     <router-link class="nav-link" to="/about" title="question">ùbírọ̀</router-link>
@@ -43,9 +43,10 @@
   align-items: center;
   /* make background a repeating svg */
   background-image: url('assets/snake.svg');
-  background-repeat: repeat; 
+  background-repeat: repeat;
   background-size: 6rem 6rem;
-  background-position: 0 5%; /* Start position */
+  background-position: 0 5%;
+  /* Start position */
   animation: backgroundScroll 60s linear infinite;
 }
 
@@ -57,8 +58,10 @@
 
 @keyframes backgroundScroll {
   from {
-    background-position: 0 0%; /* Start at top-left */
+    background-position: 0 0%;
+    /* Start at top-left */
   }
+
   to {
     /* Move the background image the width of the container,
        or the image width if it's wider than the container */
@@ -74,7 +77,7 @@ body {
   margin: 0;
   font-family: 'Ojuju', sans-serif;
   height: 98vh;
-} 
+}
 
 nav {
   position: fixed;
@@ -100,7 +103,9 @@ a:hover {
   transform: translateY(0.2em);
 }
 
-a:visited, a:active, a:focus {
+a:visited,
+a:active,
+a:focus {
   color: black;
   font-style: normal;
 }
@@ -137,8 +142,7 @@ main {
   max-height: 75%;
   scrollbar-color: black transparent;
   scrollbar-width: thin;
-  margin: 6rem;
-  margin-bottom: 2rem;
+  margin: 2rem 6rem 2rem 6rem;
 }
 
 ::-webkit-scrollbar {
@@ -197,16 +201,19 @@ main p {
 }
 
 ::selection {
-    background-color: #FFDA81;
-    color: black;
+  background-color: #FFDA81;
+  color: black;
 }
+
 ::-moz-selection {
-    background-color: #FFDA81;
-    color: black;
+  background-color: #FFDA81;
+  color: black;
 }
 
 @media (max-width: 1200px) {
-  .intro, .big-circle {
+
+  .intro,
+  .big-circle {
     position: relative !important;
     margin: 1em auto 1em auto !important;
     min-width: 85%;
@@ -235,6 +242,7 @@ main p {
     border: 1px dashed black;
   }
 }
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -243,7 +251,8 @@ main p {
   margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
-  white-space: nowrap; /* added line */
+  white-space: nowrap;
+  /* added line */
   border: 0;
 }
 </style>
