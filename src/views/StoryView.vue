@@ -414,7 +414,8 @@ export default {
         const wordWithoutPunctuation = match ? match[1] : word;
         const punctuation = match ? match[2] : "";
 
-        const isUppercase = wordWithoutPunctuation[0] === wordWithoutPunctuation[0].toUpperCase();
+        const isUppercase =
+          wordWithoutPunctuation[0] === wordWithoutPunctuation[0].toUpperCase();
         el.textContent = isUppercase
           ? originalWord[0].toUpperCase() + originalWord.slice(1) + punctuation
           : originalWord + punctuation;
@@ -560,12 +561,12 @@ export default {
 
             <p data-index="6">
               Aya ro gin 'ehen'! Ain ọkọ ro jẹ̀ ọjẹ ro kuro. O gbaa kani uwẹrẹ gba tó
-              tsitsi orun bọbọ. O kpe ana ro ghaan, ain o fẹ rè ulí <sup><a class="footnote-link" id="ref10"
-                  href="#fn10">[10]</a></sup>.
-              Ọnobirẹn wee gege o din ẹrun ro, o gbe ni origho, ain o wà lele bà rè. Iyọ! Iyẹ ro biri
-              ọwa ro gin máà rè, ain o wà rè, o wà lele bà rè. Omere ro Akpofi ri ẹgualẹ
-              wee ni abẹtẹ wee tsi. O gin Ọlikpẹrẹbu. Ọlikpẹrẹbu éè retin, o gin o wà lele
-              bà rè.
+              tsitsi orun bọbọ. O kpe ana ro ghaan, ain o fẹ rè ulí
+              <sup><a class="footnote-link" id="ref10" href="#fn10">[10]</a></sup>. Ọnobirẹn wee gege o din ẹrun ro, o
+              gbe ni origho, ain o wà lele bà rè.
+              Iyọ! Iyẹ ro biri ọwa ro gin máà rè, ain o wà rè, o wà lele bà rè. Omere ro
+              Akpofi ri ẹgualẹ wee ni abẹtẹ wee tsi. O gin Ọlikpẹrẹbu. Ọlikpẹrẹbu éè
+              retin, o gin o wà lele bà rè.
             </p>
             <p data-index="7">
               Ti o gbaa rè, omere ro ọnọkẹrẹn kaka lele, kaka lele ni ẹyin. O gbaa tó ubo
@@ -589,7 +590,8 @@ export default {
             <p data-index="10">
               Ira ti o wà, ti ẹgualẹ rè ubo bọbọ, Akpofi wà kuri oko. O ri Ọlikpẹrẹbu din
               gba egin. O nẹ ọ̀mà ti urun burukun ma tsi, ọ̀mà wee ka lù <i>gbangan</i>.
-              Ẹgualẹ wee ka<sup><a class="footnote-link" id="ref12" href="#fn14">[12]</a></sup> gbo.
+              Ẹgualẹ wee ka<sup><a class="footnote-link" id="ref12" href="#fn14">[12]</a></sup>
+              gbo.
             </p>
             <p data-index="11">
               Akpofi gba obobo kuri egin wee. O mu___gbẹ ro. O kó obobo wee, o kó titi ni
@@ -651,10 +653,10 @@ export default {
                   <a class="footnote-link" href="#ref9" title="Return to text">&#8617;</a>
                 </li>
                 <li id="fn10">
-                  Rẹẹn is being sure of something. Something has happened or is sure to happen.
-                  e.g `Mo fẹ jẹrun rẹẹn` means `I want to eat (definitely)`,
-                  `Mo jẹrun rẹẹn` means 'I have eaten (already)'
-                  It's a pretty common word but doesn't translate super well to English.
+                  Rẹẹn is being sure of something. Something has happened or is sure to
+                  happen. e.g `Mo fẹ jẹrun rẹẹn` means `I want to eat (definitely)`, `Mo
+                  jẹrun rẹẹn` means 'I have eaten (already)' It's a pretty common word but
+                  doesn't translate super well to English.
                   <a class="footnote-link" href="#ref10" title="Return to text">&#8617;</a>
                 </li>
                 <li id="fn11">
@@ -666,8 +668,8 @@ export default {
                 <li id="fn12">
                   `ka` means like 'was able to'. It's used in front of a lot of verbs but
                   doesn't always translate well into English. It also can be optional in
-                  some sentences. In this context, `Ẹgualẹ wee ka gbo` it means
-                  `the snake would not be able to hear.`
+                  some sentences. In this context, `Ẹgualẹ wee ka gbo` it means `the snake
+                  would not be able to hear.`
                   <a class="footnote-link" href="#ref12" title="Return to text">&#8617;</a>
                 </li>
                 <li id="fn13">
@@ -686,20 +688,20 @@ export default {
         <div v-if="allModulesCompleted" class="controls">
           <button class="arrow" aria-label="Go to previous slide" :aria-hidden="slidesIndex === 0"
             :class="slidesIndex === 0 ? 'arrow-disabled' : ''" v-on:click="goPrev">
+            <span>Word For Word</span>
             ←
           </button>
           <button class="arrow" aria-label="Go to next slide" :aria-hidden="slidesIndex === numberSlides - 1"
             :class="slidesIndex === numberSlides - 1 ? 'arrow-disabled' : ''" v-on:click="goNext">
-            →
+            <span>Idiomatic</span>
+            <span></span>→
           </button>
         </div>
         <LearningModule :scrolled="scrolled" @completeModule="onCompleteModule" @reset="resetAllModules"
           @moduleActive="onModuleActivated" />
       </div>
     </div>
-    <button v-on:click="completeAll" :style="{ opacity: '0' }">
-      complete all
-    </button>
+    <button v-on:click="completeAll" :style="{ opacity: '0' }">complete all</button>
   </div>
 </template>
 
@@ -744,7 +746,6 @@ fieldset {
   padding: 0.5rem;
   width: fit-content;
   background: white;
-  font-family: "Open Sans", sans-serif;
 }
 
 main {
@@ -845,6 +846,10 @@ main button {
   .intro h1 {
     text-align: center;
   }
+
+  .arrow span {
+    display: none;
+  }
 }
 
 .controls {
@@ -853,7 +858,7 @@ main button {
   font-size: 2rem;
   display: flex;
   justify-content: space-between;
-  width: 90%;
+  width: 125%;
   z-index: 100010;
 }
 
@@ -901,8 +906,44 @@ main button {
   }
 }
 
+.arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.6em;
+  padding: 0.8em 1.2em;
+  margin-left: 0.5em;
+  text-align: center;
+  max-width: 5em;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  text-transform: uppercase;
+  justify-content: center;
+  background-image: linear-gradient(90deg, black 50%, transparent 50%),
+    linear-gradient(90deg, black 50%, transparent 50%),
+    linear-gradient(0deg, black 50%, transparent 50%),
+    linear-gradient(0deg, black 50%, transparent 50%);
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  background-size: 42px 6px, 42px 6px, 6px 42px, 6px 42px;
+  background-position: 0% 0%, 100% 100%, 0% 100%, 100% 0px;
+  animation: dash 5s linear infinite;
+}
+
+.arrow:hover {
+  /* transform: translateX(1em); */
+}
+
+
+@keyframes dash {
+  to {
+    background-position: 100% 0%, 0% 100%, 0% 0%, 100% 100%;
+  }
+}
+
 .arrow-disabled {
-  opacity: 0.3;
+  opacity: 0;
+  visibility: hidden;
   cursor: not-allowed;
 }
 </style>

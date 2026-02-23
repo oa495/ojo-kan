@@ -13,7 +13,7 @@
 [x] - Make timer configurable
 [x] - module timer should reset on load
 [x] - info page
-[] - buy a domain
+[x] - buy a domain
 [x] - scroll to top after module completed **[NEXT UP]**
 [x] - add down arrow?
 

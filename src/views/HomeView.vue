@@ -1,19 +1,23 @@
 <template>
     <div class="container home">
         <h1>Welcome to Kp'ọjọ kp'ọjọ.</h1>
-        <p>Kp'ọjọ (kpi - ọjọ) means 'every day' in English. It's an interactive narrative written in Itsẹkiri that is unveiled as you learn words from the language.</p>
+        <p>Kp'ọjọ (kpi - ọjọ) means 'every day' in English. It's an interactive narrative written in Itsẹkiri that is
+            unveiled as you learn words from the language.</p>
         <ul>
             <li>
                 <h2>Choose your pace</h2>
-                <p>Change the frequency selection to unlock new modules hourly, daily, or at whatever pace works for you.</p>
+                <p>Change the frequency selection to unlock new modules hourly, daily, or at whatever pace works for
+                    you.</p>
             </li>
             <li>
                 <h2>Save your place</h2>
-                <p>Your progress is saved as long as you access the site with the same browser and device. Take a break and come back later :)</p>
+                <p>Your progress is saved as long as you access the site with the same browser and device. Take a break
+                    and come back later :)</p>
             </li>
             <li>
                 <h2>Stay present</h2>
-                <p>Prioritize thoughtful engagement over speed. The story isn't a puzzle to be 'solved'; Take a beat after a module is completed and scroll through.</p>
+                <p>Prioritize thoughtful engagement over speed. The story isn't a puzzle to be 'solved'; Take a beat
+                    after a module is completed and scroll through.</p>
             </li>
         </ul>
 
@@ -34,7 +38,9 @@
     font-size: 4em;
 }
 
-.container p, h1, ul {
+.container p,
+h1,
+ul {
     padding: 0;
     margin: 0.4em 0;
 }
@@ -67,27 +73,25 @@ a.start {
 }
 
 @media (max-width: 960px) {
-  ul {
-    display: flex;
-    flex-direction: column;
-    max-width: 80%;
-  }
+    ul {
+        display: flex;
+        flex-direction: column;
+        max-width: 80%;
+    }
 
-  a.start {
-    float: left;
-    margin-bottom: 1em;
-  }
+    a.start {
+        float: left;
+        margin-bottom: 1em;
+    }
 }
 
 @media (max-width: 500px) {
-  .container.home h1 {
-    font-size: 3em;
-  }
-  
-  ul {
-    width: 100%;
-  }
+    .container.home h1 {
+        font-size: 3em;
+    }
+
+    ul {
+        width: 100%;
+    }
 }
-
-
 </style>

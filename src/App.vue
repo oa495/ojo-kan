@@ -182,7 +182,6 @@ main p {
   width: fit-content;
   background-color: white;
   border: 1px dashed black;
-  font-family: "Open Sans", sans-serif;
 }
 
 .button:hover {

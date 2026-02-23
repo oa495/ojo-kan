@@ -103,7 +103,7 @@ footer>p {
 
 footer {
     margin: 2em;
-    max-width: 70%;
+    max-width: 50%;
 }
 
 .back-arrow {
