@@ -686,15 +686,15 @@ export default {
           </div>
         </main>
         <div v-if="allModulesCompleted" class="controls">
-          <button class="arrow" aria-label="Go to previous slide" :aria-hidden="slidesIndex === 0"
+          <button class="slide-control" aria-label="Go to previous slide" :aria-hidden="slidesIndex === 0"
             :class="slidesIndex === 0 ? 'arrow-disabled' : ''" v-on:click="goPrev">
             <span>Word For Word</span>
-            ←
+            <span class="arrow">←</span>
           </button>
-          <button class="arrow" aria-label="Go to next slide" :aria-hidden="slidesIndex === numberSlides - 1"
+          <button class="slide-control" aria-label="Go to next slide" :aria-hidden="slidesIndex === numberSlides - 1"
             :class="slidesIndex === numberSlides - 1 ? 'arrow-disabled' : ''" v-on:click="goNext">
             <span>Idiomatic</span>
-            <span></span>→
+            <span class="arrow">→</span>
           </button>
         </div>
         <LearningModule :scrolled="scrolled" @completeModule="onCompleteModule" @reset="resetAllModules"
@@ -737,15 +737,24 @@ export default {
 
 .project-description {
   margin: 0 1rem 1rem 1rem;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
+  line-height: 1.4rem;
   font-weight: 300;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
 fieldset {
   margin: 1rem;
   padding: 0.5rem;
+  line-height: 1.4rem;
   width: fit-content;
   background: white;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8em;
+}
+
+fieldset label {
+  margin-left: 0.5rem;
 }
 
 main {
@@ -757,7 +766,6 @@ legend {
 }
 
 label {
-  margin-left: 0.5rem;
   display: inline-block;
 }
 
@@ -811,8 +819,12 @@ hr {
   color: white;
 }
 
+.footnotes {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.9rem !important;
+}
+
 .footnotes li {
-  font-size: 1rem !important;
   color: white;
 }
 
@@ -820,8 +832,17 @@ hr {
 .footnote-link:visited,
 .footnote-link:active,
 .footnote-link:focus {
+  margin: 0;
+  margin-left: 0.3em;
   color: white;
   text-decoration: none;
+  display: inline-block;
+  min-width: 1rem;
+  min-height: 1rem;
+}
+
+li .footnote-link:hover {
+  transform: translateY(-0.2em);
 }
 
 main button {
@@ -847,7 +868,7 @@ main button {
     text-align: center;
   }
 
-  .arrow span {
+  .slide-control .arrow {
     display: none;
   }
 }
@@ -906,7 +927,7 @@ main button {
   }
 }
 
-.arrow {
+.slide-control {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -930,8 +951,16 @@ main button {
   animation: dash 5s linear infinite;
 }
 
-.arrow:hover {
-  /* transform: translateX(1em); */
+.arrow {
+  transition: all 0.5s ease;
+}
+
+.slide-control:nth-of-type(1) .arrow:hover {
+  transform: translateX(-0.2em);
+}
+
+.slide-control:nth-of-type(2) .arrow:hover {
+  transform: translateX(0.2em);
 }
 
 

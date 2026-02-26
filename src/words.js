@@ -153,7 +153,7 @@ const nouns = {
 const nounsTwo = {
   origho: 'head',
   ubo: 'place',
-  orun: 'nights',
+  orun: 'night',
   uwẹrẹ: 'there',
   irẹye: 'person',
   abẹtẹ: 'room',

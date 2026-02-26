@@ -1,23 +1,31 @@
 <template>
     <div class="container home">
         <h1>Welcome to Kp'ọjọ kp'ọjọ.</h1>
-        <p>Kp'ọjọ (kpi - ọjọ) means 'every day' in English. It's an interactive narrative written in Itsẹkiri that is
-            unveiled as you learn words from the language.</p>
+        <p>
+            Kp'ọjọ (kpi - ọjọ) means 'every day' in English. It's an interactive narrative
+            written in Itsẹkiri that is unveiled as you learn words from the language.
+        </p>
         <ul>
             <li>
                 <h2>Choose your pace</h2>
-                <p>Change the frequency selection to unlock new modules hourly, daily, or at whatever pace works for
-                    you.</p>
+                <p>
+                    Change the frequency dial to unlock new modules hourly, daily, or at whatever
+                    pace works for you.
+                </p>
             </li>
             <li>
                 <h2>Save your place</h2>
-                <p>Your progress is saved as long as you access the site with the same browser and device. Take a break
-                    and come back later :)</p>
+                <p>
+                    Your progress is saved as long as you access the site with the same browser and
+                    device.
+                </p>
             </li>
             <li>
                 <h2>Stay present</h2>
-                <p>Prioritize thoughtful engagement over speed. The story isn't a puzzle to be 'solved'; Take a beat
-                    after a module is completed and scroll through.</p>
+                <p>
+                    Take your time! The story isn't a puzzle to be 'solved'; Learn some words,
+                    scroll through and come back later :)
+                </p>
             </li>
         </ul>
 
@@ -34,7 +42,7 @@
 
 .container.home h1 {
     font-style: normal;
-    font-weight: 300;
+    font-weight: 600;
     font-size: 4em;
 }
 
@@ -43,6 +51,12 @@ h1,
 ul {
     padding: 0;
     margin: 0.4em 0;
+}
+
+p {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: light;
+    font-size: 1.4rem;
 }
 
 ul {
@@ -70,6 +84,7 @@ a.start {
     float: right;
     text-align: center;
     margin-top: 2em;
+    font-weight: 600;
 }
 
 @media (max-width: 960px) {

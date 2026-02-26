@@ -99,6 +99,8 @@
 
 footer>p {
     margin: 0.5em;
+    font-family: 'IBM Plex Mono';
+    font-size: 0.8rem;
 }
 
 footer {

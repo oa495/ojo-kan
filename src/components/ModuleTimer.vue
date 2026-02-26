@@ -35,7 +35,7 @@ export default {
             this.setElapsedTime(lastModuleFinishedTimestamp);
             if (this.timeRemaining <= 0) {
                 // activate modules 
-                this.$emit('activateModule', true); 
+                this.$emit('activateModule', true);
                 return;
             }
             this.startTimer(this.timeRemaining);
@@ -57,16 +57,16 @@ export default {
     },
     methods: {
         setElapsedTime(lastFinishedTimestamp) {
-            const store = moduleProgress();           
+            const store = moduleProgress();
             let progressInStorage = localStorage.getItem('moduleProgress');
 
             console.log(progressInStorage, '---');
             console.log(store.moduleProgress);
-            
+
             let anyModuleCompleted = false;
             if (progressInStorage) {
                 const parsedProgress = JSON.parse(progressInStorage);
-                 anyModuleCompleted = Object.keys(parsedProgress).some(key => {
+                anyModuleCompleted = Object.keys(parsedProgress).some(key => {
                     return parsedProgress[key] === true;
                 });
             } else {
@@ -92,7 +92,7 @@ export default {
                 }
                 if (frequency === 'surprise-me') {
                     // convert to number before calculation
-                    this.timeRemaining = parseInt(localStorage.getItem('surpriseMeTimeToWait')) - elapsed; 
+                    this.timeRemaining = parseInt(localStorage.getItem('surpriseMeTimeToWait')) - elapsed;
                 }
             }
         },
@@ -114,7 +114,7 @@ export default {
         startTimer(timeToWait) {
             // set time in local storage if it isn't set already
             if (this.timeStarted) {
-                localStorage.setItem('lastModuleFinishedTimestamp', this.timeStarted);      
+                localStorage.setItem('lastModuleFinishedTimestamp', this.timeStarted);
             }
             // ensure timeToWait is defined
             timeToWait = timeToWait || 0;
@@ -139,7 +139,7 @@ export default {
                 clearTimeout(this.activationTimeoutId);
                 localStorage.removeItem('lastModuleFinishedTimestamp');
                 localStorage.removeItem('surpriseMeTimeToWait');
-                this.$emit('activateModule', true); 
+                this.$emit('activateModule', true);
             }, timeToWait);
         }
     }
@@ -147,8 +147,8 @@ export default {
 </script>
 <style scoped>
 .module-timer {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1rem;
+    font-family: 'IBM Plex Mono', sans-serif;
+    font-size: 0.8rem;
     text-decoration: dotted;
     font-weight: 200;
     width: 80%;
@@ -157,7 +157,7 @@ export default {
 }
 
 .time {
-   font-weight: bold;
-   font-size: 1.4rem;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 </style>

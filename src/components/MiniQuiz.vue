@@ -4,7 +4,9 @@
             <div v-if="index === 0">
                 <label for="english-word">What's does "{{ itsekiriWord }}" mean?</label>
                 <div class="input-group">
-                    <input :aria-invalid="!validFirstAnswer" type="text" id="english-translation" name="english-translation" v-on:keydown="handleKeydown($event)" v-on:change="validateAnswer($event, englishWord, index)"/>
+                    <input :aria-invalid="!validFirstAnswer" type="text" id="english-translation"
+                        name="english-translation" v-on:keydown="handleKeydown($event)"
+                        v-on:mouseleave="validateAnswers" v-on:change="validateAnswer($event, englishWord, index)" />
                     <div class="error-message" role="alert">
                         <span aria-label="First answer correct" v-if="validFirstAnswer">&#10003;</span>
                         <span v-else-if="this.firstAnswer.length" aria-label="First answer incorrect">
@@ -16,9 +18,12 @@
             <div v-else>
                 <label for="itsekiri-word">What's the Itsekiri word for "{{ englishWord }}"?</label>
                 <div class="input-group">
-                    <input :aria-invalid="!validSecondAnswer" type="text" id="itsekiri-translation" name="itsekiri-translation" v-on:keydown="handleKeydown($event)" v-on:change="validateAnswer($event, itsekiriWord, index)"/>
+                    <input :aria-invalid="!validSecondAnswer" type="text" id="itsekiri-translation"
+                        name="itsekiri-translation" v-on:keydown="handleKeydown($event)"
+                        v-on:change="validateAnswer($event, itsekiriWord, index)" />
                     <div class="error-message" role="alert">
-                        <span aria-label="Second answer correct" class="check" v-if="validSecondAnswer">
+                        <span aria-label="Second answer correct" class="check" v-if="validSecondAnswer"
+                            v-on:mouseleave="validateAnswers">
                             &#10003;
                         </span>
                         <span v-else-if="this.secondAnswer.length > 0" aria-label="Second answer incorrect">
@@ -36,8 +41,8 @@
 import { ref } from 'vue';
 
 function removeAccents(str) {
-  // Normalize to NFD (Canonical Decomposition) to separate base letters and accents
-  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    // Normalize to NFD (Canonical Decomposition) to separate base letters and accents
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 
 const rootElement = ref(null);
@@ -79,11 +84,11 @@ export default {
     methods: {
         handleKeydown(e) {
             switch (e.key) {
-                case 'Enter': 
+                case 'Enter':
                     e.preventDefault();
                     if (this.validFirstAnswer && this.validSecondAnswer) {
                         this.$emit('passModule', true);
-                    }                    
+                    }
             }
         },
         validateAnswer(e, translated, index) {
@@ -91,7 +96,7 @@ export default {
             if (origVal.length <= 0) return;
             let val = removeAccents(origVal.toLowerCase());
             translated = removeAccents(translated.toLowerCase());
-            if (translated.includes('/')){
+            if (translated.includes('/')) {
                 let allAnswers = translated.split('/');
                 if (allAnswers.includes(val)) {
                     if (index == 0) {
@@ -136,8 +141,8 @@ input[type="text"] {
     border: none;
     border-bottom: 1px solid black;
     padding: 0.5em;
-    font-size: 1.2em;
-    font-family: 'Open Sans', sans-serif;
+    font-size: 1em;
+    font-family: 'IBM Plex Mono', monospace;
     line-height: 1.4em;
 }
 
@@ -148,6 +153,8 @@ input[type="text"] {
 
 .error-message {
     display: inline;
+    font-size: 1em;
+    padding: 0;
     padding-left: 0.5em;
 }
 
@@ -155,8 +162,9 @@ input[type="text"] {
     input[type="text"] {
         padding: 0.2em 0;
         max-width: 80%;
-        font-size: 1em;
+        font-size: 0.7em;
     }
+
     .input-group {
         padding-top: 0.5em;
     }
@@ -165,5 +173,4 @@ input[type="text"] {
         padding: 0.8em 0;
     }
 }
-
 </style>

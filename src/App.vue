@@ -180,23 +180,21 @@ main p {
   cursor: pointer;
   padding: 0.5rem;
   width: fit-content;
-  background-color: white;
-  border: 1px dashed black;
+  color: white;
+  background-color: black;
+  border: 1px dashed white;
+  text-align: center;
+  font-weight: 600;
 }
 
 .button:hover {
-  background-color: black;
-  color: white;
+  font-style: italic;
+  transform: translateY(0.2em);
 }
 
 .button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-.button:disabled:hover {
-  background-color: white;
-  color: black;
 }
 
 ::selection {
