@@ -701,7 +701,6 @@ export default {
           @moduleActive="onModuleActivated" />
       </div>
     </div>
-    <button v-on:click="completeAll" :style="{ opacity: '0' }">complete all</button>
   </div>
 </template>
 

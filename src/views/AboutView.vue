@@ -35,7 +35,8 @@
                         story being told, the essence of the matter.
                     </p>
 
-                    <p>This was the inspiration for Ọj'ọkan. As I learnt more of Itsẹkiri and went to cultural events
+                    <p>This was the inspiration for Kp'ọjọ kp'ọjọ. As I learnt more of Itsẹkiri and went to cultural
+                        events
                         filled with aunties and uncles gossiping in their language, I've been delighted to see that I
                         can to pick up some words here and there, and consequently, have enough bits and pieces to piece
                         together a tale. I wanted to create a website where a story slowly unveils itself to you, one
